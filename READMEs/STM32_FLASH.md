@@ -11,14 +11,29 @@ You can:
 - Copy the source code into Linux and compile inside (SLOWER)
 - Compile on your machine, then copy the *.elf-zsk.bin* into Linux and flash it.
 
-**STEPS:**
+### Option 1: Compile Locally (Faster)
 
-1) **Compile:**
-`arduino-cli compile --fqbn arduino:zephyr:unoq ~/SRC_DIR`
+#### On your machine:
+- **Compile:**
+`arduino-cli compile --fqbn arduino:zephyr:unoq <SRC_DIR>`
 
-2) **Copy:**
-`scp`
+- **Copy:**
+`scp -i <YOUR_PEM_PATH> -r <BIN_DIR> arduino@phoenix.local:~/zephyr_bin`
 
-3) **Flash:**
-`arduino-cli upload --fqbn arduino:zephyr:unoq ~/SRC_DIR`
+#### SSH into Arduino Linux
+- **Flash:**
+`arduino-cli upload --fqbn arduino:zephyr:unoq ~/zephyr_bin`
 
+
+### Option 2: Compile on Arduino (Slower)
+
+#### On your machine:
+- **Copy:**
+  `scp -i <YOUR_PEM_PATH> -r <SRC_DIR> arduino@phoenix.local:~/zephyr_src`
+
+#### SSH into Arduino Linux
+- **Compile:**
+  `arduino-cli compile --fqbn arduino:zephyr:unoq ~/zephyr_src`
+
+- **Flash:**
+  `arduino-cli upload --fqbn arduino:zephyr:unoq ~/zephyr_src`
