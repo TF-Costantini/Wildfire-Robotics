@@ -14,6 +14,8 @@ Use the app only to specify which WI-FI network it should connect to.
 It's not that you can't change the board name. But if you do, SSH host must be changed for all users.
 A different board will have a different name for DNS resolution in the same LAN and its own connection parameters
 
+### IMPORTANT VALUES:
+- **BOARD_IP:** `phoenix.local`
 
 ## Install Arduino-Cli & Zephyr profile (optional)
 
@@ -44,8 +46,32 @@ arduino:zephyr      0.53.1          0.53.1 Arduino UNO Q Board
 
 ## Create SSH Connection profile to Arduino
 
-- **Host:** <tab> `phoenix.local`
+- **Host:** `<BOARD_IP>`
 - **Username:** `arduino`
 - **Private key file:** *ASK ENGINEERING TEAM*
 
 <img src="READMEs/IMGs/SETUP/SSH_Setup.png" width="80%" alt="SSH Connection Profile Image">
+
+## Create BUILD & FLASH Configuration
+### IMPORTANT:
+The script compiles locally and copies binaries. Therefore, the *optional* step is **MANDATORY** for this to work.
+
+Running the script will:
+1) Compile Locally
+2) Copy the files on the Arduino Linux OS
+3) Flash the binary on the RTOS. It will automatically start.
+
+### Run Configuration
+- **Script Path:** `<BASE_REPO>/deploy_RTOS.sh`
+- **Working Directory:** `<BASE_REPO>`
+
+<img src="READMEs/IMGs/SETUP/BuildFlashConfig.png" width="80%" alt="SSH Connection Profile Image">
+
+### Run Configuration ENV
+- **SRC_DIR:** `./_RTOS/main`
+- **BIN_DIR:** `./_RTOS/bin`
+- **PEM_PATH:** `<YOUR_PEM_PATH>`
+- **REMOTE:** `arduino@<BOARD_IP>`
+- **REMOTE_DIR:** `/home/arduino/zephyr_bin`
+
+<img src="READMEs/IMGs/SETUP/BuildFlashENV.png" width="80%" alt="SSH Connection Profile Image">
