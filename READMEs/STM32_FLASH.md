@@ -15,14 +15,14 @@ You can:
 
 #### On your machine:
 - **Compile:**
-`arduino-cli compile --fqbn arduino:zephyr:unoq <SRC_DIR>`
+`arduino-cli compile --fqbn arduino:zephyr:unoq <SRC_DIR> --output-dir <BIN_DIR>`
 
 - **Copy:**
 `scp -i <YOUR_PEM_PATH> -r <BIN_DIR> arduino@phoenix.local:~/zephyr_bin`
 
 #### SSH into Arduino Linux
 - **Flash:**
-`arduino-cli upload --fqbn arduino:zephyr:unoq ~/zephyr_bin`
+`arduino-cli upload --fqbn arduino:zephyr:unoq --input-file ~/zephyr_bin/main.ino.elf`
 
 
 ### Option 2: Compile on Arduino (Slower)

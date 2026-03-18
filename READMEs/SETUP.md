@@ -38,6 +38,9 @@ ID                  Installed       Latest Name
 arduino:zephyr      0.53.1          0.53.1 Arduino UNO Q Board
 ```
 
+### Install all dependencies
+`arduino-cli lib install "MsgPack"`
+
 
 ## Create SSH Connection profile to Arduino
 
