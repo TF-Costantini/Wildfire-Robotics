@@ -1,12 +1,18 @@
 #!/bin/bash
-## RUN THIS FROM Configuration Run and specify ENV there to maximize flexibility
+### RUN THIS FROM Configuration Run and specify ENV there to maximize flexibility
+
+# Stops immediately if any command fails
+set -e
 
 clear
-arduino-cli compile --fqbn arduino:zephyr:unoq "$SRC_DIR" --output-dir "$BIN_DIR"
+arduino-cli \
+  compile "$SRC_DIR" \
+    --fqbn arduino:zephyr:unoq \
+    --output-dir "$BIN_DIR" \
+    --library "./_RTOS/main/LEDMatrixHandler"
+
 
 ssh -i "$PEM_PATH" "$REMOTE" "mkdir -p $REMOTE_DIR"
 scp -i "$PEM_PATH" -r "$BIN_DIR"/* "$REMOTE":"$REMOTE_DIR"
-
-arduino-cli upload --fqbn arduino:zephyr:unoq --input-file "$REMOTE_DIR"/main.ino.elf
 
 ssh -i "$PEM_PATH" "$REMOTE" "arduino-cli upload --fqbn arduino:zephyr:unoq --input-file $REMOTE_DIR/main.ino.elf"
