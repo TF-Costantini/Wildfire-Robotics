@@ -13,18 +13,21 @@
 class LEDMatrixHandler
 {
 	public:
-		virtual void goForward(ArduinoLEDMatrix* matrix) = 0;
+	virtual ~LEDMatrixHandler() = default;
+	virtual void goForward(ArduinoLEDMatrix* matrix) = 0;
 		virtual void goBackwards(ArduinoLEDMatrix* matrix) = 0;
 
 	protected:
-		void fillColumn(byte* ledMat, int col, int val)
-		{
-  			//Applies 1 to each cell in the row, column fixed
-  			for (int i=0; i<LED_MAT_H; i++)
-  			{
-    			ledMat[i*LED_MAT_W + col] = val;
-  			}
-		}
+		static void fillColumn(uint8_t* ledMat, int col, uint8_t val);
 };
+
+inline void LEDMatrixHandler::fillColumn(uint8_t* ledMat, const int col, const uint8_t val)
+{
+	//Applies 1 to each cell in the row, column fixed
+	for (int i=0; i<LED_MAT_H; i++)
+	{
+		ledMat[i*LED_MAT_W + col] = val;
+	}
+}
 
 #endif //REPO_LEDMATRIXHANDLER_H
