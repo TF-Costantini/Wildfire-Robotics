@@ -1,6 +1,7 @@
 #!/bin/bash
 ## RUN THIS FROM Configuration Run and specify ENV there to maximize flexibility
 
+clear
 arduino-cli compile --fqbn arduino:zephyr:unoq "$SRC_DIR" --output-dir "$BIN_DIR"
 
 ssh -i "$PEM_PATH" "$REMOTE" "mkdir -p $REMOTE_DIR"
