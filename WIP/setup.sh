@@ -1,5 +1,4 @@
 {
-
 # Exports the path to remoteocd so that it can be called as 'remoteocd' without the full exe path
 echo "export PATH=$PATH:/home/arduino/.arduino15/packages/arduino/tools/remoteocd/0.0.4-rc.4"
 
