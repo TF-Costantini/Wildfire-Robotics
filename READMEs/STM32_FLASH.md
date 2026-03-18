@@ -4,7 +4,7 @@ When I refer to:
 - *Linux* I mean on the Linux - Qualcomm side of the board.
 - *RTOS* I mean the RTOS - STM32 side of the board.
 
-## Standard Arduino
+## Method 1: Standard Arduino
 This will accept .ino files mixed with .cpp, but you have to follow the Arduino standard for it to compile.
 
 You can:
@@ -37,3 +37,7 @@ You can:
 
 - **Flash:**
   `arduino-cli upload --fqbn arduino:zephyr:unoq ~/zephyr_src`
+
+
+## Method 2: Frank Sinatra Way
+WIP
