@@ -5,11 +5,11 @@ When I refer to:
 - *RTOS* I mean the RTOS - STM32 side of the board.
 
 ## Method 1: Standard Arduino
-This will accept .ino files mixed with .cpp, but you have to follow the Arduino standard for it to compile.
+This will accept `.ino` files mixed with `.cpp`, but you have to follow the Arduino standard for it to compile.
 
 You can:
-- Copy the source code into Linux and compile inside (SLOWER)
-- Compile on your machine, then copy the *.elf-zsk.bin* into Linux and flash it.
+- Compile on your machine, then copy the `.elf-zsk.bin` or the whole binaries directory into Linux and flash it. (FASTER)
+- Copy the source code into Linux and compile inside and flash (SLOWER)
 
 ### Option 1: Compile Locally (Faster)
 
