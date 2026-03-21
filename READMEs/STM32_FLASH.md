@@ -40,4 +40,28 @@ You can:
 
 
 ## Method 2: Frank Sinatra Way
-WIP
+This method completely disregards Arduino and works with the 'raw' STM32U585.
+Write `.cpp` and compile with `west`
+
+**PROs:**
+- More control over the hardware
+- Access to all the primitives
+- No setup() loop()
+- No arduino-limited folder structure
+- Signing binaries not necessary
+
+**CONs:**
+- Lose access to Monitor
+- Lose access to Bridge, RouterBridge (no gRPC but really not needed)
+
+### Useful links & docs
+- [Project Zephyr - Arduino Uno Q Documentation](https://docs.zephyrproject.org/latest/boards/arduino/uno_q/doc/index.html)
+
+### How and Where to Flash + Recovery
+- **RECOVER ARDUINO BOOTLOADER (ICE):** `arduino-cli burn-bootloader -b arduino:zephyr:unoq -P jlink`
+
+
+- **Tool:** `remoteocd` - Already installed on the board
+- **@ Address:** `0x08000000` - Overwriting Arduino Bootloader
+- **Flash Config:** `custom_flash.cfg` - [Custom Flash Config File](../_LINUX/FLASH/custom_flash.cfg)
+- **CMD:** `remoteocd upload -f <CFG_PATH> <BIN_PATH>`
