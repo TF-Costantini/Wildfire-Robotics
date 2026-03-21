@@ -65,3 +65,6 @@ Write `.cpp` and compile with `west`
 - **@ Address:** `0x08000000` - Overwriting Arduino Bootloader
 - **Flash Config:** `custom_flash.cfg` - [Custom Flash Config File](../_LINUX/FLASH/custom_flash.cfg)
 - **CMD:** `remoteocd upload -f <CFG_PATH> <BIN_PATH>`
+
+### How to Compile and Flash
+WIP
