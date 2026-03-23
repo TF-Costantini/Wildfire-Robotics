@@ -39,7 +39,7 @@ You can:
   `arduino-cli upload --fqbn arduino:zephyr:unoq ~/zephyr_src`
 
 
-## Method 2: Frank Sinatra Way
+## Method 2: Frank Sinatra Way (WIP)
 This method completely disregards Arduino and works with the 'raw' STM32U585.
 Write `.cpp` and compile with `west`
 
