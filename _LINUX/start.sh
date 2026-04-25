@@ -20,3 +20,8 @@ rosdep install --from-paths . --ignore-src -y
 # To build ros2_ws
 echo -e "\nBUILDING ROS2_WS\n"
 colcon build
+
+# Sources the setup file
+echo -e "\nSOURCING INSTALL FILE\n"
+source "$SRC_PATH/install/setup.bash"
+
