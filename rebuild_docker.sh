@@ -14,8 +14,8 @@ docker container rm -f $CONTAINER_NAME
 # Runs ros image detached
 docker run -itd \
   --name $CONTAINER_NAME \
-  -v "$PROJ_FILES/src/ros2_ws/src:/home/project/src/ros2_ws/src" \
-  -v "$PROJ_FILES/start.sh:/start.sh" \
+  -v "$PROJ_FILES/src/ros2_ws/src:/home/project/ros2_ws/src" \
+  -v "$PROJ_FILES/setup.sh:/setup.sh" \
   -v "$PROJ_FILES/test_images:/home/project" \
   $IMAGE_NAME
 

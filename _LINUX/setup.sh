@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-SRC_PATH=/home/project/src/ros2_ws
+SRC_PATH=/home/project/ros2_ws
 
 cd $SRC_PATH
 
@@ -17,10 +17,15 @@ rosdep update
 echo -e "\nINSTALLING ROS REQUIRED DEPENDENCY\n"
 rosdep install --from-paths . --ignore-src -y --rosdistro humble
 
+# Removing old build files
+rm -rf "$SRC_PATH/build"
+rm -rf "$SRC_PATH/install"
+rm -rf "$SRC_PATH/log"
+
 # To build ros2_ws
 echo -e "\nBUILDING ROS2_WS\n"
 source /opt/ros/humble/setup.bash
-colcon build
+colcon build --event-handlers console_direct+ > build.log
 
 # Sources the setup file
 echo -e "\nSOURCING INSTALL FILE\n"
@@ -28,5 +33,5 @@ source "$SRC_PATH/install/setup.bash"
 
 # Check Success
 echo -e "CHECKING PACKAGES EXIST...\n"
-ros2 pkg list | grep wildfire || { echo -e "PACKAGES NOT FOUND. BUILD FAILED.\n"; false; }
+ros2 pkg list | grep wildfire || { echo -e "PACKAGES NOT FOUND. BUILD FAILED."; false; }
 echo -e "\nPACKAGES FOUND! BUILD SUCCESSFUL!\n"
