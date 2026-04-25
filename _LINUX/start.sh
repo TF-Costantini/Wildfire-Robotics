@@ -15,7 +15,7 @@ rosdep update
 
 # Installs libraries and dependencies to build the proj
 echo -e "\nINSTALLING ROS REQUIRED DEPENDENCY\n"
-rosdep install --from-paths . --ignore-src -y
+rosdep install --from-paths . --ignore-src -y --rosdistro humble
 
 # To build ros2_ws
 echo -e "\nBUILDING ROS2_WS\n"
