@@ -3,7 +3,7 @@ set -e
 
 IMAGE_NAME=ros:humble
 CONTAINER_NAME=ros2_dev
-PROJ_FILES=./_LINUX/src
+PROJ_FILES=./_LINUX/
 
 #Pulls ROS image
 docker pull $IMAGE_NAME
