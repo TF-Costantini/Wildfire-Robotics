@@ -13,9 +13,9 @@ include_directories(
 )
 
 add_executable(Repo
-        _RTOS/main/LEDMatrixHandler/LEDMatrixBounce.cpp
-        _RTOS/main/LEDMatrixHandler/LEDMatrixBounce.h
-        _RTOS/main/LEDMatrixHandler/LEDMatrixCircular.cpp
-        _RTOS/main/LEDMatrixHandler/LEDMatrixCircular.h
-        _RTOS/main/LEDMatrixHandler/LEDMatrixHandler.h
-        _RTOS/main/main.ino)
+        main/LEDMatrixHandler/LEDMatrixBounce.cpp
+        main/LEDMatrixHandler/LEDMatrixBounce.h
+        main/LEDMatrixHandler/LEDMatrixCircular.cpp
+        main/LEDMatrixHandler/LEDMatrixCircular.h
+        main/LEDMatrixHandler/LEDMatrixHandler.h
+        main/main.ino)
