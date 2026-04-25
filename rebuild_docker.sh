@@ -16,7 +16,7 @@ docker run -itd \
   --name $CONTAINER_NAME \
   -v "$PROJ_FILES/src/ros2_ws/src:/home/project/ros2_ws/src" \
   -v "$PROJ_FILES/setup.sh:/setup.sh" \
-  -v "$PROJ_FILES/test_images:/home/project" \
+  -v "$PROJ_FILES/test_images:/home/project/test_images" \
   $IMAGE_NAME
 
 echo -e "\nSTARTED SUCCESSFULLY\n"
