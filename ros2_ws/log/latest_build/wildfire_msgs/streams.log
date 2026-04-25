@@ -1,0 +1,356 @@
+[0.033s] Invoking command in '/home/project/ros2_ws/build/wildfire_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/project/ros2_ws/install/wildfire_bringup:/home/project/ros2_ws/install/wildfire_vision:/home/project/ros2_ws/install/wildfire_control:/opt/ros/humble /usr/bin/cmake /home/project/ros2_ws/src/wildfire_msgs -DCMAKE_INSTALL_PREFIX=/home/project/ros2_ws/install/wildfire_msgs
+[0.377s] -- The C compiler identification is GNU 11.4.0
+[0.596s] -- The CXX compiler identification is GNU 11.4.0
+[0.611s] -- Detecting C compiler ABI info
+[0.740s] -- Detecting C compiler ABI info - done
+[0.744s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.745s] -- Detecting C compile features
+[0.745s] -- Detecting C compile features - done
+[0.748s] -- Detecting CXX compiler ABI info
+[0.819s] -- Detecting CXX compiler ABI info - done
+[0.826s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.826s] -- Detecting CXX compile features
+[0.827s] -- Detecting CXX compile features - done
+[0.846s] -- Found ament_cmake: 1.3.14 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.956s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[1.039s] -- Found builtin_interfaces: 1.2.2 (/opt/ros/humble/share/builtin_interfaces/cmake)
+[1.251s] -- Found rosidl_generator_c: 3.1.8 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[1.255s] -- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[1.264s] -- Found rosidl_generator_cpp: 3.1.8 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[1.276s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[1.289s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[1.305s] -- Found std_msgs: 4.9.1 (/opt/ros/humble/share/std_msgs/cmake)
+[1.312s] -- Found sensor_msgs: 4.9.1 (/opt/ros/humble/share/sensor_msgs/cmake)
+[1.334s] -- Found rosidl_default_generators: 1.2.1 (/opt/ros/humble/share/rosidl_default_generators/cmake)
+[1.574s] -- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)
+[1.932s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[2.044s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[2.057s] -- Found PythonInterp: /usr/bin/python3 (found suitable version "3.10.12", minimum required is "3.6") 
+[2.059s] -- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)
+[2.079s] -- Found PythonLibs: /usr/lib/aarch64-linux-gnu/libpython3.10.so (found suitable version "3.10.12", minimum required is "3.5") 
+[2.079s] -- Using PYTHON_EXECUTABLE: /usr/bin/python3
+[2.079s] -- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10
+[2.079s] -- Using PYTHON_LIBRARIES: /usr/lib/aarch64-linux-gnu/libpython3.10.so
+[2.087s] -- Found PythonExtra: .so  
+[2.243s] -- Configuring done
+[2.457s] -- Generating done
+[2.500s] -- Build files have been written to: /home/project/ros2_ws/build/wildfire_msgs
+[2.518s] Invoked command in '/home/project/ros2_ws/build/wildfire_msgs' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/project/ros2_ws/install/wildfire_bringup:/home/project/ros2_ws/install/wildfire_vision:/home/project/ros2_ws/install/wildfire_control:/opt/ros/humble /usr/bin/cmake /home/project/ros2_ws/src/wildfire_msgs -DCMAKE_INSTALL_PREFIX=/home/project/ros2_ws/install/wildfire_msgs
+[2.525s] Invoking command in '/home/project/ros2_ws/build/wildfire_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/project/ros2_ws/install/wildfire_bringup:/home/project/ros2_ws/install/wildfire_vision:/home/project/ros2_ws/install/wildfire_control:/opt/ros/humble /usr/bin/cmake --build /home/project/ros2_ws/build/wildfire_msgs -- -j8 -l8
+[2.573s] [  1%] [34m[1mGenerating C code for ROS interfaces[0m
+[2.586s] [  3%] [34m[1mGenerating Rust code for ROS interfaces[0m
+[2.588s] [  4%] [34m[1mGenerating C++ code for ROS interfaces[0m
+[2.594s] [  4%] Built target ament_cmake_python_copy_wildfire_msgs
+[2.812s] running egg_info
+[2.812s] creating wildfire_msgs.egg-info
+[2.813s] writing wildfire_msgs.egg-info/PKG-INFO
+[2.817s] writing dependency_links to wildfire_msgs.egg-info/dependency_links.txt
+[2.819s] writing top-level names to wildfire_msgs.egg-info/top_level.txt
+[2.820s] writing manifest file 'wildfire_msgs.egg-info/SOURCES.txt'
+[2.824s] reading manifest file 'wildfire_msgs.egg-info/SOURCES.txt'
+[2.828s] writing manifest file 'wildfire_msgs.egg-info/SOURCES.txt'
+[2.845s] [  4%] Built target ament_cmake_python_build_wildfire_msgs_egg
+[2.850s] [  4%] Built target wildfire_msgs__rs
+[2.978s] [  7%] [32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_generator_c.dir/rosidl_generator_c/wildfire_msgs/msg/detail/detection__functions.c.o[0m
+[2.979s] [  7%] [32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_generator_c.dir/rosidl_generator_c/wildfire_msgs/msg/detail/button_event__functions.c.o[0m
+[2.980s] [  9%] [32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_generator_c.dir/rosidl_generator_c/wildfire_msgs/msg/detail/drive_cmd__functions.c.o[0m
+[2.982s] [ 12%] [32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_generator_c.dir/rosidl_generator_c/wildfire_msgs/msg/detail/pan_tilt_cmd__functions.c.o[0m
+[2.982s] [ 12%] [32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_generator_c.dir/rosidl_generator_c/wildfire_msgs/msg/detail/mode__functions.c.o[0m
+[2.986s] [ 12%] Built target wildfire_msgs__cpp
+[3.008s] [ 14%] [34m[1mGenerating C++ type support for eProsima Fast-RTPS[0m
+[3.013s] [ 15%] [34m[1mGenerating C++ introspection for ROS interfaces[0m
+[3.015s] [ 17%] [34m[1mGenerating C++ type support dispatch for ROS interfaces[0m
+[3.086s] [ 18%] [32m[1mLinking C shared library libwildfire_msgs__rosidl_generator_c.so[0m
+[3.123s] [ 18%] Built target wildfire_msgs__rosidl_generator_c
+[3.137s] [ 20%] [34m[1mGenerating C introspection for ROS interfaces[0m
+[3.138s] [ 23%] [34m[1mGenerating C type support for eProsima Fast-RTPS[0m
+[3.138s] [ 23%] [34m[1mGenerating C type support dispatch for ROS interfaces[0m
+[3.293s] [ 25%] [32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/wildfire_msgs/msg/mode__type_support.cpp.o[0m
+[3.305s] [ 26%] [32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/wildfire_msgs/msg/button_event__type_support.cpp.o[0m
+[3.313s] [ 28%] [32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/wildfire_msgs/msg/detection__type_support.cpp.o[0m
+[3.320s] [ 29%] [32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/wildfire_msgs/msg/detail/mode__type_support.cpp.o[0m
+[3.336s] [ 31%] [32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/wildfire_msgs/msg/detail/dds_fastrtps/mode__type_support.cpp.o[0m
+[3.455s] [ 32%] [32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/wildfire_msgs/msg/mode__type_support.cpp.o[0m
+[3.540s] [ 34%] [32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/wildfire_msgs/msg/button_event__type_support.cpp.o[0m
+[3.674s] [ 35%] [32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/wildfire_msgs/msg/detail/mode__type_support_c.cpp.o[0m
+[3.678s] [ 37%] [32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/wildfire_msgs/msg/detection__type_support.cpp.o[0m
+[3.735s] [ 39%] [32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/wildfire_msgs/msg/drive_cmd__type_support.cpp.o[0m
+[3.740s] [ 40%] [32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/wildfire_msgs/msg/detail/mode__type_support.c.o[0m
+[3.763s] [ 42%] [32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/wildfire_msgs/msg/pan_tilt_cmd__type_support.cpp.o[0m
+[3.828s] [ 43%] [32m[1mLinking CXX shared library libwildfire_msgs__rosidl_typesupport_c.so[0m
+[3.865s] [ 45%] [32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/wildfire_msgs/msg/detail/button_event__type_support.c.o[0m
+[3.902s] [ 46%] [32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/wildfire_msgs/msg/detail/detection__type_support.c.o[0m
+[3.910s] [ 48%] [32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/wildfire_msgs/msg/detail/button_event__type_support_c.cpp.o[0m
+[3.934s] [ 48%] Built target wildfire_msgs__rosidl_typesupport_c
+[3.947s] [ 51%] [32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/wildfire_msgs/msg/detail/button_event__type_support.cpp.o[0m
+[3.949s] [ 51%] [32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/wildfire_msgs/msg/drive_cmd__type_support.cpp.o[0m
+[3.959s] [ 53%] [32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/wildfire_msgs/msg/detail/dds_fastrtps/button_event__type_support.cpp.o[0m
+[3.992s] [ 54%] [32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/wildfire_msgs/msg/detail/drive_cmd__type_support.c.o[0m
+[3.999s] [ 56%] [32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/wildfire_msgs/msg/detail/dds_fastrtps/detection__type_support.cpp.o[0m
+[4.005s] [ 57%] [32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/wildfire_msgs/msg/pan_tilt_cmd__type_support.cpp.o[0m
+[4.046s] [ 59%] [32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/wildfire_msgs/msg/detail/pan_tilt_cmd__type_support.c.o[0m
+[4.058s] [ 60%] [32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/wildfire_msgs/msg/detail/detection__type_support_c.cpp.o[0m
+[4.098s] [ 62%] [32m[1mLinking C shared library libwildfire_msgs__rosidl_typesupport_introspection_c.so[0m
+[4.160s] [ 64%] [32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/wildfire_msgs/msg/detail/dds_fastrtps/drive_cmd__type_support.cpp.o[0m
+[4.173s] [ 65%] [32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/wildfire_msgs/msg/detail/drive_cmd__type_support_c.cpp.o[0m
+[4.179s] [ 65%] Built target wildfire_msgs__rosidl_typesupport_introspection_c
+[4.198s] [ 67%] [32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/wildfire_msgs/msg/detail/detection__type_support.cpp.o[0m
+[4.293s] [ 68%] [32m[1mLinking CXX shared library libwildfire_msgs__rosidl_typesupport_cpp.so[0m
+[4.328s] [ 70%] [32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/wildfire_msgs/msg/detail/drive_cmd__type_support.cpp.o[0m
+[4.358s] [ 71%] [32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/wildfire_msgs/msg/detail/pan_tilt_cmd__type_support_c.cpp.o[0m
+[4.383s] [ 73%] [32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/wildfire_msgs/msg/detail/dds_fastrtps/pan_tilt_cmd__type_support.cpp.o[0m
+[4.405s] [ 75%] Built target wildfire_msgs__rosidl_typesupport_cpp
+[4.407s] [ 75%] [32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/wildfire_msgs/msg/detail/pan_tilt_cmd__type_support.cpp.o[0m
+[5.024s] [ 76%] [32m[1mLinking CXX shared library libwildfire_msgs__rosidl_typesupport_fastrtps_c.so[0m
+[5.103s] [ 78%] [32m[1mLinking CXX shared library libwildfire_msgs__rosidl_typesupport_introspection_cpp.so[0m
+[5.111s] [ 78%] Built target wildfire_msgs__rosidl_typesupport_fastrtps_c
+[5.176s] [ 79%] [32m[1mLinking CXX shared library libwildfire_msgs__rosidl_typesupport_fastrtps_cpp.so[0m
+[5.236s] [ 79%] Built target wildfire_msgs__rosidl_typesupport_introspection_cpp
+[5.259s] [ 79%] Built target wildfire_msgs__rosidl_typesupport_fastrtps_cpp
+[5.282s] [ 79%] Built target wildfire_msgs
+[5.309s] [ 81%] [34m[1mGenerating Python code for ROS interfaces[0m
+[5.732s] [ 81%] Built target wildfire_msgs__py
+[5.749s] [ 82%] [32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_generator_py.dir/rosidl_generator_py/wildfire_msgs/msg/_mode_s.c.o[0m
+[5.757s] [ 85%] [32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_generator_py.dir/rosidl_generator_py/wildfire_msgs/msg/_detection_s.c.o[0m
+[5.758s] [ 87%] [32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_generator_py.dir/rosidl_generator_py/wildfire_msgs/msg/_button_event_s.c.o[0m
+[5.758s] [ 87%] [32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_generator_py.dir/rosidl_generator_py/wildfire_msgs/msg/_drive_cmd_s.c.o[0m
+[5.765s] [ 89%] [32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_generator_py.dir/rosidl_generator_py/wildfire_msgs/msg/_pan_tilt_cmd_s.c.o[0m
+[5.956s] [ 90%] [32m[1mLinking C shared library rosidl_generator_py/wildfire_msgs/libwildfire_msgs__rosidl_generator_py.so[0m
+[6.075s] [ 90%] Built target wildfire_msgs__rosidl_generator_py
+[6.104s] [ 92%] [32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/wildfire_msgs/_wildfire_msgs_s.ep.rosidl_typesupport_fastrtps_c.c.o[0m
+[6.108s] [ 95%] [32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_typesupport_introspection_c__pyext.dir/rosidl_generator_py/wildfire_msgs/_wildfire_msgs_s.ep.rosidl_typesupport_introspection_c.c.o[0m
+[6.109s] [ 95%] [32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_typesupport_c__pyext.dir/rosidl_generator_py/wildfire_msgs/_wildfire_msgs_s.ep.rosidl_typesupport_c.c.o[0m
+[6.192s] [ 96%] [32m[1mLinking C shared library rosidl_generator_py/wildfire_msgs/wildfire_msgs_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so[0m
+[6.198s] [100%] [32m[1mLinking C shared library rosidl_generator_py/wildfire_msgs/wildfire_msgs_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so[0m
+[6.198s] [100%] [32m[1mLinking C shared library rosidl_generator_py/wildfire_msgs/wildfire_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so[0m
+[6.229s] [100%] Built target wildfire_msgs__rosidl_typesupport_c__pyext
+[6.247s] [100%] Built target wildfire_msgs__rosidl_typesupport_introspection_c__pyext
+[6.252s] [100%] Built target wildfire_msgs__rosidl_typesupport_fastrtps_c__pyext
+[6.276s] Invoked command in '/home/project/ros2_ws/build/wildfire_msgs' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/project/ros2_ws/install/wildfire_bringup:/home/project/ros2_ws/install/wildfire_vision:/home/project/ros2_ws/install/wildfire_control:/opt/ros/humble /usr/bin/cmake --build /home/project/ros2_ws/build/wildfire_msgs -- -j8 -l8
+[6.294s] Invoking command in '/home/project/ros2_ws/build/wildfire_msgs': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/project/ros2_ws/install/wildfire_bringup:/home/project/ros2_ws/install/wildfire_vision:/home/project/ros2_ws/install/wildfire_control:/opt/ros/humble /usr/bin/cmake --install /home/project/ros2_ws/build/wildfire_msgs
+[6.297s] -- Install configuration: ""
+[6.298s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/ament_index/resource_index/rosidl_interfaces/wildfire_msgs
+[6.302s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs
+[6.305s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg
+[6.306s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/rosidl_generator_c__visibility_control.h
+[6.311s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/button_event.h
+[6.319s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/drive_cmd.h
+[6.322s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail
+[6.323s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/mode__functions.c
+[6.324s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/pan_tilt_cmd__struct.h
+[6.329s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/drive_cmd__functions.c
+[6.333s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/pan_tilt_cmd__functions.c
+[6.334s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/pan_tilt_cmd__type_support.h
+[6.338s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/mode__type_support.h
+[6.343s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/button_event__struct.h
+[6.344s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/button_event__functions.h
+[6.349s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/detection__functions.h
+[6.350s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/detection__struct.h
+[6.355s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/mode__functions.h
+[6.356s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/detection__type_support.h
+[6.358s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/pan_tilt_cmd__functions.h
+[6.359s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/drive_cmd__functions.h
+[6.366s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/button_event__type_support.h
+[6.367s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/mode__struct.h
+[6.372s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/detection__functions.c
+[6.373s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/drive_cmd__struct.h
+[6.374s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/button_event__functions.c
+[6.376s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/drive_cmd__type_support.h
+[6.377s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/mode.h
+[6.379s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detection.h
+[6.382s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/pan_tilt_cmd.h
+[6.393s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/environment/library_path.sh
+[6.397s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/environment/library_path.dsv
+[6.403s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_generator_c.so
+[6.405s] -- Set runtime path of "/home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_generator_c.so" to ""
+[6.405s] -- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs
+[6.405s] -- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg
+[6.406s] -- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail
+[6.406s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/mode__rosidl_typesupport_fastrtps_c.h
+[6.407s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/pan_tilt_cmd__rosidl_typesupport_fastrtps_c.h
+[6.416s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/button_event__rosidl_typesupport_fastrtps_c.h
+[6.426s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/drive_cmd__rosidl_typesupport_fastrtps_c.h
+[6.433s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/detection__rosidl_typesupport_fastrtps_c.h
+[6.434s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/rosidl_typesupport_fastrtps_c__visibility_control.h
+[6.436s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_typesupport_fastrtps_c.so
+[6.437s] -- Set runtime path of "/home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_typesupport_fastrtps_c.so" to ""
+[6.438s] -- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs
+[6.438s] -- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg
+[6.438s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/button_event.hpp
+[6.439s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/mode.hpp
+[6.440s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/pan_tilt_cmd.hpp
+[6.441s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/drive_cmd.hpp
+[6.445s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detection.hpp
+[6.446s] -- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail
+[6.446s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/mode__struct.hpp
+[6.447s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/drive_cmd__type_support.hpp
+[6.451s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/drive_cmd__builder.hpp
+[6.457s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/button_event__traits.hpp
+[6.458s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/pan_tilt_cmd__builder.hpp
+[6.462s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/detection__traits.hpp
+[6.465s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/pan_tilt_cmd__struct.hpp
+[6.466s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/mode__builder.hpp
+[6.467s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/drive_cmd__traits.hpp
+[6.473s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/button_event__type_support.hpp
+[6.484s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/mode__type_support.hpp
+[6.486s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/detection__builder.hpp
+[6.487s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/mode__traits.hpp
+[6.488s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/button_event__builder.hpp
+[6.489s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/detection__type_support.hpp
+[6.491s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/button_event__struct.hpp
+[6.492s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/detection__struct.hpp
+[6.494s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/drive_cmd__struct.hpp
+[6.495s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/pan_tilt_cmd__traits.hpp
+[6.498s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/pan_tilt_cmd__type_support.hpp
+[6.502s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/rosidl_generator_cpp__visibility_control.hpp
+[6.506s] -- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs
+[6.506s] -- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg
+[6.507s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h
+[6.512s] -- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail
+[6.512s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/pan_tilt_cmd__rosidl_typesupport_fastrtps_cpp.hpp
+[6.513s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/drive_cmd__rosidl_typesupport_fastrtps_cpp.hpp
+[6.515s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/button_event__rosidl_typesupport_fastrtps_cpp.hpp
+[6.519s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/detection__rosidl_typesupport_fastrtps_cpp.hpp
+[6.520s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/dds_fastrtps
+[6.520s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/mode__rosidl_typesupport_fastrtps_cpp.hpp
+[6.526s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_typesupport_fastrtps_cpp.so
+[6.529s] -- Set runtime path of "/home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_typesupport_fastrtps_cpp.so" to ""
+[6.529s] -- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs
+[6.529s] -- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg
+[6.530s] -- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail
+[6.530s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/detection__type_support.c
+[6.536s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/mode__rosidl_typesupport_introspection_c.h
+[6.546s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/button_event__type_support.c
+[6.550s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/detection__rosidl_typesupport_introspection_c.h
+[6.554s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/button_event__rosidl_typesupport_introspection_c.h
+[6.555s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/drive_cmd__type_support.c
+[6.556s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/pan_tilt_cmd__rosidl_typesupport_introspection_c.h
+[6.557s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/pan_tilt_cmd__type_support.c
+[6.560s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/drive_cmd__rosidl_typesupport_introspection_c.h
+[6.564s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/mode__type_support.c
+[6.567s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/rosidl_typesupport_introspection_c__visibility_control.h
+[6.571s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_typesupport_introspection_c.so
+[6.574s] -- Set runtime path of "/home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_typesupport_introspection_c.so" to ""
+[6.577s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_typesupport_c.so
+[6.579s] -- Set runtime path of "/home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_typesupport_c.so" to ""
+[6.579s] -- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs
+[6.579s] -- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg
+[6.579s] -- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail
+[6.581s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/pan_tilt_cmd__rosidl_typesupport_introspection_cpp.hpp
+[6.585s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/mode__rosidl_typesupport_introspection_cpp.hpp
+[6.588s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/pan_tilt_cmd__type_support.cpp
+[6.589s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/detection__type_support.cpp
+[6.589s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/detection__rosidl_typesupport_introspection_cpp.hpp
+[6.600s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/button_event__type_support.cpp
+[6.604s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/mode__type_support.cpp
+[6.605s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/drive_cmd__rosidl_typesupport_introspection_cpp.hpp
+[6.607s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/drive_cmd__type_support.cpp
+[6.609s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/button_event__rosidl_typesupport_introspection_cpp.hpp
+[6.612s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_typesupport_introspection_cpp.so
+[6.613s] -- Set runtime path of "/home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_typesupport_introspection_cpp.so" to ""
+[6.614s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_typesupport_cpp.so
+[6.619s] -- Set runtime path of "/home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_typesupport_cpp.so" to ""
+[6.619s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/environment/pythonpath.sh
+[6.626s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/environment/pythonpath.dsv
+[6.629s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs-0.1.0-py3.10.egg-info
+[6.636s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs-0.1.0-py3.10.egg-info/PKG-INFO
+[6.640s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs-0.1.0-py3.10.egg-info/SOURCES.txt
+[6.644s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs-0.1.0-py3.10.egg-info/top_level.txt
+[6.647s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs-0.1.0-py3.10.egg-info/dependency_links.txt
+[6.649s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs
+[6.650s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/wildfire_msgs_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so
+[6.651s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/_wildfire_msgs_s.ep.rosidl_typesupport_fastrtps_c.c
+[6.653s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/wildfire_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so
+[6.654s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/libwildfire_msgs__rosidl_generator_py.so
+[6.655s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg
+[6.656s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_drive_cmd_s.c
+[6.657s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_drive_cmd.py
+[6.669s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_detection.py
+[6.671s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_pan_tilt_cmd.py
+[6.679s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_mode.py
+[6.680s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/__init__.py
+[6.687s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_mode_s.c
+[6.688s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_pan_tilt_cmd_s.c
+[6.694s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_button_event.py
+[6.696s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_detection_s.c
+[6.699s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_button_event_s.c
+[6.702s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/__init__.py
+[6.704s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/wildfire_msgs_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so
+[6.705s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/_wildfire_msgs_s.ep.rosidl_typesupport_introspection_c.c
+[6.706s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/_wildfire_msgs_s.ep.rosidl_typesupport_c.c
+[6.745s] Listing '/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs'...
+[6.746s] Compiling '/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/__init__.py'...
+[6.747s] Listing '/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg'...
+[6.747s] Compiling '/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/__init__.py'...
+[6.747s] Compiling '/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_button_event.py'...
+[6.747s] Compiling '/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_detection.py'...
+[6.747s] Compiling '/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_drive_cmd.py'...
+[6.747s] Compiling '/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_mode.py'...
+[6.748s] Compiling '/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_pan_tilt_cmd.py'...
+[6.749s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/wildfire_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so
+[6.750s] -- Set runtime path of "/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/wildfire_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so" to ""
+[6.750s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/wildfire_msgs_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so
+[6.752s] -- Set runtime path of "/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/wildfire_msgs_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so" to ""
+[6.755s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/wildfire_msgs_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so
+[6.765s] -- Set runtime path of "/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/wildfire_msgs_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so" to ""
+[6.765s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_generator_py.so
+[6.768s] -- Set runtime path of "/home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_generator_py.so" to ""
+[6.768s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/ament_index/resource_index/rust_packages/wildfire_msgs
+[6.769s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/rust
+[6.770s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/rust/Cargo.toml
+[6.772s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/rust/build.rs
+[6.773s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/rust/src
+[6.773s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/rust/src/msg
+[6.774s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/rust/src/msg/rmw.rs
+[6.775s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/rust/src/lib.rs
+[6.776s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/rust/src/msg.rs
+[6.778s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/msg/Mode.idl
+[6.778s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/msg/ButtonEvent.idl
+[6.779s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/msg/Detection.idl
+[6.780s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/msg/DriveCmd.idl
+[6.784s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/msg/PanTiltCmd.idl
+[6.785s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/msg/Mode.msg
+[6.786s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/msg/ButtonEvent.msg
+[6.789s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/msg/Detection.msg
+[6.790s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/msg/DriveCmd.msg
+[6.791s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/msg/PanTiltCmd.msg
+[6.794s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/ament_index/resource_index/package_run_dependencies/wildfire_msgs
+[6.797s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/ament_index/resource_index/parent_prefix_path/wildfire_msgs
+[6.798s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/environment/ament_prefix_path.sh
+[6.801s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/environment/ament_prefix_path.dsv
+[6.802s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/environment/path.sh
+[6.803s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/environment/path.dsv
+[6.806s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/local_setup.bash
+[6.808s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/local_setup.sh
+[6.809s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/local_setup.zsh
+[6.812s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/local_setup.dsv
+[6.815s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/package.dsv
+[6.817s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/ament_index/resource_index/packages/wildfire_msgs
+[6.819s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/export_wildfire_msgs__rosidl_generator_cExport.cmake
+[6.820s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/export_wildfire_msgs__rosidl_generator_cExport-noconfig.cmake
+[6.822s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/export_wildfire_msgs__rosidl_typesupport_fastrtps_cExport.cmake
+[6.823s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/export_wildfire_msgs__rosidl_typesupport_fastrtps_cExport-noconfig.cmake
+[6.824s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/export_wildfire_msgs__rosidl_generator_cppExport.cmake
+[6.826s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/export_wildfire_msgs__rosidl_typesupport_fastrtps_cppExport.cmake
+[6.829s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/export_wildfire_msgs__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake
+[6.832s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/wildfire_msgs__rosidl_typesupport_introspection_cExport.cmake
+[6.833s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/wildfire_msgs__rosidl_typesupport_introspection_cExport-noconfig.cmake
+[6.834s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/wildfire_msgs__rosidl_typesupport_cExport.cmake
+[6.835s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/wildfire_msgs__rosidl_typesupport_cExport-noconfig.cmake
+[6.838s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/wildfire_msgs__rosidl_typesupport_introspection_cppExport.cmake
+[6.840s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/wildfire_msgs__rosidl_typesupport_introspection_cppExport-noconfig.cmake
+[6.841s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/wildfire_msgs__rosidl_typesupport_cppExport.cmake
+[6.843s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/wildfire_msgs__rosidl_typesupport_cppExport-noconfig.cmake
+[6.845s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/export_wildfire_msgs__rosidl_generator_pyExport.cmake
+[6.846s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/export_wildfire_msgs__rosidl_generator_pyExport-noconfig.cmake
+[6.847s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/rosidl_cmake-extras.cmake
+[6.850s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/ament_cmake_export_dependencies-extras.cmake
+[6.851s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/ament_cmake_export_include_directories-extras.cmake
+[6.853s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/ament_cmake_export_libraries-extras.cmake
+[6.855s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/ament_cmake_export_targets-extras.cmake
+[6.856s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake
+[6.857s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake
+[6.858s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/wildfire_msgsConfig.cmake
+[6.860s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/wildfire_msgsConfig-version.cmake
+[6.861s] -- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/package.xml
+[6.866s] Invoked command in '/home/project/ros2_ws/build/wildfire_msgs' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/home/project/ros2_ws/install/wildfire_bringup:/home/project/ros2_ws/install/wildfire_vision:/home/project/ros2_ws/install/wildfire_control:/opt/ros/humble /usr/bin/cmake --install /home/project/ros2_ws/build/wildfire_msgs

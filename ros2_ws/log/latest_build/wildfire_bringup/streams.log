@@ -1,0 +1,37 @@
+[0.292s] Invoking command in '/home/project/ros2_ws/src/wildfire_bringup': AMENT_PREFIX_PATH=/home/project/ros2_ws/install/wildfire_vision:/home/project/ros2_ws/install/wildfire_control:/home/project/ros2_ws/install/wildfire_bringup:/home/project/ros2_ws/install/wildfire_msgs:/opt/ros/humble PYTHONPATH=/home/project/ros2_ws/build/wildfire_bringup/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/project/ros2_ws/install/wildfire_bringup/lib/python3.10/site-packages:/home/project/ros2_ws/install/wildfire_vision/lib/python3.10/site-packages:/home/project/ros2_ws/install/wildfire_control/lib/python3.10/site-packages:/home/project/ros2_ws/install/wildfire_bringup/lib/python3.10/site-packages:/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/wildfire_bringup build --build-base /home/project/ros2_ws/build/wildfire_bringup/build install --record /home/project/ros2_ws/build/wildfire_bringup/install.log --single-version-externally-managed install_data
+[0.376s] running egg_info
+[0.377s] creating ../../build/wildfire_bringup/wildfire_bringup.egg-info
+[0.377s] writing ../../build/wildfire_bringup/wildfire_bringup.egg-info/PKG-INFO
+[0.377s] writing dependency_links to ../../build/wildfire_bringup/wildfire_bringup.egg-info/dependency_links.txt
+[0.378s] writing entry points to ../../build/wildfire_bringup/wildfire_bringup.egg-info/entry_points.txt
+[0.378s] writing requirements to ../../build/wildfire_bringup/wildfire_bringup.egg-info/requires.txt
+[0.378s] writing top-level names to ../../build/wildfire_bringup/wildfire_bringup.egg-info/top_level.txt
+[0.379s] writing manifest file '../../build/wildfire_bringup/wildfire_bringup.egg-info/SOURCES.txt'
+[0.380s] reading manifest file '../../build/wildfire_bringup/wildfire_bringup.egg-info/SOURCES.txt'
+[0.381s] writing manifest file '../../build/wildfire_bringup/wildfire_bringup.egg-info/SOURCES.txt'
+[0.381s] running build
+[0.382s] running build_py
+[0.383s] creating /home/project/ros2_ws/build/wildfire_bringup/build
+[0.383s] creating /home/project/ros2_ws/build/wildfire_bringup/build/lib
+[0.383s] creating /home/project/ros2_ws/build/wildfire_bringup/build/lib/wildfire_bringup
+[0.384s] copying wildfire_bringup/__init__.py -> /home/project/ros2_ws/build/wildfire_bringup/build/lib/wildfire_bringup
+[0.384s] running install
+[0.385s] running install_lib
+[0.385s] creating /home/project/ros2_ws/install/wildfire_bringup/lib/python3.10/site-packages/wildfire_bringup
+[0.385s] copying /home/project/ros2_ws/build/wildfire_bringup/build/lib/wildfire_bringup/__init__.py -> /home/project/ros2_ws/install/wildfire_bringup/lib/python3.10/site-packages/wildfire_bringup
+[0.386s] byte-compiling /home/project/ros2_ws/install/wildfire_bringup/lib/python3.10/site-packages/wildfire_bringup/__init__.py to __init__.cpython-310.pyc
+[0.387s] running install_data
+[0.387s] creating /home/project/ros2_ws/install/wildfire_bringup/share/ament_index
+[0.388s] creating /home/project/ros2_ws/install/wildfire_bringup/share/ament_index/resource_index
+[0.388s] creating /home/project/ros2_ws/install/wildfire_bringup/share/ament_index/resource_index/packages
+[0.388s] copying resource/wildfire_bringup -> /home/project/ros2_ws/install/wildfire_bringup/share/ament_index/resource_index/packages
+[0.389s] copying package.xml -> /home/project/ros2_ws/install/wildfire_bringup/share/wildfire_bringup
+[0.390s] creating /home/project/ros2_ws/install/wildfire_bringup/share/wildfire_bringup/launch
+[0.390s] copying launch/bringup.launch.py -> /home/project/ros2_ws/install/wildfire_bringup/share/wildfire_bringup/launch
+[0.391s] creating /home/project/ros2_ws/install/wildfire_bringup/share/wildfire_bringup/config
+[0.391s] copying config/params.yaml -> /home/project/ros2_ws/install/wildfire_bringup/share/wildfire_bringup/config
+[0.392s] running install_egg_info
+[0.394s] Copying ../../build/wildfire_bringup/wildfire_bringup.egg-info to /home/project/ros2_ws/install/wildfire_bringup/lib/python3.10/site-packages/wildfire_bringup-0.1.0-py3.10.egg-info
+[0.401s] running install_scripts
+[0.414s] writing list of installed files to '/home/project/ros2_ws/build/wildfire_bringup/install.log'
+[0.430s] Invoked command in '/home/project/ros2_ws/src/wildfire_bringup' returned '0': AMENT_PREFIX_PATH=/home/project/ros2_ws/install/wildfire_vision:/home/project/ros2_ws/install/wildfire_control:/home/project/ros2_ws/install/wildfire_bringup:/home/project/ros2_ws/install/wildfire_msgs:/opt/ros/humble PYTHONPATH=/home/project/ros2_ws/build/wildfire_bringup/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/project/ros2_ws/install/wildfire_bringup/lib/python3.10/site-packages:/home/project/ros2_ws/install/wildfire_vision/lib/python3.10/site-packages:/home/project/ros2_ws/install/wildfire_control/lib/python3.10/site-packages:/home/project/ros2_ws/install/wildfire_bringup/lib/python3.10/site-packages:/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base ../../build/wildfire_bringup build --build-base /home/project/ros2_ws/build/wildfire_bringup/build install --record /home/project/ros2_ws/build/wildfire_bringup/install.log --single-version-externally-managed install_data

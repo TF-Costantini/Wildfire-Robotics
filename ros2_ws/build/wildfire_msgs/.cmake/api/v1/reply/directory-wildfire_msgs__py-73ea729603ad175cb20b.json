@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "wildfire_msgs__py",
+		"source" : "/home/project/ros2_ws/build/wildfire_msgs/wildfire_msgs__py"
+	}
+}

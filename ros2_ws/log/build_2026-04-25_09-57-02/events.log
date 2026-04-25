@@ -1,0 +1,578 @@
+[0.000000] (-) TimerEvent: {}
+[0.002193] (wildfire_msgs) JobQueued: {'identifier': 'wildfire_msgs', 'dependencies': OrderedDict()}
+[0.002367] (wildfire_control) JobQueued: {'identifier': 'wildfire_control', 'dependencies': OrderedDict([('wildfire_msgs', '/home/project/ros2_ws/install/wildfire_msgs')])}
+[0.002512] (wildfire_vision) JobQueued: {'identifier': 'wildfire_vision', 'dependencies': OrderedDict([('wildfire_msgs', '/home/project/ros2_ws/install/wildfire_msgs')])}
+[0.002736] (wildfire_bringup) JobQueued: {'identifier': 'wildfire_bringup', 'dependencies': OrderedDict([('wildfire_msgs', '/home/project/ros2_ws/install/wildfire_msgs'), ('wildfire_control', '/home/project/ros2_ws/install/wildfire_control'), ('wildfire_vision', '/home/project/ros2_ws/install/wildfire_vision')])}
+[0.003807] (wildfire_msgs) JobStarted: {'identifier': 'wildfire_msgs'}
+[0.024439] (wildfire_msgs) JobProgress: {'identifier': 'wildfire_msgs', 'progress': 'cmake'}
+[0.026010] (wildfire_msgs) Command: {'cmd': ['/usr/bin/cmake', '/home/project/ros2_ws/src/wildfire_msgs', '-DCMAKE_INSTALL_PREFIX=/home/project/ros2_ws/install/wildfire_msgs'], 'cwd': '/home/project/ros2_ws/build/wildfire_msgs', 'env': OrderedDict([('HOSTNAME', '1861861cfa74'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/project/ros2_ws/install/wildfire_msgs/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/root'), ('OLDPWD', '/home/project/ros2_ws'), ('ROS_PYTHON_VERSION', '3'), ('COLCON_PREFIX_PATH', '/home/project/ros2_ws/install'), ('ROS_DISTRO', 'humble'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/project/ros2_ws/install/wildfire_vision/bin:/home/project/ros2_ws/install/wildfire_control/bin:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/home/project/ros2_ws/install/wildfire_bringup:/home/project/ros2_ws/install/wildfire_vision:/home/project/ros2_ws/install/wildfire_control:/home/project/ros2_ws/install/wildfire_msgs:/opt/ros/humble'), ('PWD', '/home/project/ros2_ws/build/wildfire_msgs'), ('LC_ALL', 'C.UTF-8'), ('PYTHONPATH', '/home/project/ros2_ws/install/wildfire_bringup/lib/python3.10/site-packages:/home/project/ros2_ws/install/wildfire_vision/lib/python3.10/site-packages:/home/project/ros2_ws/install/wildfire_control/lib/python3.10/site-packages:/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/project/ros2_ws/install/wildfire_msgs:/home/project/ros2_ws/install/wildfire_bringup:/home/project/ros2_ws/install/wildfire_vision:/home/project/ros2_ws/install/wildfire_control:/opt/ros/humble')]), 'shell': False}
+[0.102515] (-) TimerEvent: {}
+[0.202838] (-) TimerEvent: {}
+[0.304308] (-) TimerEvent: {}
+[0.379226] (wildfire_msgs) StdoutLine: {'line': b'-- The C compiler identification is GNU 11.4.0\n'}
+[0.405308] (-) TimerEvent: {}
+[0.505948] (-) TimerEvent: {}
+[0.597857] (wildfire_msgs) StdoutLine: {'line': b'-- The CXX compiler identification is GNU 11.4.0\n'}
+[0.606802] (-) TimerEvent: {}
+[0.613786] (wildfire_msgs) StdoutLine: {'line': b'-- Detecting C compiler ABI info\n'}
+[0.707831] (-) TimerEvent: {}
+[0.742321] (wildfire_msgs) StdoutLine: {'line': b'-- Detecting C compiler ABI info - done\n'}
+[0.746827] (wildfire_msgs) StdoutLine: {'line': b'-- Check for working C compiler: /usr/bin/cc - skipped\n'}
+[0.748198] (wildfire_msgs) StdoutLine: {'line': b'-- Detecting C compile features\n'}
+[0.748491] (wildfire_msgs) StdoutLine: {'line': b'-- Detecting C compile features - done\n'}
+[0.751390] (wildfire_msgs) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info\n'}
+[0.808797] (-) TimerEvent: {}
+[0.822987] (wildfire_msgs) StdoutLine: {'line': b'-- Detecting CXX compiler ABI info - done\n'}
+[0.829527] (wildfire_msgs) StdoutLine: {'line': b'-- Check for working CXX compiler: /usr/bin/c++ - skipped\n'}
+[0.830129] (wildfire_msgs) StdoutLine: {'line': b'-- Detecting CXX compile features\n'}
+[0.830324] (wildfire_msgs) StdoutLine: {'line': b'-- Detecting CXX compile features - done\n'}
+[0.848547] (wildfire_msgs) StdoutLine: {'line': b'-- Found ament_cmake: 1.3.14 (/opt/ros/humble/share/ament_cmake/cmake)\n'}
+[0.911352] (-) TimerEvent: {}
+[0.957113] (wildfire_msgs) StdoutLine: {'line': b'-- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter \n'}
+[1.012044] (-) TimerEvent: {}
+[1.041617] (wildfire_msgs) StdoutLine: {'line': b'-- Found builtin_interfaces: 1.2.2 (/opt/ros/humble/share/builtin_interfaces/cmake)\n'}
+[1.117844] (-) TimerEvent: {}
+[1.253128] (wildfire_msgs) StdoutLine: {'line': b'-- Found rosidl_generator_c: 3.1.8 (/opt/ros/humble/share/rosidl_generator_c/cmake)\n'}
+[1.255311] (-) TimerEvent: {}
+[1.257579] (wildfire_msgs) StdoutLine: {'line': b'-- Found rosidl_adapter: 3.1.8 (/opt/ros/humble/share/rosidl_adapter/cmake)\n'}
+[1.265554] (wildfire_msgs) StdoutLine: {'line': b'-- Found rosidl_generator_cpp: 3.1.8 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)\n'}
+[1.278364] (wildfire_msgs) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.292709] (wildfire_msgs) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[1.305610] (wildfire_msgs) StdoutLine: {'line': b'-- Found std_msgs: 4.9.1 (/opt/ros/humble/share/std_msgs/cmake)\n'}
+[1.314910] (wildfire_msgs) StdoutLine: {'line': b'-- Found sensor_msgs: 4.9.1 (/opt/ros/humble/share/sensor_msgs/cmake)\n'}
+[1.337878] (wildfire_msgs) StdoutLine: {'line': b'-- Found rosidl_default_generators: 1.2.1 (/opt/ros/humble/share/rosidl_default_generators/cmake)\n'}
+[1.355780] (-) TimerEvent: {}
+[1.456131] (-) TimerEvent: {}
+[1.557944] (-) TimerEvent: {}
+[1.576994] (wildfire_msgs) StdoutLine: {'line': b'-- Found ament_cmake_ros: 0.10.0 (/opt/ros/humble/share/ament_cmake_ros/cmake)\n'}
+[1.658815] (-) TimerEvent: {}
+[1.760937] (-) TimerEvent: {}
+[1.862050] (-) TimerEvent: {}
+[1.932778] (wildfire_msgs) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c\n'}
+[1.962807] (-) TimerEvent: {}
+[2.046646] (wildfire_msgs) StdoutLine: {'line': b'-- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp\n'}
+[2.059412] (wildfire_msgs) StdoutLine: {'line': b'-- Found PythonInterp: /usr/bin/python3 (found suitable version "3.10.12", minimum required is "3.6") \n'}
+[2.062027] (wildfire_msgs) StdoutLine: {'line': b'-- Found python_cmake_module: 0.10.0 (/opt/ros/humble/share/python_cmake_module/cmake)\n'}
+[2.062980] (-) TimerEvent: {}
+[2.082692] (wildfire_msgs) StdoutLine: {'line': b'-- Found PythonLibs: /usr/lib/aarch64-linux-gnu/libpython3.10.so (found suitable version "3.10.12", minimum required is "3.5") \n'}
+[2.082924] (wildfire_msgs) StdoutLine: {'line': b'-- Using PYTHON_EXECUTABLE: /usr/bin/python3\n'}
+[2.083024] (wildfire_msgs) StdoutLine: {'line': b'-- Using PYTHON_INCLUDE_DIRS: /usr/include/python3.10\n'}
+[2.083127] (wildfire_msgs) StdoutLine: {'line': b'-- Using PYTHON_LIBRARIES: /usr/lib/aarch64-linux-gnu/libpython3.10.so\n'}
+[2.090995] (wildfire_msgs) StdoutLine: {'line': b'-- Found PythonExtra: .so  \n'}
+[2.163836] (-) TimerEvent: {}
+[2.246824] (wildfire_msgs) StdoutLine: {'line': b'-- Configuring done\n'}
+[2.264796] (-) TimerEvent: {}
+[2.365885] (-) TimerEvent: {}
+[2.459911] (wildfire_msgs) StdoutLine: {'line': b'-- Generating done\n'}
+[2.466795] (-) TimerEvent: {}
+[2.503600] (wildfire_msgs) StdoutLine: {'line': b'-- Build files have been written to: /home/project/ros2_ws/build/wildfire_msgs\n'}
+[2.521872] (wildfire_msgs) CommandEnded: {'returncode': 0}
+[2.523315] (wildfire_msgs) JobProgress: {'identifier': 'wildfire_msgs', 'progress': 'build'}
+[2.528080] (wildfire_msgs) Command: {'cmd': ['/usr/bin/cmake', '--build', '/home/project/ros2_ws/build/wildfire_msgs', '--', '-j8', '-l8'], 'cwd': '/home/project/ros2_ws/build/wildfire_msgs', 'env': OrderedDict([('HOSTNAME', '1861861cfa74'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/project/ros2_ws/install/wildfire_msgs/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/root'), ('OLDPWD', '/home/project/ros2_ws'), ('ROS_PYTHON_VERSION', '3'), ('COLCON_PREFIX_PATH', '/home/project/ros2_ws/install'), ('ROS_DISTRO', 'humble'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/project/ros2_ws/install/wildfire_vision/bin:/home/project/ros2_ws/install/wildfire_control/bin:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/home/project/ros2_ws/install/wildfire_bringup:/home/project/ros2_ws/install/wildfire_vision:/home/project/ros2_ws/install/wildfire_control:/home/project/ros2_ws/install/wildfire_msgs:/opt/ros/humble'), ('PWD', '/home/project/ros2_ws/build/wildfire_msgs'), ('LC_ALL', 'C.UTF-8'), ('PYTHONPATH', '/home/project/ros2_ws/install/wildfire_bringup/lib/python3.10/site-packages:/home/project/ros2_ws/install/wildfire_vision/lib/python3.10/site-packages:/home/project/ros2_ws/install/wildfire_control/lib/python3.10/site-packages:/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/project/ros2_ws/install/wildfire_msgs:/home/project/ros2_ws/install/wildfire_bringup:/home/project/ros2_ws/install/wildfire_vision:/home/project/ros2_ws/install/wildfire_control:/opt/ros/humble')]), 'shell': False}
+[2.567858] (-) TimerEvent: {}
+[2.575796] (wildfire_msgs) StdoutLine: {'line': b'[  1%] \x1b[34m\x1b[1mGenerating C code for ROS interfaces\x1b[0m\n'}
+[2.589206] (wildfire_msgs) StdoutLine: {'line': b'[  3%] \x1b[34m\x1b[1mGenerating Rust code for ROS interfaces\x1b[0m\n'}
+[2.591795] (wildfire_msgs) StdoutLine: {'line': b'[  4%] \x1b[34m\x1b[1mGenerating C++ code for ROS interfaces\x1b[0m\n'}
+[2.597375] (wildfire_msgs) StdoutLine: {'line': b'[  4%] Built target ament_cmake_python_copy_wildfire_msgs\n'}
+[2.668793] (-) TimerEvent: {}
+[2.772922] (-) TimerEvent: {}
+[2.814527] (wildfire_msgs) StdoutLine: {'line': b'running egg_info\n'}
+[2.815613] (wildfire_msgs) StdoutLine: {'line': b'creating wildfire_msgs.egg-info\n'}
+[2.816515] (wildfire_msgs) StdoutLine: {'line': b'writing wildfire_msgs.egg-info/PKG-INFO\n'}
+[2.820161] (wildfire_msgs) StdoutLine: {'line': b'writing dependency_links to wildfire_msgs.egg-info/dependency_links.txt\n'}
+[2.821649] (wildfire_msgs) StdoutLine: {'line': b'writing top-level names to wildfire_msgs.egg-info/top_level.txt\n'}
+[2.823626] (wildfire_msgs) StdoutLine: {'line': b"writing manifest file 'wildfire_msgs.egg-info/SOURCES.txt'\n"}
+[2.825768] (wildfire_msgs) StdoutLine: {'line': b"reading manifest file 'wildfire_msgs.egg-info/SOURCES.txt'\n"}
+[2.831006] (wildfire_msgs) StdoutLine: {'line': b"writing manifest file 'wildfire_msgs.egg-info/SOURCES.txt'\n"}
+[2.848560] (wildfire_msgs) StdoutLine: {'line': b'[  4%] Built target ament_cmake_python_build_wildfire_msgs_egg\n'}
+[2.851804] (wildfire_msgs) StdoutLine: {'line': b'[  4%] Built target wildfire_msgs__rs\n'}
+[2.874009] (-) TimerEvent: {}
+[2.975876] (-) TimerEvent: {}
+[2.981528] (wildfire_msgs) StdoutLine: {'line': b'[  7%] \x1b[32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_generator_c.dir/rosidl_generator_c/wildfire_msgs/msg/detail/detection__functions.c.o\x1b[0m\n'}
+[2.982360] (wildfire_msgs) StdoutLine: {'line': b'[  7%] \x1b[32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_generator_c.dir/rosidl_generator_c/wildfire_msgs/msg/detail/button_event__functions.c.o\x1b[0m\n'}
+[2.983680] (wildfire_msgs) StdoutLine: {'line': b'[  9%] \x1b[32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_generator_c.dir/rosidl_generator_c/wildfire_msgs/msg/detail/drive_cmd__functions.c.o\x1b[0m\n'}
+[2.985453] (wildfire_msgs) StdoutLine: {'line': b'[ 12%] \x1b[32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_generator_c.dir/rosidl_generator_c/wildfire_msgs/msg/detail/pan_tilt_cmd__functions.c.o\x1b[0m\n'}
+[2.985937] (wildfire_msgs) StdoutLine: {'line': b'[ 12%] \x1b[32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_generator_c.dir/rosidl_generator_c/wildfire_msgs/msg/detail/mode__functions.c.o\x1b[0m\n'}
+[2.989662] (wildfire_msgs) StdoutLine: {'line': b'[ 12%] Built target wildfire_msgs__cpp\n'}
+[3.010838] (wildfire_msgs) StdoutLine: {'line': b'[ 14%] \x1b[34m\x1b[1mGenerating C++ type support for eProsima Fast-RTPS\x1b[0m\n'}
+[3.016036] (wildfire_msgs) StdoutLine: {'line': b'[ 15%] \x1b[34m\x1b[1mGenerating C++ introspection for ROS interfaces\x1b[0m\n'}
+[3.018176] (wildfire_msgs) StdoutLine: {'line': b'[ 17%] \x1b[34m\x1b[1mGenerating C++ type support dispatch for ROS interfaces\x1b[0m\n'}
+[3.076818] (-) TimerEvent: {}
+[3.090220] (wildfire_msgs) StdoutLine: {'line': b'[ 18%] \x1b[32m\x1b[1mLinking C shared library libwildfire_msgs__rosidl_generator_c.so\x1b[0m\n'}
+[3.125902] (wildfire_msgs) StdoutLine: {'line': b'[ 18%] Built target wildfire_msgs__rosidl_generator_c\n'}
+[3.139843] (wildfire_msgs) StdoutLine: {'line': b'[ 20%] \x1b[34m\x1b[1mGenerating C introspection for ROS interfaces\x1b[0m\n'}
+[3.141333] (wildfire_msgs) StdoutLine: {'line': b'[ 23%] \x1b[34m\x1b[1mGenerating C type support for eProsima Fast-RTPS\x1b[0m\n'}
+[3.141673] (wildfire_msgs) StdoutLine: {'line': b'[ 23%] \x1b[34m\x1b[1mGenerating C type support dispatch for ROS interfaces\x1b[0m\n'}
+[3.177826] (-) TimerEvent: {}
+[3.278911] (-) TimerEvent: {}
+[3.296282] (wildfire_msgs) StdoutLine: {'line': b'[ 25%] \x1b[32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/wildfire_msgs/msg/mode__type_support.cpp.o\x1b[0m\n'}
+[3.307829] (wildfire_msgs) StdoutLine: {'line': b'[ 26%] \x1b[32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/wildfire_msgs/msg/button_event__type_support.cpp.o\x1b[0m\n'}
+[3.316673] (wildfire_msgs) StdoutLine: {'line': b'[ 28%] \x1b[32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/wildfire_msgs/msg/detection__type_support.cpp.o\x1b[0m\n'}
+[3.324077] (wildfire_msgs) StdoutLine: {'line': b'[ 29%] \x1b[32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/wildfire_msgs/msg/detail/mode__type_support.cpp.o\x1b[0m\n'}
+[3.339860] (wildfire_msgs) StdoutLine: {'line': b'[ 31%] \x1b[32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/wildfire_msgs/msg/detail/dds_fastrtps/mode__type_support.cpp.o\x1b[0m\n'}
+[3.379905] (-) TimerEvent: {}
+[3.458544] (wildfire_msgs) StdoutLine: {'line': b'[ 32%] \x1b[32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/wildfire_msgs/msg/mode__type_support.cpp.o\x1b[0m\n'}
+[3.480833] (-) TimerEvent: {}
+[3.543800] (wildfire_msgs) StdoutLine: {'line': b'[ 34%] \x1b[32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/wildfire_msgs/msg/button_event__type_support.cpp.o\x1b[0m\n'}
+[3.585646] (-) TimerEvent: {}
+[3.677219] (wildfire_msgs) StdoutLine: {'line': b'[ 35%] \x1b[32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/wildfire_msgs/msg/detail/mode__type_support_c.cpp.o\x1b[0m\n'}
+[3.680912] (wildfire_msgs) StdoutLine: {'line': b'[ 37%] \x1b[32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/wildfire_msgs/msg/detection__type_support.cpp.o\x1b[0m\n'}
+[3.682814] (-) TimerEvent: {}
+[3.738578] (wildfire_msgs) StdoutLine: {'line': b'[ 39%] \x1b[32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/wildfire_msgs/msg/drive_cmd__type_support.cpp.o\x1b[0m\n'}
+[3.743007] (wildfire_msgs) StdoutLine: {'line': b'[ 40%] \x1b[32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/wildfire_msgs/msg/detail/mode__type_support.c.o\x1b[0m\n'}
+[3.766625] (wildfire_msgs) StdoutLine: {'line': b'[ 42%] \x1b[32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_c.dir/rosidl_typesupport_c/wildfire_msgs/msg/pan_tilt_cmd__type_support.cpp.o\x1b[0m\n'}
+[3.787447] (-) TimerEvent: {}
+[3.831187] (wildfire_msgs) StdoutLine: {'line': b'[ 43%] \x1b[32m\x1b[1mLinking CXX shared library libwildfire_msgs__rosidl_typesupport_c.so\x1b[0m\n'}
+[3.868611] (wildfire_msgs) StdoutLine: {'line': b'[ 45%] \x1b[32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/wildfire_msgs/msg/detail/button_event__type_support.c.o\x1b[0m\n'}
+[3.888798] (-) TimerEvent: {}
+[3.904863] (wildfire_msgs) StdoutLine: {'line': b'[ 46%] \x1b[32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/wildfire_msgs/msg/detail/detection__type_support.c.o\x1b[0m\n'}
+[3.913540] (wildfire_msgs) StdoutLine: {'line': b'[ 48%] \x1b[32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/wildfire_msgs/msg/detail/button_event__type_support_c.cpp.o\x1b[0m\n'}
+[3.936050] (wildfire_msgs) StdoutLine: {'line': b'[ 48%] Built target wildfire_msgs__rosidl_typesupport_c\n'}
+[3.950390] (wildfire_msgs) StdoutLine: {'line': b'[ 51%] \x1b[32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/wildfire_msgs/msg/detail/button_event__type_support.cpp.o\x1b[0m\n'}
+[3.951909] (wildfire_msgs) StdoutLine: {'line': b'[ 51%] \x1b[32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/wildfire_msgs/msg/drive_cmd__type_support.cpp.o\x1b[0m\n'}
+[3.961853] (wildfire_msgs) StdoutLine: {'line': b'[ 53%] \x1b[32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/wildfire_msgs/msg/detail/dds_fastrtps/button_event__type_support.cpp.o\x1b[0m\n'}
+[3.989059] (-) TimerEvent: {}
+[3.995163] (wildfire_msgs) StdoutLine: {'line': b'[ 54%] \x1b[32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/wildfire_msgs/msg/detail/drive_cmd__type_support.c.o\x1b[0m\n'}
+[4.001767] (wildfire_msgs) StdoutLine: {'line': b'[ 56%] \x1b[32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/wildfire_msgs/msg/detail/dds_fastrtps/detection__type_support.cpp.o\x1b[0m\n'}
+[4.007990] (wildfire_msgs) StdoutLine: {'line': b'[ 57%] \x1b[32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_cpp.dir/rosidl_typesupport_cpp/wildfire_msgs/msg/pan_tilt_cmd__type_support.cpp.o\x1b[0m\n'}
+[4.049613] (wildfire_msgs) StdoutLine: {'line': b'[ 59%] \x1b[32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_typesupport_introspection_c.dir/rosidl_typesupport_introspection_c/wildfire_msgs/msg/detail/pan_tilt_cmd__type_support.c.o\x1b[0m\n'}
+[4.061294] (wildfire_msgs) StdoutLine: {'line': b'[ 60%] \x1b[32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/wildfire_msgs/msg/detail/detection__type_support_c.cpp.o\x1b[0m\n'}
+[4.089868] (-) TimerEvent: {}
+[4.101402] (wildfire_msgs) StdoutLine: {'line': b'[ 62%] \x1b[32m\x1b[1mLinking C shared library libwildfire_msgs__rosidl_typesupport_introspection_c.so\x1b[0m\n'}
+[4.162895] (wildfire_msgs) StdoutLine: {'line': b'[ 64%] \x1b[32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/wildfire_msgs/msg/detail/dds_fastrtps/drive_cmd__type_support.cpp.o\x1b[0m\n'}
+[4.176085] (wildfire_msgs) StdoutLine: {'line': b'[ 65%] \x1b[32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/wildfire_msgs/msg/detail/drive_cmd__type_support_c.cpp.o\x1b[0m\n'}
+[4.182406] (wildfire_msgs) StdoutLine: {'line': b'[ 65%] Built target wildfire_msgs__rosidl_typesupport_introspection_c\n'}
+[4.193595] (-) TimerEvent: {}
+[4.201317] (wildfire_msgs) StdoutLine: {'line': b'[ 67%] \x1b[32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/wildfire_msgs/msg/detail/detection__type_support.cpp.o\x1b[0m\n'}
+[4.295397] (wildfire_msgs) StdoutLine: {'line': b'[ 68%] \x1b[32m\x1b[1mLinking CXX shared library libwildfire_msgs__rosidl_typesupport_cpp.so\x1b[0m\n'}
+[4.297440] (-) TimerEvent: {}
+[4.330730] (wildfire_msgs) StdoutLine: {'line': b'[ 70%] \x1b[32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/wildfire_msgs/msg/detail/drive_cmd__type_support.cpp.o\x1b[0m\n'}
+[4.359921] (wildfire_msgs) StdoutLine: {'line': b'[ 71%] \x1b[32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_fastrtps_c.dir/rosidl_typesupport_fastrtps_c/wildfire_msgs/msg/detail/pan_tilt_cmd__type_support_c.cpp.o\x1b[0m\n'}
+[4.385976] (wildfire_msgs) StdoutLine: {'line': b'[ 73%] \x1b[32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/wildfire_msgs/msg/detail/dds_fastrtps/pan_tilt_cmd__type_support.cpp.o\x1b[0m\n'}
+[4.397926] (-) TimerEvent: {}
+[4.407531] (wildfire_msgs) StdoutLine: {'line': b'[ 75%] Built target wildfire_msgs__rosidl_typesupport_cpp\n'}
+[4.409368] (wildfire_msgs) StdoutLine: {'line': b'[ 75%] \x1b[32mBuilding CXX object CMakeFiles/wildfire_msgs__rosidl_typesupport_introspection_cpp.dir/rosidl_typesupport_introspection_cpp/wildfire_msgs/msg/detail/pan_tilt_cmd__type_support.cpp.o\x1b[0m\n'}
+[4.499255] (-) TimerEvent: {}
+[4.602917] (-) TimerEvent: {}
+[4.720468] (-) TimerEvent: {}
+[4.830322] (-) TimerEvent: {}
+[4.935081] (-) TimerEvent: {}
+[5.026581] (wildfire_msgs) StdoutLine: {'line': b'[ 76%] \x1b[32m\x1b[1mLinking CXX shared library libwildfire_msgs__rosidl_typesupport_fastrtps_c.so\x1b[0m\n'}
+[5.035831] (-) TimerEvent: {}
+[5.106492] (wildfire_msgs) StdoutLine: {'line': b'[ 78%] \x1b[32m\x1b[1mLinking CXX shared library libwildfire_msgs__rosidl_typesupport_introspection_cpp.so\x1b[0m\n'}
+[5.114994] (wildfire_msgs) StdoutLine: {'line': b'[ 78%] Built target wildfire_msgs__rosidl_typesupport_fastrtps_c\n'}
+[5.137370] (-) TimerEvent: {}
+[5.179492] (wildfire_msgs) StdoutLine: {'line': b'[ 79%] \x1b[32m\x1b[1mLinking CXX shared library libwildfire_msgs__rosidl_typesupport_fastrtps_cpp.so\x1b[0m\n'}
+[5.237845] (-) TimerEvent: {}
+[5.239813] (wildfire_msgs) StdoutLine: {'line': b'[ 79%] Built target wildfire_msgs__rosidl_typesupport_introspection_cpp\n'}
+[5.262317] (wildfire_msgs) StdoutLine: {'line': b'[ 79%] Built target wildfire_msgs__rosidl_typesupport_fastrtps_cpp\n'}
+[5.284902] (wildfire_msgs) StdoutLine: {'line': b'[ 79%] Built target wildfire_msgs\n'}
+[5.312537] (wildfire_msgs) StdoutLine: {'line': b'[ 81%] \x1b[34m\x1b[1mGenerating Python code for ROS interfaces\x1b[0m\n'}
+[5.339027] (-) TimerEvent: {}
+[5.439793] (-) TimerEvent: {}
+[5.542051] (-) TimerEvent: {}
+[5.643941] (-) TimerEvent: {}
+[5.735889] (wildfire_msgs) StdoutLine: {'line': b'[ 81%] Built target wildfire_msgs__py\n'}
+[5.744842] (-) TimerEvent: {}
+[5.752559] (wildfire_msgs) StdoutLine: {'line': b'[ 82%] \x1b[32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_generator_py.dir/rosidl_generator_py/wildfire_msgs/msg/_mode_s.c.o\x1b[0m\n'}
+[5.760466] (wildfire_msgs) StdoutLine: {'line': b'[ 85%] \x1b[32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_generator_py.dir/rosidl_generator_py/wildfire_msgs/msg/_detection_s.c.o\x1b[0m\n'}
+[5.761088] (wildfire_msgs) StdoutLine: {'line': b'[ 87%] \x1b[32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_generator_py.dir/rosidl_generator_py/wildfire_msgs/msg/_button_event_s.c.o\x1b[0m\n'}
+[5.761629] (wildfire_msgs) StdoutLine: {'line': b'[ 87%] \x1b[32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_generator_py.dir/rosidl_generator_py/wildfire_msgs/msg/_drive_cmd_s.c.o\x1b[0m\n'}
+[5.768864] (wildfire_msgs) StdoutLine: {'line': b'[ 89%] \x1b[32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_generator_py.dir/rosidl_generator_py/wildfire_msgs/msg/_pan_tilt_cmd_s.c.o\x1b[0m\n'}
+[5.845911] (-) TimerEvent: {}
+[5.947253] (-) TimerEvent: {}
+[5.959780] (wildfire_msgs) StdoutLine: {'line': b'[ 90%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/wildfire_msgs/libwildfire_msgs__rosidl_generator_py.so\x1b[0m\n'}
+[6.053970] (-) TimerEvent: {}
+[6.074914] (wildfire_msgs) StdoutLine: {'line': b'[ 90%] Built target wildfire_msgs__rosidl_generator_py\n'}
+[6.107292] (wildfire_msgs) StdoutLine: {'line': b'[ 92%] \x1b[32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_typesupport_fastrtps_c__pyext.dir/rosidl_generator_py/wildfire_msgs/_wildfire_msgs_s.ep.rosidl_typesupport_fastrtps_c.c.o\x1b[0m\n'}
+[6.111777] (wildfire_msgs) StdoutLine: {'line': b'[ 95%] \x1b[32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_typesupport_introspection_c__pyext.dir/rosidl_generator_py/wildfire_msgs/_wildfire_msgs_s.ep.rosidl_typesupport_introspection_c.c.o\x1b[0m\n'}
+[6.112432] (wildfire_msgs) StdoutLine: {'line': b'[ 95%] \x1b[32mBuilding C object CMakeFiles/wildfire_msgs__rosidl_typesupport_c__pyext.dir/rosidl_generator_py/wildfire_msgs/_wildfire_msgs_s.ep.rosidl_typesupport_c.c.o\x1b[0m\n'}
+[6.152853] (-) TimerEvent: {}
+[6.195529] (wildfire_msgs) StdoutLine: {'line': b'[ 96%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/wildfire_msgs/wildfire_msgs_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so\x1b[0m\n'}
+[6.201373] (wildfire_msgs) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/wildfire_msgs/wildfire_msgs_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so\x1b[0m\n'}
+[6.201654] (wildfire_msgs) StdoutLine: {'line': b'[100%] \x1b[32m\x1b[1mLinking C shared library rosidl_generator_py/wildfire_msgs/wildfire_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so\x1b[0m\n'}
+[6.231999] (wildfire_msgs) StdoutLine: {'line': b'[100%] Built target wildfire_msgs__rosidl_typesupport_c__pyext\n'}
+[6.250843] (wildfire_msgs) StdoutLine: {'line': b'[100%] Built target wildfire_msgs__rosidl_typesupport_introspection_c__pyext\n'}
+[6.253979] (-) TimerEvent: {}
+[6.255633] (wildfire_msgs) StdoutLine: {'line': b'[100%] Built target wildfire_msgs__rosidl_typesupport_fastrtps_c__pyext\n'}
+[6.276981] (wildfire_msgs) CommandEnded: {'returncode': 0}
+[6.287105] (wildfire_msgs) JobProgress: {'identifier': 'wildfire_msgs', 'progress': 'install'}
+[6.296831] (wildfire_msgs) Command: {'cmd': ['/usr/bin/cmake', '--install', '/home/project/ros2_ws/build/wildfire_msgs'], 'cwd': '/home/project/ros2_ws/build/wildfire_msgs', 'env': OrderedDict([('HOSTNAME', '1861861cfa74'), ('SHLVL', '1'), ('LD_LIBRARY_PATH', '/home/project/ros2_ws/install/wildfire_msgs/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib'), ('HOME', '/root'), ('OLDPWD', '/home/project/ros2_ws'), ('ROS_PYTHON_VERSION', '3'), ('COLCON_PREFIX_PATH', '/home/project/ros2_ws/install'), ('ROS_DISTRO', 'humble'), ('_', '/usr/bin/colcon'), ('ROS_VERSION', '2'), ('TERM', 'xterm'), ('ROS_LOCALHOST_ONLY', '0'), ('PATH', '/home/project/ros2_ws/install/wildfire_vision/bin:/home/project/ros2_ws/install/wildfire_control/bin:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'), ('LANG', 'C.UTF-8'), ('LS_COLORS', 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:'), ('AMENT_PREFIX_PATH', '/home/project/ros2_ws/install/wildfire_bringup:/home/project/ros2_ws/install/wildfire_vision:/home/project/ros2_ws/install/wildfire_control:/home/project/ros2_ws/install/wildfire_msgs:/opt/ros/humble'), ('PWD', '/home/project/ros2_ws/build/wildfire_msgs'), ('LC_ALL', 'C.UTF-8'), ('PYTHONPATH', '/home/project/ros2_ws/install/wildfire_bringup/lib/python3.10/site-packages:/home/project/ros2_ws/install/wildfire_vision/lib/python3.10/site-packages:/home/project/ros2_ws/install/wildfire_control/lib/python3.10/site-packages:/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages'), ('COLCON', '1'), ('CMAKE_PREFIX_PATH', '/home/project/ros2_ws/install/wildfire_msgs:/home/project/ros2_ws/install/wildfire_bringup:/home/project/ros2_ws/install/wildfire_vision:/home/project/ros2_ws/install/wildfire_control:/opt/ros/humble')]), 'shell': False}
+[6.301110] (wildfire_msgs) StdoutLine: {'line': b'-- Install configuration: ""\n'}
+[6.302201] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/ament_index/resource_index/rosidl_interfaces/wildfire_msgs\n'}
+[6.305293] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs\n'}
+[6.309203] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg\n'}
+[6.309878] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/rosidl_generator_c__visibility_control.h\n'}
+[6.314652] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/button_event.h\n'}
+[6.322695] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/drive_cmd.h\n'}
+[6.325967] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail\n'}
+[6.326660] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/mode__functions.c\n'}
+[6.327821] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/pan_tilt_cmd__struct.h\n'}
+[6.332282] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/drive_cmd__functions.c\n'}
+[6.336499] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/pan_tilt_cmd__functions.c\n'}
+[6.337692] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/pan_tilt_cmd__type_support.h\n'}
+[6.341989] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/mode__type_support.h\n'}
+[6.346381] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/button_event__struct.h\n'}
+[6.347636] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/button_event__functions.h\n'}
+[6.352801] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/detection__functions.h\n'}
+[6.353841] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/detection__struct.h\n'}
+[6.355078] (-) TimerEvent: {}
+[6.358350] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/mode__functions.h\n'}
+[6.359389] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/detection__type_support.h\n'}
+[6.361444] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/pan_tilt_cmd__functions.h\n'}
+[6.362484] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/drive_cmd__functions.h\n'}
+[6.369963] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/button_event__type_support.h\n'}
+[6.371135] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/mode__struct.h\n'}
+[6.375694] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/detection__functions.c\n'}
+[6.376779] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/drive_cmd__struct.h\n'}
+[6.378025] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/button_event__functions.c\n'}
+[6.379356] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/drive_cmd__type_support.h\n'}
+[6.380471] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/mode.h\n'}
+[6.382614] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detection.h\n'}
+[6.385443] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/pan_tilt_cmd.h\n'}
+[6.396186] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/environment/library_path.sh\n'}
+[6.400663] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/environment/library_path.dsv\n'}
+[6.406868] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_generator_c.so\n'}
+[6.408645] (wildfire_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_generator_c.so" to ""\n'}
+[6.408891] (wildfire_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs\n'}
+[6.409078] (wildfire_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg\n'}
+[6.409837] (wildfire_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail\n'}
+[6.410203] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/mode__rosidl_typesupport_fastrtps_c.h\n'}
+[6.411244] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/pan_tilt_cmd__rosidl_typesupport_fastrtps_c.h\n'}
+[6.420010] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/button_event__rosidl_typesupport_fastrtps_c.h\n'}
+[6.426333] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/drive_cmd__rosidl_typesupport_fastrtps_c.h\n'}
+[6.434494] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/detection__rosidl_typesupport_fastrtps_c.h\n'}
+[6.437725] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/rosidl_typesupport_fastrtps_c__visibility_control.h\n'}
+[6.439230] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_typesupport_fastrtps_c.so\n'}
+[6.441129] (wildfire_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_typesupport_fastrtps_c.so" to ""\n'}
+[6.441318] (wildfire_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs\n'}
+[6.441608] (wildfire_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg\n'}
+[6.442051] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/button_event.hpp\n'}
+[6.442988] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/mode.hpp\n'}
+[6.443789] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/pan_tilt_cmd.hpp\n'}
+[6.445062] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/drive_cmd.hpp\n'}
+[6.448404] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detection.hpp\n'}
+[6.449478] (wildfire_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail\n'}
+[6.449907] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/mode__struct.hpp\n'}
+[6.450907] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/drive_cmd__type_support.hpp\n'}
+[6.454325] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/drive_cmd__builder.hpp\n'}
+[6.455978] (-) TimerEvent: {}
+[6.460579] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/button_event__traits.hpp\n'}
+[6.461859] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/pan_tilt_cmd__builder.hpp\n'}
+[6.465494] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/detection__traits.hpp\n'}
+[6.468699] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/pan_tilt_cmd__struct.hpp\n'}
+[6.470155] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/mode__builder.hpp\n'}
+[6.470995] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/drive_cmd__traits.hpp\n'}
+[6.477087] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/button_event__type_support.hpp\n'}
+[6.488023] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/mode__type_support.hpp\n'}
+[6.489280] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/detection__builder.hpp\n'}
+[6.490436] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/mode__traits.hpp\n'}
+[6.491691] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/button_event__builder.hpp\n'}
+[6.493086] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/detection__type_support.hpp\n'}
+[6.495176] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/button_event__struct.hpp\n'}
+[6.496214] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/detection__struct.hpp\n'}
+[6.497574] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/drive_cmd__struct.hpp\n'}
+[6.498573] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/pan_tilt_cmd__traits.hpp\n'}
+[6.502081] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/pan_tilt_cmd__type_support.hpp\n'}
+[6.505278] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/rosidl_generator_cpp__visibility_control.hpp\n'}
+[6.508323] (wildfire_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs\n'}
+[6.510097] (wildfire_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg\n'}
+[6.510331] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/rosidl_typesupport_fastrtps_cpp__visibility_control.h\n'}
+[6.515394] (wildfire_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail\n'}
+[6.515901] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/pan_tilt_cmd__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[6.517133] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/drive_cmd__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[6.518270] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/button_event__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[6.522672] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/detection__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[6.523643] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/dds_fastrtps\n'}
+[6.524268] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/mode__rosidl_typesupport_fastrtps_cpp.hpp\n'}
+[6.529520] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_typesupport_fastrtps_cpp.so\n'}
+[6.532459] (wildfire_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_typesupport_fastrtps_cpp.so" to ""\n'}
+[6.532621] (wildfire_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs\n'}
+[6.532940] (wildfire_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg\n'}
+[6.533221] (wildfire_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail\n'}
+[6.533558] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/detection__type_support.c\n'}
+[6.539593] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/mode__rosidl_typesupport_introspection_c.h\n'}
+[6.549660] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/button_event__type_support.c\n'}
+[6.553624] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/detection__rosidl_typesupport_introspection_c.h\n'}
+[6.556794] (-) TimerEvent: {}
+[6.557791] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/button_event__rosidl_typesupport_introspection_c.h\n'}
+[6.558841] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/drive_cmd__type_support.c\n'}
+[6.560075] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/pan_tilt_cmd__rosidl_typesupport_introspection_c.h\n'}
+[6.560930] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/pan_tilt_cmd__type_support.c\n'}
+[6.563885] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/drive_cmd__rosidl_typesupport_introspection_c.h\n'}
+[6.567949] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/mode__type_support.c\n'}
+[6.570787] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/rosidl_typesupport_introspection_c__visibility_control.h\n'}
+[6.574695] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_typesupport_introspection_c.so\n'}
+[6.577888] (wildfire_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_typesupport_introspection_c.so" to ""\n'}
+[6.581039] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_typesupport_c.so\n'}
+[6.582389] (wildfire_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_typesupport_c.so" to ""\n'}
+[6.582603] (wildfire_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs\n'}
+[6.582824] (wildfire_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg\n'}
+[6.583064] (wildfire_msgs) StdoutLine: {'line': b'-- Up-to-date: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail\n'}
+[6.583401] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/pan_tilt_cmd__rosidl_typesupport_introspection_cpp.hpp\n'}
+[6.588550] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/mode__rosidl_typesupport_introspection_cpp.hpp\n'}
+[6.591324] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/pan_tilt_cmd__type_support.cpp\n'}
+[6.592385] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/detection__type_support.cpp\n'}
+[6.593287] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/detection__rosidl_typesupport_introspection_cpp.hpp\n'}
+[6.604210] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/button_event__type_support.cpp\n'}
+[6.607830] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/mode__type_support.cpp\n'}
+[6.609049] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/drive_cmd__rosidl_typesupport_introspection_cpp.hpp\n'}
+[6.611206] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/drive_cmd__type_support.cpp\n'}
+[6.612440] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/include/wildfire_msgs/wildfire_msgs/msg/detail/button_event__rosidl_typesupport_introspection_cpp.hpp\n'}
+[6.615617] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_typesupport_introspection_cpp.so\n'}
+[6.617091] (wildfire_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_typesupport_introspection_cpp.so" to ""\n'}
+[6.617488] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_typesupport_cpp.so\n'}
+[6.622323] (wildfire_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_typesupport_cpp.so" to ""\n'}
+[6.622702] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/environment/pythonpath.sh\n'}
+[6.629293] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/environment/pythonpath.dsv\n'}
+[6.632255] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs-0.1.0-py3.10.egg-info\n'}
+[6.639853] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs-0.1.0-py3.10.egg-info/PKG-INFO\n'}
+[6.643631] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs-0.1.0-py3.10.egg-info/SOURCES.txt\n'}
+[6.647635] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs-0.1.0-py3.10.egg-info/top_level.txt\n'}
+[6.650800] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs-0.1.0-py3.10.egg-info/dependency_links.txt\n'}
+[6.652250] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs\n'}
+[6.653185] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/wildfire_msgs_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so\n'}
+[6.654530] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/_wildfire_msgs_s.ep.rosidl_typesupport_fastrtps_c.c\n'}
+[6.656269] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/wildfire_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so\n'}
+[6.657545] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/libwildfire_msgs__rosidl_generator_py.so\n'}
+[6.657835] (-) TimerEvent: {}
+[6.658874] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg\n'}
+[6.659497] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_drive_cmd_s.c\n'}
+[6.660391] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_drive_cmd.py\n'}
+[6.673184] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_detection.py\n'}
+[6.674374] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_pan_tilt_cmd.py\n'}
+[6.682866] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_mode.py\n'}
+[6.684133] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/__init__.py\n'}
+[6.690517] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_mode_s.c\n'}
+[6.691555] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_pan_tilt_cmd_s.c\n'}
+[6.698237] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_button_event.py\n'}
+[6.699268] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_detection_s.c\n'}
+[6.702503] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_button_event_s.c\n'}
+[6.706096] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/__init__.py\n'}
+[6.707256] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/wildfire_msgs_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so\n'}
+[6.708595] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/_wildfire_msgs_s.ep.rosidl_typesupport_introspection_c.c\n'}
+[6.710163] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/_wildfire_msgs_s.ep.rosidl_typesupport_c.c\n'}
+[6.747449] (wildfire_msgs) StdoutLine: {'line': b"Listing '/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs'...\n"}
+[6.749775] (wildfire_msgs) StdoutLine: {'line': b"Compiling '/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/__init__.py'...\n"}
+[6.750036] (wildfire_msgs) StdoutLine: {'line': b"Listing '/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg'...\n"}
+[6.750573] (wildfire_msgs) StdoutLine: {'line': b"Compiling '/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/__init__.py'...\n"}
+[6.750787] (wildfire_msgs) StdoutLine: {'line': b"Compiling '/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_button_event.py'...\n"}
+[6.750897] (wildfire_msgs) StdoutLine: {'line': b"Compiling '/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_detection.py'...\n"}
+[6.751012] (wildfire_msgs) StdoutLine: {'line': b"Compiling '/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_drive_cmd.py'...\n"}
+[6.751195] (wildfire_msgs) StdoutLine: {'line': b"Compiling '/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_mode.py'...\n"}
+[6.751419] (wildfire_msgs) StdoutLine: {'line': b"Compiling '/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/msg/_pan_tilt_cmd.py'...\n"}
+[6.752370] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/wildfire_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so\n'}
+[6.753725] (wildfire_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/wildfire_msgs_s__rosidl_typesupport_fastrtps_c.cpython-310-aarch64-linux-gnu.so" to ""\n'}
+[6.754095] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/wildfire_msgs_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so\n'}
+[6.755515] (wildfire_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/wildfire_msgs_s__rosidl_typesupport_introspection_c.cpython-310-aarch64-linux-gnu.so" to ""\n'}
+[6.755825] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/wildfire_msgs_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so\n'}
+[6.763558] (-) TimerEvent: {}
+[6.768396] (wildfire_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages/wildfire_msgs/wildfire_msgs_s__rosidl_typesupport_c.cpython-310-aarch64-linux-gnu.so" to ""\n'}
+[6.768867] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_generator_py.so\n'}
+[6.771294] (wildfire_msgs) StdoutLine: {'line': b'-- Set runtime path of "/home/project/ros2_ws/install/wildfire_msgs/lib/libwildfire_msgs__rosidl_generator_py.so" to ""\n'}
+[6.771947] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/ament_index/resource_index/rust_packages/wildfire_msgs\n'}
+[6.772779] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/rust\n'}
+[6.773376] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/rust/Cargo.toml\n'}
+[6.775439] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/rust/build.rs\n'}
+[6.776412] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/rust/src\n'}
+[6.777138] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/rust/src/msg\n'}
+[6.777657] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/rust/src/msg/rmw.rs\n'}
+[6.778781] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/rust/src/lib.rs\n'}
+[6.779973] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/rust/src/msg.rs\n'}
+[6.781292] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/msg/Mode.idl\n'}
+[6.782123] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/msg/ButtonEvent.idl\n'}
+[6.783142] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/msg/Detection.idl\n'}
+[6.784129] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/msg/DriveCmd.idl\n'}
+[6.787475] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/msg/PanTiltCmd.idl\n'}
+[6.788605] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/msg/Mode.msg\n'}
+[6.789693] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/msg/ButtonEvent.msg\n'}
+[6.792537] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/msg/Detection.msg\n'}
+[6.793617] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/msg/DriveCmd.msg\n'}
+[6.794512] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/msg/PanTiltCmd.msg\n'}
+[6.797798] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/ament_index/resource_index/package_run_dependencies/wildfire_msgs\n'}
+[6.800356] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/ament_index/resource_index/parent_prefix_path/wildfire_msgs\n'}
+[6.802141] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/environment/ament_prefix_path.sh\n'}
+[6.804379] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/environment/ament_prefix_path.dsv\n'}
+[6.805875] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/environment/path.sh\n'}
+[6.806841] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/environment/path.dsv\n'}
+[6.809881] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/local_setup.bash\n'}
+[6.811607] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/local_setup.sh\n'}
+[6.813022] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/local_setup.zsh\n'}
+[6.815124] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/local_setup.dsv\n'}
+[6.818551] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/package.dsv\n'}
+[6.820455] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/ament_index/resource_index/packages/wildfire_msgs\n'}
+[6.822504] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/export_wildfire_msgs__rosidl_generator_cExport.cmake\n'}
+[6.823743] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/export_wildfire_msgs__rosidl_generator_cExport-noconfig.cmake\n'}
+[6.825605] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/export_wildfire_msgs__rosidl_typesupport_fastrtps_cExport.cmake\n'}
+[6.826746] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/export_wildfire_msgs__rosidl_typesupport_fastrtps_cExport-noconfig.cmake\n'}
+[6.827812] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/export_wildfire_msgs__rosidl_generator_cppExport.cmake\n'}
+[6.829972] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/export_wildfire_msgs__rosidl_typesupport_fastrtps_cppExport.cmake\n'}
+[6.832811] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/export_wildfire_msgs__rosidl_typesupport_fastrtps_cppExport-noconfig.cmake\n'}
+[6.835135] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/wildfire_msgs__rosidl_typesupport_introspection_cExport.cmake\n'}
+[6.836365] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/wildfire_msgs__rosidl_typesupport_introspection_cExport-noconfig.cmake\n'}
+[6.837924] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/wildfire_msgs__rosidl_typesupport_cExport.cmake\n'}
+[6.839157] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/wildfire_msgs__rosidl_typesupport_cExport-noconfig.cmake\n'}
+[6.841341] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/wildfire_msgs__rosidl_typesupport_introspection_cppExport.cmake\n'}
+[6.844030] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/wildfire_msgs__rosidl_typesupport_introspection_cppExport-noconfig.cmake\n'}
+[6.844996] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/wildfire_msgs__rosidl_typesupport_cppExport.cmake\n'}
+[6.847190] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/wildfire_msgs__rosidl_typesupport_cppExport-noconfig.cmake\n'}
+[6.848558] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/export_wildfire_msgs__rosidl_generator_pyExport.cmake\n'}
+[6.849712] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/export_wildfire_msgs__rosidl_generator_pyExport-noconfig.cmake\n'}
+[6.850885] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/rosidl_cmake-extras.cmake\n'}
+[6.853868] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/ament_cmake_export_dependencies-extras.cmake\n'}
+[6.855083] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/ament_cmake_export_include_directories-extras.cmake\n'}
+[6.856657] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/ament_cmake_export_libraries-extras.cmake\n'}
+[6.858294] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/ament_cmake_export_targets-extras.cmake\n'}
+[6.859588] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/rosidl_cmake_export_typesupport_targets-extras.cmake\n'}
+[6.860778] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/rosidl_cmake_export_typesupport_libraries-extras.cmake\n'}
+[6.862150] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/wildfire_msgsConfig.cmake\n'}
+[6.863509] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/cmake/wildfire_msgsConfig-version.cmake\n'}
+[6.863823] (-) TimerEvent: {}
+[6.864941] (wildfire_msgs) StdoutLine: {'line': b'-- Installing: /home/project/ros2_ws/install/wildfire_msgs/share/wildfire_msgs/package.xml\n'}
+[6.868785] (wildfire_msgs) CommandEnded: {'returncode': 0}
+[6.916715] (wildfire_msgs) JobEnded: {'identifier': 'wildfire_msgs', 'rc': 0}
+[6.922210] (wildfire_control) JobStarted: {'identifier': 'wildfire_control'}
+[6.940835] (wildfire_vision) JobStarted: {'identifier': 'wildfire_vision'}
+[6.964868] (-) TimerEvent: {}
+[7.065957] (-) TimerEvent: {}
+[7.167806] (-) TimerEvent: {}
+[7.268797] (-) TimerEvent: {}
+[7.349702] (wildfire_vision) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/wildfire_vision', 'build', '--build-base', '/home/project/ros2_ws/build/wildfire_vision/build', 'install', '--record', '/home/project/ros2_ws/build/wildfire_vision/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/project/ros2_ws/src/wildfire_vision', 'env': {'HOSTNAME': '1861861cfa74', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/project/ros2_ws/install/wildfire_msgs/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib', 'HOME': '/root', 'OLDPWD': '/home/project/ros2_ws', 'ROS_PYTHON_VERSION': '3', 'COLCON_PREFIX_PATH': '/home/project/ros2_ws/install', 'ROS_DISTRO': 'humble', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'TERM': 'xterm', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/home/project/ros2_ws/install/wildfire_vision/bin:/home/project/ros2_ws/install/wildfire_control/bin:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'LANG': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/home/project/ros2_ws/install/wildfire_bringup:/home/project/ros2_ws/install/wildfire_vision:/home/project/ros2_ws/install/wildfire_control:/home/project/ros2_ws/install/wildfire_msgs:/opt/ros/humble', 'PWD': '/home/project/ros2_ws/build/wildfire_vision', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/home/project/ros2_ws/build/wildfire_vision/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/project/ros2_ws/install/wildfire_vision/lib/python3.10/site-packages:/home/project/ros2_ws/install/wildfire_bringup/lib/python3.10/site-packages:/home/project/ros2_ws/install/wildfire_vision/lib/python3.10/site-packages:/home/project/ros2_ws/install/wildfire_control/lib/python3.10/site-packages:/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/project/ros2_ws/install/wildfire_msgs'}, 'shell': False}
+[7.354983] (wildfire_control) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/wildfire_control', 'build', '--build-base', '/home/project/ros2_ws/build/wildfire_control/build', 'install', '--record', '/home/project/ros2_ws/build/wildfire_control/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/project/ros2_ws/src/wildfire_control', 'env': {'HOSTNAME': '1861861cfa74', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/project/ros2_ws/install/wildfire_msgs/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib', 'HOME': '/root', 'OLDPWD': '/home/project/ros2_ws', 'ROS_PYTHON_VERSION': '3', 'COLCON_PREFIX_PATH': '/home/project/ros2_ws/install', 'ROS_DISTRO': 'humble', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'TERM': 'xterm', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/home/project/ros2_ws/install/wildfire_vision/bin:/home/project/ros2_ws/install/wildfire_control/bin:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'LANG': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/home/project/ros2_ws/install/wildfire_bringup:/home/project/ros2_ws/install/wildfire_vision:/home/project/ros2_ws/install/wildfire_control:/home/project/ros2_ws/install/wildfire_msgs:/opt/ros/humble', 'PWD': '/home/project/ros2_ws/build/wildfire_control', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/home/project/ros2_ws/build/wildfire_control/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/project/ros2_ws/install/wildfire_control/lib/python3.10/site-packages:/home/project/ros2_ws/install/wildfire_bringup/lib/python3.10/site-packages:/home/project/ros2_ws/install/wildfire_vision/lib/python3.10/site-packages:/home/project/ros2_ws/install/wildfire_control/lib/python3.10/site-packages:/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/project/ros2_ws/install/wildfire_msgs'}, 'shell': False}
+[7.369794] (-) TimerEvent: {}
+[7.441257] (wildfire_vision) StdoutLine: {'line': b'running egg_info\n'}
+[7.442120] (wildfire_control) StdoutLine: {'line': b'running egg_info\n'}
+[7.442604] (wildfire_control) StdoutLine: {'line': b'creating ../../build/wildfire_control/wildfire_control.egg-info\n'}
+[7.443078] (wildfire_vision) StdoutLine: {'line': b'creating ../../build/wildfire_vision/wildfire_vision.egg-info\n'}
+[7.443472] (wildfire_control) StdoutLine: {'line': b'writing ../../build/wildfire_control/wildfire_control.egg-info/PKG-INFO\n'}
+[7.443774] (wildfire_vision) StdoutLine: {'line': b'writing ../../build/wildfire_vision/wildfire_vision.egg-info/PKG-INFO\n'}
+[7.444173] (wildfire_control) StdoutLine: {'line': b'writing dependency_links to ../../build/wildfire_control/wildfire_control.egg-info/dependency_links.txt\n'}
+[7.444586] (wildfire_vision) StdoutLine: {'line': b'writing dependency_links to ../../build/wildfire_vision/wildfire_vision.egg-info/dependency_links.txt\n'}
+[7.445607] (wildfire_control) StdoutLine: {'line': b'writing entry points to ../../build/wildfire_control/wildfire_control.egg-info/entry_points.txt\n'}
+[7.446104] (wildfire_control) StdoutLine: {'line': b'writing requirements to ../../build/wildfire_control/wildfire_control.egg-info/requires.txt\n'}
+[7.446361] (wildfire_vision) StdoutLine: {'line': b'writing entry points to ../../build/wildfire_vision/wildfire_vision.egg-info/entry_points.txt\n'}
+[7.446579] (wildfire_control) StdoutLine: {'line': b'writing top-level names to ../../build/wildfire_control/wildfire_control.egg-info/top_level.txt\n'}
+[7.447305] (wildfire_vision) StdoutLine: {'line': b'writing requirements to ../../build/wildfire_vision/wildfire_vision.egg-info/requires.txt\n'}
+[7.447612] (wildfire_control) StdoutLine: {'line': b"writing manifest file '../../build/wildfire_control/wildfire_control.egg-info/SOURCES.txt'\n"}
+[7.447897] (wildfire_vision) StdoutLine: {'line': b'writing top-level names to ../../build/wildfire_vision/wildfire_vision.egg-info/top_level.txt\n'}
+[7.448064] (wildfire_vision) StdoutLine: {'line': b"writing manifest file '../../build/wildfire_vision/wildfire_vision.egg-info/SOURCES.txt'\n"}
+[7.448190] (wildfire_control) StdoutLine: {'line': b"reading manifest file '../../build/wildfire_control/wildfire_control.egg-info/SOURCES.txt'\n"}
+[7.448757] (wildfire_control) StdoutLine: {'line': b"writing manifest file '../../build/wildfire_control/wildfire_control.egg-info/SOURCES.txt'\n"}
+[7.449172] (wildfire_control) StdoutLine: {'line': b'running build\n'}
+[7.449516] (wildfire_control) StdoutLine: {'line': b'running build_py\n'}
+[7.449829] (wildfire_vision) StdoutLine: {'line': b"reading manifest file '../../build/wildfire_vision/wildfire_vision.egg-info/SOURCES.txt'\n"}
+[7.450173] (wildfire_control) StdoutLine: {'line': b'creating /home/project/ros2_ws/build/wildfire_control/build\n'}
+[7.450482] (wildfire_control) StdoutLine: {'line': b'creating /home/project/ros2_ws/build/wildfire_control/build/lib\n'}
+[7.451209] (wildfire_control) StdoutLine: {'line': b'creating /home/project/ros2_ws/build/wildfire_control/build/lib/wildfire_control\n'}
+[7.451536] (wildfire_control) StdoutLine: {'line': b'copying wildfire_control/state_machine_node.py -> /home/project/ros2_ws/build/wildfire_control/build/lib/wildfire_control\n'}
+[7.451794] (wildfire_vision) StdoutLine: {'line': b"writing manifest file '../../build/wildfire_vision/wildfire_vision.egg-info/SOURCES.txt'\n"}
+[7.452586] (wildfire_vision) StdoutLine: {'line': b'running build\n'}
+[7.454478] (wildfire_vision) StdoutLine: {'line': b'running build_py\n'}
+[7.454799] (wildfire_control) StdoutLine: {'line': b'copying wildfire_control/__init__.py -> /home/project/ros2_ws/build/wildfire_control/build/lib/wildfire_control\n'}
+[7.455802] (wildfire_vision) StdoutLine: {'line': b'creating /home/project/ros2_ws/build/wildfire_vision/build\n'}
+[7.456102] (wildfire_vision) StdoutLine: {'line': b'creating /home/project/ros2_ws/build/wildfire_vision/build/lib\n'}
+[7.456572] (wildfire_vision) StdoutLine: {'line': b'creating /home/project/ros2_ws/build/wildfire_vision/build/lib/wildfire_vision\n'}
+[7.457001] (wildfire_control) StdoutLine: {'line': b'copying wildfire_control/fire_controller_node.py -> /home/project/ros2_ws/build/wildfire_control/build/lib/wildfire_control\n'}
+[7.457658] (wildfire_vision) StdoutLine: {'line': b'copying wildfire_vision/fire_detector_node.py -> /home/project/ros2_ws/build/wildfire_vision/build/lib/wildfire_vision\n'}
+[7.457918] (wildfire_control) StdoutLine: {'line': b'copying wildfire_control/follow_controller_node.py -> /home/project/ros2_ws/build/wildfire_control/build/lib/wildfire_control\n'}
+[7.458648] (wildfire_vision) StdoutLine: {'line': b'copying wildfire_vision/__init__.py -> /home/project/ros2_ws/build/wildfire_vision/build/lib/wildfire_vision\n'}
+[7.459282] (wildfire_control) StdoutLine: {'line': b'running install\n'}
+[7.459542] (wildfire_vision) StdoutLine: {'line': b'copying wildfire_vision/person_detector_node.py -> /home/project/ros2_ws/build/wildfire_vision/build/lib/wildfire_vision\n'}
+[7.459728] (wildfire_control) StdoutLine: {'line': b'running install_lib\n'}
+[7.460598] (wildfire_vision) StdoutLine: {'line': b'copying wildfire_vision/camera_node.py -> /home/project/ros2_ws/build/wildfire_vision/build/lib/wildfire_vision\n'}
+[7.461055] (wildfire_control) StdoutLine: {'line': b'creating /home/project/ros2_ws/install/wildfire_control/lib/python3.10/site-packages/wildfire_control\n'}
+[7.461391] (wildfire_control) StdoutLine: {'line': b'copying /home/project/ros2_ws/build/wildfire_control/build/lib/wildfire_control/state_machine_node.py -> /home/project/ros2_ws/install/wildfire_control/lib/python3.10/site-packages/wildfire_control\n'}
+[7.461653] (wildfire_vision) StdoutLine: {'line': b'running install\n'}
+[7.462096] (wildfire_vision) StdoutLine: {'line': b'running install_lib\n'}
+[7.462393] (wildfire_control) StdoutLine: {'line': b'copying /home/project/ros2_ws/build/wildfire_control/build/lib/wildfire_control/__init__.py -> /home/project/ros2_ws/install/wildfire_control/lib/python3.10/site-packages/wildfire_control\n'}
+[7.462707] (wildfire_vision) StdoutLine: {'line': b'creating /home/project/ros2_ws/install/wildfire_vision/lib/python3.10/site-packages/wildfire_vision\n'}
+[7.462970] (wildfire_vision) StdoutLine: {'line': b'copying /home/project/ros2_ws/build/wildfire_vision/build/lib/wildfire_vision/fire_detector_node.py -> /home/project/ros2_ws/install/wildfire_vision/lib/python3.10/site-packages/wildfire_vision\n'}
+[7.463364] (wildfire_control) StdoutLine: {'line': b'copying /home/project/ros2_ws/build/wildfire_control/build/lib/wildfire_control/fire_controller_node.py -> /home/project/ros2_ws/install/wildfire_control/lib/python3.10/site-packages/wildfire_control\n'}
+[7.463568] (wildfire_vision) StdoutLine: {'line': b'copying /home/project/ros2_ws/build/wildfire_vision/build/lib/wildfire_vision/__init__.py -> /home/project/ros2_ws/install/wildfire_vision/lib/python3.10/site-packages/wildfire_vision\n'}
+[7.463978] (wildfire_control) StdoutLine: {'line': b'copying /home/project/ros2_ws/build/wildfire_control/build/lib/wildfire_control/follow_controller_node.py -> /home/project/ros2_ws/install/wildfire_control/lib/python3.10/site-packages/wildfire_control\n'}
+[7.464232] (wildfire_vision) StdoutLine: {'line': b'copying /home/project/ros2_ws/build/wildfire_vision/build/lib/wildfire_vision/person_detector_node.py -> /home/project/ros2_ws/install/wildfire_vision/lib/python3.10/site-packages/wildfire_vision\n'}
+[7.464549] (wildfire_vision) StdoutLine: {'line': b'copying /home/project/ros2_ws/build/wildfire_vision/build/lib/wildfire_vision/camera_node.py -> /home/project/ros2_ws/install/wildfire_vision/lib/python3.10/site-packages/wildfire_vision\n'}
+[7.464838] (wildfire_control) StdoutLine: {'line': b'byte-compiling /home/project/ros2_ws/install/wildfire_control/lib/python3.10/site-packages/wildfire_control/state_machine_node.py to state_machine_node.cpython-310.pyc\n'}
+[7.465528] (wildfire_vision) StdoutLine: {'line': b'byte-compiling /home/project/ros2_ws/install/wildfire_vision/lib/python3.10/site-packages/wildfire_vision/fire_detector_node.py to fire_detector_node.cpython-310.pyc\n'}
+[7.466707] (wildfire_control) StdoutLine: {'line': b'byte-compiling /home/project/ros2_ws/install/wildfire_control/lib/python3.10/site-packages/wildfire_control/__init__.py to __init__.cpython-310.pyc\n'}
+[7.468700] (wildfire_control) StdoutLine: {'line': b'byte-compiling /home/project/ros2_ws/install/wildfire_control/lib/python3.10/site-packages/wildfire_control/fire_controller_node.py to fire_controller_node.cpython-310.pyc\n'}
+[7.469813] (wildfire_vision) StdoutLine: {'line': b'byte-compiling /home/project/ros2_ws/install/wildfire_vision/lib/python3.10/site-packages/wildfire_vision/__init__.py to __init__.cpython-310.pyc\n'}
+[7.470111] (-) TimerEvent: {}
+[7.470582] (wildfire_control) StdoutLine: {'line': b'byte-compiling /home/project/ros2_ws/install/wildfire_control/lib/python3.10/site-packages/wildfire_control/follow_controller_node.py to follow_controller_node.cpython-310.pyc\n'}
+[7.470972] (wildfire_vision) StdoutLine: {'line': b'byte-compiling /home/project/ros2_ws/install/wildfire_vision/lib/python3.10/site-packages/wildfire_vision/person_detector_node.py to person_detector_node.cpython-310.pyc\n'}
+[7.473357] (wildfire_control) StdoutLine: {'line': b'running install_data\n'}
+[7.473727] (wildfire_vision) StdoutLine: {'line': b'byte-compiling /home/project/ros2_ws/install/wildfire_vision/lib/python3.10/site-packages/wildfire_vision/camera_node.py to camera_node.cpython-310.pyc\n'}
+[7.474178] (wildfire_control) StdoutLine: {'line': b'creating /home/project/ros2_ws/install/wildfire_control/share/ament_index\n'}
+[7.474747] (wildfire_control) StdoutLine: {'line': b'creating /home/project/ros2_ws/install/wildfire_control/share/ament_index/resource_index\n'}
+[7.475327] (wildfire_control) StdoutLine: {'line': b'creating /home/project/ros2_ws/install/wildfire_control/share/ament_index/resource_index/packages\n'}
+[7.475594] (wildfire_control) StdoutLine: {'line': b'copying resource/wildfire_control -> /home/project/ros2_ws/install/wildfire_control/share/ament_index/resource_index/packages\n'}
+[7.476270] (wildfire_vision) StdoutLine: {'line': b'running install_data\n'}
+[7.477066] (wildfire_vision) StdoutLine: {'line': b'creating /home/project/ros2_ws/install/wildfire_vision/share/ament_index\n'}
+[7.477472] (wildfire_vision) StdoutLine: {'line': b'creating /home/project/ros2_ws/install/wildfire_vision/share/ament_index/resource_index\n'}
+[7.477736] (wildfire_control) StdoutLine: {'line': b'copying package.xml -> /home/project/ros2_ws/install/wildfire_control/share/wildfire_control\n'}
+[7.478289] (wildfire_vision) StdoutLine: {'line': b'creating /home/project/ros2_ws/install/wildfire_vision/share/ament_index/resource_index/packages\n'}
+[7.478513] (wildfire_vision) StdoutLine: {'line': b'copying resource/wildfire_vision -> /home/project/ros2_ws/install/wildfire_vision/share/ament_index/resource_index/packages\n'}
+[7.478783] (wildfire_control) StdoutLine: {'line': b'running install_egg_info\n'}
+[7.479148] (wildfire_vision) StdoutLine: {'line': b'copying package.xml -> /home/project/ros2_ws/install/wildfire_vision/share/wildfire_vision\n'}
+[7.479606] (wildfire_control) StdoutLine: {'line': b'Copying ../../build/wildfire_control/wildfire_control.egg-info to /home/project/ros2_ws/install/wildfire_control/lib/python3.10/site-packages/wildfire_control-0.1.0-py3.10.egg-info\n'}
+[7.480252] (wildfire_vision) StdoutLine: {'line': b'running install_egg_info\n'}
+[7.481711] (wildfire_vision) StdoutLine: {'line': b'Copying ../../build/wildfire_vision/wildfire_vision.egg-info to /home/project/ros2_ws/install/wildfire_vision/lib/python3.10/site-packages/wildfire_vision-0.1.0-py3.10.egg-info\n'}
+[7.486822] (wildfire_control) StdoutLine: {'line': b'running install_scripts\n'}
+[7.489803] (wildfire_vision) StdoutLine: {'line': b'running install_scripts\n'}
+[7.500628] (wildfire_control) StdoutLine: {'line': b'Installing fire_controller_node script to /home/project/ros2_ws/install/wildfire_control/bin\n'}
+[7.502015] (wildfire_vision) StdoutLine: {'line': b'Installing camera_node script to /home/project/ros2_ws/install/wildfire_vision/bin\n'}
+[7.502739] (wildfire_control) StdoutLine: {'line': b'Installing follow_controller_node script to /home/project/ros2_ws/install/wildfire_control/bin\n'}
+[7.503189] (wildfire_vision) StdoutLine: {'line': b'Installing fire_detector_node script to /home/project/ros2_ws/install/wildfire_vision/bin\n'}
+[7.503599] (wildfire_control) StdoutLine: {'line': b'Installing state_machine_node script to /home/project/ros2_ws/install/wildfire_control/bin\n'}
+[7.504123] (wildfire_vision) StdoutLine: {'line': b'Installing person_detector_node script to /home/project/ros2_ws/install/wildfire_vision/bin\n'}
+[7.506414] (wildfire_control) StdoutLine: {'line': b"writing list of installed files to '/home/project/ros2_ws/build/wildfire_control/install.log'\n"}
+[7.508825] (wildfire_vision) StdoutLine: {'line': b"writing list of installed files to '/home/project/ros2_ws/build/wildfire_vision/install.log'\n"}
+[7.522135] (wildfire_control) CommandEnded: {'returncode': 0}
+[7.535986] (wildfire_control) JobEnded: {'identifier': 'wildfire_control', 'rc': 0}
+[7.537841] (wildfire_vision) CommandEnded: {'returncode': 0}
+[7.561523] (wildfire_vision) JobEnded: {'identifier': 'wildfire_vision', 'rc': 0}
+[7.567500] (wildfire_bringup) JobStarted: {'identifier': 'wildfire_bringup'}
+[7.570465] (-) TimerEvent: {}
+[7.670855] (-) TimerEvent: {}
+[7.775006] (-) TimerEvent: {}
+[7.858696] (wildfire_bringup) Command: {'cmd': ['/usr/bin/python3', '-W', 'ignore:setup.py install is deprecated', '-W', 'ignore:easy_install command is deprecated', 'setup.py', 'egg_info', '--egg-base', '../../build/wildfire_bringup', 'build', '--build-base', '/home/project/ros2_ws/build/wildfire_bringup/build', 'install', '--record', '/home/project/ros2_ws/build/wildfire_bringup/install.log', '--single-version-externally-managed', 'install_data'], 'cwd': '/home/project/ros2_ws/src/wildfire_bringup', 'env': {'HOSTNAME': '1861861cfa74', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/home/project/ros2_ws/install/wildfire_msgs/lib:/opt/ros/humble/lib/aarch64-linux-gnu:/opt/ros/humble/lib', 'HOME': '/root', 'OLDPWD': '/home/project/ros2_ws', 'ROS_PYTHON_VERSION': '3', 'COLCON_PREFIX_PATH': '/home/project/ros2_ws/install', 'ROS_DISTRO': 'humble', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'TERM': 'xterm', 'ROS_LOCALHOST_ONLY': '0', 'PATH': '/home/project/ros2_ws/install/wildfire_vision/bin:/home/project/ros2_ws/install/wildfire_control/bin:/opt/ros/humble/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin', 'LANG': 'C.UTF-8', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'AMENT_PREFIX_PATH': '/home/project/ros2_ws/install/wildfire_vision:/home/project/ros2_ws/install/wildfire_control:/home/project/ros2_ws/install/wildfire_bringup:/home/project/ros2_ws/install/wildfire_msgs:/opt/ros/humble', 'PWD': '/home/project/ros2_ws/build/wildfire_bringup', 'LC_ALL': 'C.UTF-8', 'PYTHONPATH': '/home/project/ros2_ws/build/wildfire_bringup/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/project/ros2_ws/install/wildfire_bringup/lib/python3.10/site-packages:/home/project/ros2_ws/install/wildfire_vision/lib/python3.10/site-packages:/home/project/ros2_ws/install/wildfire_control/lib/python3.10/site-packages:/home/project/ros2_ws/install/wildfire_bringup/lib/python3.10/site-packages:/home/project/ros2_ws/install/wildfire_msgs/local/lib/python3.10/dist-packages:/opt/ros/humble/lib/python3.10/site-packages:/opt/ros/humble/local/lib/python3.10/dist-packages', 'COLCON': '1', 'CMAKE_PREFIX_PATH': '/home/project/ros2_ws/install/wildfire_msgs'}, 'shell': False}
+[7.875774] (-) TimerEvent: {}
+[7.946119] (wildfire_bringup) StdoutLine: {'line': b'running egg_info\n'}
+[7.946641] (wildfire_bringup) StdoutLine: {'line': b'creating ../../build/wildfire_bringup/wildfire_bringup.egg-info\n'}
+[7.947023] (wildfire_bringup) StdoutLine: {'line': b'writing ../../build/wildfire_bringup/wildfire_bringup.egg-info/PKG-INFO\n'}
+[7.947544] (wildfire_bringup) StdoutLine: {'line': b'writing dependency_links to ../../build/wildfire_bringup/wildfire_bringup.egg-info/dependency_links.txt\n'}
+[7.947910] (wildfire_bringup) StdoutLine: {'line': b'writing entry points to ../../build/wildfire_bringup/wildfire_bringup.egg-info/entry_points.txt\n'}
+[7.948239] (wildfire_bringup) StdoutLine: {'line': b'writing requirements to ../../build/wildfire_bringup/wildfire_bringup.egg-info/requires.txt\n'}
+[7.948528] (wildfire_bringup) StdoutLine: {'line': b'writing top-level names to ../../build/wildfire_bringup/wildfire_bringup.egg-info/top_level.txt\n'}
+[7.948844] (wildfire_bringup) StdoutLine: {'line': b"writing manifest file '../../build/wildfire_bringup/wildfire_bringup.egg-info/SOURCES.txt'\n"}
+[7.950563] (wildfire_bringup) StdoutLine: {'line': b"reading manifest file '../../build/wildfire_bringup/wildfire_bringup.egg-info/SOURCES.txt'\n"}
+[7.951380] (wildfire_bringup) StdoutLine: {'line': b"writing manifest file '../../build/wildfire_bringup/wildfire_bringup.egg-info/SOURCES.txt'\n"}
+[7.951603] (wildfire_bringup) StdoutLine: {'line': b'running build\n'}
+[7.951838] (wildfire_bringup) StdoutLine: {'line': b'running build_py\n'}
+[7.953065] (wildfire_bringup) StdoutLine: {'line': b'creating /home/project/ros2_ws/build/wildfire_bringup/build\n'}
+[7.953479] (wildfire_bringup) StdoutLine: {'line': b'creating /home/project/ros2_ws/build/wildfire_bringup/build/lib\n'}
+[7.953757] (wildfire_bringup) StdoutLine: {'line': b'creating /home/project/ros2_ws/build/wildfire_bringup/build/lib/wildfire_bringup\n'}
+[7.954416] (wildfire_bringup) StdoutLine: {'line': b'copying wildfire_bringup/__init__.py -> /home/project/ros2_ws/build/wildfire_bringup/build/lib/wildfire_bringup\n'}
+[7.954597] (wildfire_bringup) StdoutLine: {'line': b'running install\n'}
+[7.954760] (wildfire_bringup) StdoutLine: {'line': b'running install_lib\n'}
+[7.955038] (wildfire_bringup) StdoutLine: {'line': b'creating /home/project/ros2_ws/install/wildfire_bringup/lib/python3.10/site-packages/wildfire_bringup\n'}
+[7.955185] (wildfire_bringup) StdoutLine: {'line': b'copying /home/project/ros2_ws/build/wildfire_bringup/build/lib/wildfire_bringup/__init__.py -> /home/project/ros2_ws/install/wildfire_bringup/lib/python3.10/site-packages/wildfire_bringup\n'}
+[7.955966] (wildfire_bringup) StdoutLine: {'line': b'byte-compiling /home/project/ros2_ws/install/wildfire_bringup/lib/python3.10/site-packages/wildfire_bringup/__init__.py to __init__.cpython-310.pyc\n'}
+[7.957072] (wildfire_bringup) StdoutLine: {'line': b'running install_data\n'}
+[7.957272] (wildfire_bringup) StdoutLine: {'line': b'creating /home/project/ros2_ws/install/wildfire_bringup/share/ament_index\n'}
+[7.957642] (wildfire_bringup) StdoutLine: {'line': b'creating /home/project/ros2_ws/install/wildfire_bringup/share/ament_index/resource_index\n'}
+[7.958304] (wildfire_bringup) StdoutLine: {'line': b'creating /home/project/ros2_ws/install/wildfire_bringup/share/ament_index/resource_index/packages\n'}
+[7.958669] (wildfire_bringup) StdoutLine: {'line': b'copying resource/wildfire_bringup -> /home/project/ros2_ws/install/wildfire_bringup/share/ament_index/resource_index/packages\n'}
+[7.959010] (wildfire_bringup) StdoutLine: {'line': b'copying package.xml -> /home/project/ros2_ws/install/wildfire_bringup/share/wildfire_bringup\n'}
+[7.959777] (wildfire_bringup) StdoutLine: {'line': b'creating /home/project/ros2_ws/install/wildfire_bringup/share/wildfire_bringup/launch\n'}
+[7.960037] (wildfire_bringup) StdoutLine: {'line': b'copying launch/bringup.launch.py -> /home/project/ros2_ws/install/wildfire_bringup/share/wildfire_bringup/launch\n'}
+[7.960797] (wildfire_bringup) StdoutLine: {'line': b'creating /home/project/ros2_ws/install/wildfire_bringup/share/wildfire_bringup/config\n'}
+[7.961063] (wildfire_bringup) StdoutLine: {'line': b'copying config/params.yaml -> /home/project/ros2_ws/install/wildfire_bringup/share/wildfire_bringup/config\n'}
+[7.961982] (wildfire_bringup) StdoutLine: {'line': b'running install_egg_info\n'}
+[7.963811] (wildfire_bringup) StdoutLine: {'line': b'Copying ../../build/wildfire_bringup/wildfire_bringup.egg-info to /home/project/ros2_ws/install/wildfire_bringup/lib/python3.10/site-packages/wildfire_bringup-0.1.0-py3.10.egg-info\n'}
+[7.970479] (wildfire_bringup) StdoutLine: {'line': b'running install_scripts\n'}
+[7.976794] (-) TimerEvent: {}
+[7.984423] (wildfire_bringup) StdoutLine: {'line': b"writing list of installed files to '/home/project/ros2_ws/build/wildfire_bringup/install.log'\n"}
+[7.999593] (wildfire_bringup) CommandEnded: {'returncode': 0}
+[8.008968] (wildfire_bringup) JobEnded: {'identifier': 'wildfire_bringup', 'rc': 0}
+[8.010447] (-) EventReactorShutdown: {}

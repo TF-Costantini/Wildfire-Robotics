@@ -1,0 +1,14 @@
+package.xml
+setup.py
+../../build/wildfire_vision/wildfire_vision.egg-info/PKG-INFO
+../../build/wildfire_vision/wildfire_vision.egg-info/SOURCES.txt
+../../build/wildfire_vision/wildfire_vision.egg-info/dependency_links.txt
+../../build/wildfire_vision/wildfire_vision.egg-info/entry_points.txt
+../../build/wildfire_vision/wildfire_vision.egg-info/requires.txt
+../../build/wildfire_vision/wildfire_vision.egg-info/top_level.txt
+../../build/wildfire_vision/wildfire_vision.egg-info/zip-safe
+resource/wildfire_vision
+wildfire_vision/__init__.py
+wildfire_vision/camera_node.py
+wildfire_vision/fire_detector_node.py
+wildfire_vision/person_detector_node.py

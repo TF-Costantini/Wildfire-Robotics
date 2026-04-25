@@ -1,0 +1,258 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-64a2c4fcbc6c0fe356dd.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						18
+					]
+				},
+				{
+					"build" : "wildfire_msgs__py",
+					"jsonFile" : "directory-wildfire_msgs__py-73ea729603ad175cb20b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "/home/project/ros2_ws/build/wildfire_msgs/wildfire_msgs__py",
+					"targetIndexes" : 
+					[
+						5
+					]
+				},
+				{
+					"build" : "wildfire_msgs__rs",
+					"jsonFile" : "directory-wildfire_msgs__rs-25d176625ea95e8d28ea.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.12"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "/home/project/ros2_ws/build/wildfire_msgs/wildfire_msgs__rs",
+					"targetIndexes" : 
+					[
+						17
+					]
+				}
+			],
+			"name" : "",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2
+					],
+					"name" : "wildfire_msgs",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_build_wildfire_msgs_egg::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_build_wildfire_msgs_egg-dabd4c1baf29bdf572c0.json",
+					"name" : "ament_cmake_python_build_wildfire_msgs_egg",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ament_cmake_python_copy_wildfire_msgs::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ament_cmake_python_copy_wildfire_msgs-aa87aa19336d026212e2.json",
+					"name" : "ament_cmake_python_copy_wildfire_msgs",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-uninstall-76f5508651817edbed30.json",
+					"name" : "uninstall",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "wildfire_msgs::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-wildfire_msgs-aabee56cbefc24a26a31.json",
+					"name" : "wildfire_msgs",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "wildfire_msgs__cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-wildfire_msgs__cpp-bde5c139c5a054ba9b5a.json",
+					"name" : "wildfire_msgs__cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "wildfire_msgs__py::@7ca8b9c1d82e8af7e9c4",
+					"jsonFile" : "target-wildfire_msgs__py-9095cf3460c15f34bb9c.json",
+					"name" : "wildfire_msgs__py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "wildfire_msgs__rosidl_generator_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-wildfire_msgs__rosidl_generator_c-f1eb329a39b0396d3176.json",
+					"name" : "wildfire_msgs__rosidl_generator_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "wildfire_msgs__rosidl_generator_py::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-wildfire_msgs__rosidl_generator_py-a236c8397143d99996ad.json",
+					"name" : "wildfire_msgs__rosidl_generator_py",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "wildfire_msgs__rosidl_typesupport_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-wildfire_msgs__rosidl_typesupport_c-7f0182241b8b0d95c2e7.json",
+					"name" : "wildfire_msgs__rosidl_typesupport_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "wildfire_msgs__rosidl_typesupport_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-wildfire_msgs__rosidl_typesupport_c__pyext-fbec7bc466e543da8a92.json",
+					"name" : "wildfire_msgs__rosidl_typesupport_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "wildfire_msgs__rosidl_typesupport_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-wildfire_msgs__rosidl_typesupport_cpp-7927d1f6a1be4e30b8f4.json",
+					"name" : "wildfire_msgs__rosidl_typesupport_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "wildfire_msgs__rosidl_typesupport_fastrtps_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-wildfire_msgs__rosidl_typesupport_fastrtps_c-46304bb0de65ffc772c2.json",
+					"name" : "wildfire_msgs__rosidl_typesupport_fastrtps_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "wildfire_msgs__rosidl_typesupport_fastrtps_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-wildfire_msgs__rosidl_typesupport_fastrtps_c__pyext-849930964f819cc7a639.json",
+					"name" : "wildfire_msgs__rosidl_typesupport_fastrtps_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "wildfire_msgs__rosidl_typesupport_fastrtps_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-wildfire_msgs__rosidl_typesupport_fastrtps_cpp-472c5397a9d36ece47fc.json",
+					"name" : "wildfire_msgs__rosidl_typesupport_fastrtps_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "wildfire_msgs__rosidl_typesupport_introspection_c::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-wildfire_msgs__rosidl_typesupport_introspection_c-86a9bf8c1695fb83b6d2.json",
+					"name" : "wildfire_msgs__rosidl_typesupport_introspection_c",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "wildfire_msgs__rosidl_typesupport_introspection_c__pyext::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-wildfire_msgs__rosidl_typesupport_introspection_c__pyext-0330d030eb27054ce75e.json",
+					"name" : "wildfire_msgs__rosidl_typesupport_introspection_c__pyext",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "wildfire_msgs__rosidl_typesupport_introspection_cpp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-wildfire_msgs__rosidl_typesupport_introspection_cpp-ee1d32acc316c9830b30.json",
+					"name" : "wildfire_msgs__rosidl_typesupport_introspection_cpp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "wildfire_msgs__rs::@986c9a5def834a339b97",
+					"jsonFile" : "target-wildfire_msgs__rs-21f6210b71e7ce39013c.json",
+					"name" : "wildfire_msgs__rs",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "wildfire_msgs_uninstall::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-wildfire_msgs_uninstall-140697615a8c8ec37d01.json",
+					"name" : "wildfire_msgs_uninstall",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/project/ros2_ws/build/wildfire_msgs",
+		"source" : "/home/project/ros2_ws/src/wildfire_msgs"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

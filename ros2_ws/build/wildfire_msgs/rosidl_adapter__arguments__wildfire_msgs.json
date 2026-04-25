@@ -1,0 +1,10 @@
+{
+  "package_name": "wildfire_msgs",
+  "non_idl_tuples": [
+    "/home/project/ros2_ws/src/wildfire_msgs:msg/Mode.msg",
+    "/home/project/ros2_ws/src/wildfire_msgs:msg/ButtonEvent.msg",
+    "/home/project/ros2_ws/src/wildfire_msgs:msg/Detection.msg",
+    "/home/project/ros2_ws/src/wildfire_msgs:msg/DriveCmd.msg",
+    "/home/project/ros2_ws/src/wildfire_msgs:msg/PanTiltCmd.msg"
+  ]
+}

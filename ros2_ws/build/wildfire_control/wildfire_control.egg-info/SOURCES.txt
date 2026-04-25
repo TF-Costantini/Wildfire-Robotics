@@ -1,0 +1,14 @@
+package.xml
+setup.py
+../../build/wildfire_control/wildfire_control.egg-info/PKG-INFO
+../../build/wildfire_control/wildfire_control.egg-info/SOURCES.txt
+../../build/wildfire_control/wildfire_control.egg-info/dependency_links.txt
+../../build/wildfire_control/wildfire_control.egg-info/entry_points.txt
+../../build/wildfire_control/wildfire_control.egg-info/requires.txt
+../../build/wildfire_control/wildfire_control.egg-info/top_level.txt
+../../build/wildfire_control/wildfire_control.egg-info/zip-safe
+resource/wildfire_control
+wildfire_control/__init__.py
+wildfire_control/fire_controller_node.py
+wildfire_control/follow_controller_node.py
+wildfire_control/state_machine_node.py

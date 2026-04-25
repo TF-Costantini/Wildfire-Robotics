@@ -1,0 +1,43 @@
+running egg_info
+creating ../../build/wildfire_control/wildfire_control.egg-info
+writing ../../build/wildfire_control/wildfire_control.egg-info/PKG-INFO
+writing dependency_links to ../../build/wildfire_control/wildfire_control.egg-info/dependency_links.txt
+writing entry points to ../../build/wildfire_control/wildfire_control.egg-info/entry_points.txt
+writing requirements to ../../build/wildfire_control/wildfire_control.egg-info/requires.txt
+writing top-level names to ../../build/wildfire_control/wildfire_control.egg-info/top_level.txt
+writing manifest file '../../build/wildfire_control/wildfire_control.egg-info/SOURCES.txt'
+reading manifest file '../../build/wildfire_control/wildfire_control.egg-info/SOURCES.txt'
+writing manifest file '../../build/wildfire_control/wildfire_control.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/project/ros2_ws/build/wildfire_control/build
+creating /home/project/ros2_ws/build/wildfire_control/build/lib
+creating /home/project/ros2_ws/build/wildfire_control/build/lib/wildfire_control
+copying wildfire_control/state_machine_node.py -> /home/project/ros2_ws/build/wildfire_control/build/lib/wildfire_control
+copying wildfire_control/__init__.py -> /home/project/ros2_ws/build/wildfire_control/build/lib/wildfire_control
+copying wildfire_control/fire_controller_node.py -> /home/project/ros2_ws/build/wildfire_control/build/lib/wildfire_control
+copying wildfire_control/follow_controller_node.py -> /home/project/ros2_ws/build/wildfire_control/build/lib/wildfire_control
+running install
+running install_lib
+creating /home/project/ros2_ws/install/wildfire_control/lib/python3.10/site-packages/wildfire_control
+copying /home/project/ros2_ws/build/wildfire_control/build/lib/wildfire_control/state_machine_node.py -> /home/project/ros2_ws/install/wildfire_control/lib/python3.10/site-packages/wildfire_control
+copying /home/project/ros2_ws/build/wildfire_control/build/lib/wildfire_control/__init__.py -> /home/project/ros2_ws/install/wildfire_control/lib/python3.10/site-packages/wildfire_control
+copying /home/project/ros2_ws/build/wildfire_control/build/lib/wildfire_control/fire_controller_node.py -> /home/project/ros2_ws/install/wildfire_control/lib/python3.10/site-packages/wildfire_control
+copying /home/project/ros2_ws/build/wildfire_control/build/lib/wildfire_control/follow_controller_node.py -> /home/project/ros2_ws/install/wildfire_control/lib/python3.10/site-packages/wildfire_control
+byte-compiling /home/project/ros2_ws/install/wildfire_control/lib/python3.10/site-packages/wildfire_control/state_machine_node.py to state_machine_node.cpython-310.pyc
+byte-compiling /home/project/ros2_ws/install/wildfire_control/lib/python3.10/site-packages/wildfire_control/__init__.py to __init__.cpython-310.pyc
+byte-compiling /home/project/ros2_ws/install/wildfire_control/lib/python3.10/site-packages/wildfire_control/fire_controller_node.py to fire_controller_node.cpython-310.pyc
+byte-compiling /home/project/ros2_ws/install/wildfire_control/lib/python3.10/site-packages/wildfire_control/follow_controller_node.py to follow_controller_node.cpython-310.pyc
+running install_data
+creating /home/project/ros2_ws/install/wildfire_control/share/ament_index
+creating /home/project/ros2_ws/install/wildfire_control/share/ament_index/resource_index
+creating /home/project/ros2_ws/install/wildfire_control/share/ament_index/resource_index/packages
+copying resource/wildfire_control -> /home/project/ros2_ws/install/wildfire_control/share/ament_index/resource_index/packages
+copying package.xml -> /home/project/ros2_ws/install/wildfire_control/share/wildfire_control
+running install_egg_info
+Copying ../../build/wildfire_control/wildfire_control.egg-info to /home/project/ros2_ws/install/wildfire_control/lib/python3.10/site-packages/wildfire_control-0.1.0-py3.10.egg-info
+running install_scripts
+Installing fire_controller_node script to /home/project/ros2_ws/install/wildfire_control/bin
+Installing follow_controller_node script to /home/project/ros2_ws/install/wildfire_control/bin
+Installing state_machine_node script to /home/project/ros2_ws/install/wildfire_control/bin
+writing list of installed files to '/home/project/ros2_ws/build/wildfire_control/install.log'
