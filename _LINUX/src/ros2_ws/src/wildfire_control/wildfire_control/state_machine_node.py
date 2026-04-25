@@ -116,10 +116,17 @@ class StateMachineNode(Node):
         self._laser_cmd = Bool()
         self._laser_cmd.data = False
 
+        # === Timer forwarding (20 Hz → ogni 50 ms) ===
+        # Pubblica /cmd_*_mcu in modo periodico applicando il gating per stato,
+        # così i comandi correnti dei controller raggiungono il MCU.
+        self.create_timer(1.0 / 20.0, self._forward_callback)
+
         # === Timer watchdog (10 Hz → check ogni 100 ms) ===
+        # Se nessun comando arriva da > timeout, azzera i valori memorizzati;
+        # il forward_callback al prossimo tick pubblica i neutri.
         self.create_timer(0.1, self._watchdog_callback)
 
-        # Pubblicare stato iniziale e comandi iniziali
+        # Pubblicare stato iniziale e prima istantanea comandi
         self._publish_mode()
         self._apply_gating()
 
@@ -147,9 +154,11 @@ class StateMachineNode(Node):
             self.get_logger().info(f'STATE: {state_names[old_state]} → {state_names[self.current_state]}')
 
         self._publish_mode()
-        # Azzerare comandi al cambio di stato prima del prossimo gating
-        self._reset_to_neutral()
-        self._apply_gating()
+        # Azzerare comandi memorizzati al cambio di stato per evitare
+        # forwarding di valori stale del modo precedente.
+        with self.lock:
+            self._reset_to_neutral()
+        # Forwarding sarà fatto dal forward_callback al prossimo tick.
 
     def _drive_callback(self, msg: DriveCmd):
         """Memorizza l'ultimo cmd_drive ricevuto e aggiorna watchdog."""
@@ -169,16 +178,23 @@ class StateMachineNode(Node):
             self._laser_cmd = msg
             self._last_cmd_sec = self.get_clock().now().nanoseconds / 1e9
 
+    # ─── Forwarding timer ───────────────────────────────────────────────────
+
+    def _forward_callback(self):
+        """Pubblica /cmd_*_mcu a frequenza fissa applicando il gating per stato."""
+        self._apply_gating()
+
     # ─── Watchdog ────────────────────────────────────────────────────────────
 
     def _watchdog_callback(self):
-        """Se non arrivano comandi da 500 ms, pubblica comando neutro."""
+        """Se non arrivano comandi da 500 ms, azzera i valori memorizzati."""
         elapsed = (self.get_clock().now().nanoseconds / 1e9) - self._last_cmd_sec
         if elapsed > (self.watchdog_timeout_ms / 1000.0):
-            self.get_logger().warn(f'Watchdog timeout ({self.watchdog_timeout_ms} ms senza comandi) — pubblico neutro')
-            self._reset_to_neutral()
-            self._apply_gating()
-            # Reset del timestamp per non ripetere il warning ogni tick
+            self.get_logger().warn(f'Watchdog timeout ({self.watchdog_timeout_ms} ms senza comandi) — neutralizzo')
+            with self.lock:
+                self._reset_to_neutral()
+            # Reset del timestamp per non ripetere il warning ogni tick.
+            # Il prossimo forward_callback pubblicherà i neutri.
             self._last_cmd_sec = self.get_clock().now().nanoseconds / 1e9
 
     # ─── Publishing ─────────────────────────────────────────────────────────

@@ -79,7 +79,7 @@ class FireControllerNode(Node):
         self.tilt_increment = self.get_parameter('tilt_increment_deg').value
         self.pd_kp_pan = self.get_parameter('pd_kp_pan').value
         self.pd_kp_tilt = self.get_parameter('pd_kp_tilt').value
-        self.pd_kd = self.declare_parameter('pd_kd').value
+        self.pd_kd = self.get_parameter('pd_kd').value
         self.lock_threshold = self.get_parameter('lock_threshold_px').value
         self.lock_time = self.get_parameter('lock_time_s').value
         self.unlock_time = self.get_parameter('unlock_time_s').value

@@ -41,14 +41,14 @@ class PersonDetectorNode(Node):
         self.camera_topic = self.get_parameter('camera_topic').value
         self.conf_threshold = self.get_parameter('conf_threshold').value
         model_name = self.get_parameter('model_name').value
-        device = self.get_parameter('device').value
+        self._device = self.get_parameter('device').value
 
         # --- CvBridge ---
         self._bridge = CvBridge()
 
         # --- YOLOv8n ---
         self._model = None
-        self._load_model(model_name, device)
+        self._load_model(model_name, self._device)
 
         # --- Subscriber ---
         self.create_subscription(
@@ -63,7 +63,7 @@ class PersonDetectorNode(Node):
 
         self.get_logger().info(
             f'PersonDetectorNode avviato: model={model_name}, '
-            f'conf={self.conf_threshold}, device={device}'
+            f'conf={self.conf_threshold}, device={self._device}'
         )
 
     # ─── Model loading ───────────────────────────────────────────────────────
@@ -91,6 +91,8 @@ class PersonDetectorNode(Node):
             return
 
         img_h, img_w = frame.shape[:2]
+        img_h = float(img_h)
+        img_w = float(img_w)
 
         # Nessun modello → pubblica found=False
         if self._model is None:
@@ -99,7 +101,7 @@ class PersonDetectorNode(Node):
 
         # Inference YOLOv8n
         try:
-            results = self._model(frame, verbose=False, device=device)
+            results = self._model(frame, verbose=False, device=self._device)
         except Exception as e:
             self.get_logger().error(f'YOLO inference error: {e}')
             self._publish_detection(False, 0.0, 0.0, 0.0, img_w, img_h, 0.0)
