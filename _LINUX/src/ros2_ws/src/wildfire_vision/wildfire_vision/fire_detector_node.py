@@ -117,7 +117,7 @@ class FireDetectorNode(Node):
             self.get_logger().error(f'CvBridge error: {e}')
             return
 
-        img_h, img_w = frame.shape[:2]
+        img_h, img_w = float(frame.shape[0]), float(frame.shape[1])
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
         # Costruisci maschera combinata
