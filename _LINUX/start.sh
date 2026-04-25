@@ -19,9 +19,14 @@ rosdep install --from-paths . --ignore-src -y
 
 # To build ros2_ws
 echo -e "\nBUILDING ROS2_WS\n"
+source /opt/ros/humble/setup.bash
 colcon build
 
 # Sources the setup file
 echo -e "\nSOURCING INSTALL FILE\n"
 source "$SRC_PATH/install/setup.bash"
 
+# Check Success
+echo -e "CHECKING PACKAGES EXIST...\n"
+ros2 pkg list | grep wildfire || { echo -e "PACKAGES NOT FOUND. BUILD FAILED.\n"; false; }
+echo -e "\nPACKAGES FOUND! BUILD SUCCESSFUL!\n"
