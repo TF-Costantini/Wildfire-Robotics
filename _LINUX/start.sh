@@ -1,17 +1,22 @@
 #!/bin/bash
 set -e
 
-#goes to ros2_ws
-cd src/ros2_ws
+SRC_PATH=/home/project/src/ros2_ws
 
-#updates linux
+cd $SRC_PATH
+
+# Updates Linux runtime
+echo -e "\nUPDATING LINUX\n"
 apt update
 
-#updates the local cache of rosdep's dependency database
+# Updates the local cache of rosdep dependency database
+echo -e "\nUPDATING ROS DEPENDENCY DATABASE\n"
 rosdep update
 
-#installs libraries and dependencies to build the proj
-rosdep install --from-paths src --ignore-src -y
+# Installs libraries and dependencies to build the proj
+echo -e "\nINSTALLING ROS REQUIRED DEPENDENCY\n"
+rosdep install --from-paths . --ignore-src -y
 
-#to build ros2_ws
+# To build ros2_ws
+echo -e "\nBUILDING ROS2_WS\n"
 colcon build

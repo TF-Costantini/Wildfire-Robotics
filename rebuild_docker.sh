@@ -14,7 +14,7 @@ docker container rm -f $CONTAINER_NAME
 #Runs ros image
 docker run -it \
   --name $CONTAINER_NAME \
-  -v "$PROJ_FILES:/home/project" \
+  -v "$PROJ_FILES/src/ros2_ws/src:/home/project/src/ros2_ws" \
   -v "$PROJ_FILES/start.sh:/start.sh" \
   $IMAGE_NAME
 

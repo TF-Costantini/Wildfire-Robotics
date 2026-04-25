@@ -1,5 +1,0 @@
-[console_scripts]
-fire_controller_node = wildfire_control.fire_controller_node:main
-follow_controller_node = wildfire_control.follow_controller_node:main
-state_machine_node = wildfire_control.state_machine_node:main
-

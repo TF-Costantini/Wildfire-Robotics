@@ -1,5 +1,0 @@
-/home/project/src/ros2_ws/build/wildfire_msgs/rosidl_adapter/wildfire_msgs:msg/Mode.idl
-/home/project/src/ros2_ws/build/wildfire_msgs/rosidl_adapter/wildfire_msgs:msg/ButtonEvent.idl
-/home/project/src/ros2_ws/build/wildfire_msgs/rosidl_adapter/wildfire_msgs:msg/Detection.idl
-/home/project/src/ros2_ws/build/wildfire_msgs/rosidl_adapter/wildfire_msgs:msg/DriveCmd.idl
-/home/project/src/ros2_ws/build/wildfire_msgs/rosidl_adapter/wildfire_msgs:msg/PanTiltCmd.idl

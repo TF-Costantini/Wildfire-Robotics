@@ -1,4 +1,0 @@
-source;share/wildfire_msgs/local_setup.bash
-source;share/wildfire_msgs/local_setup.dsv
-source;share/wildfire_msgs/local_setup.sh
-source;share/wildfire_msgs/local_setup.zsh

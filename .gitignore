@@ -1,5 +1,13 @@
+# REMOVES IDE FOLDER
 **/.idea/
+
+# REMOVES ALL BINARIES
 **/bin/
 **/cmake-build-debug/
+
+# REMOVES ALL LOG FOLDERS
 **/log/
+
+
+**/build/
 **/.cmake/
