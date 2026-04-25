@@ -5,9 +5,8 @@
 **/bin/
 **/cmake-build-debug/
 
-# REMOVES ALL LOG FOLDERS
+# REMOVES ALL AUTO-GEN ROS FILES
 **/log/
-
-
 **/build/
+**/install/
 **/.cmake/
