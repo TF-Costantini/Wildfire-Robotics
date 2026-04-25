@@ -8,6 +8,9 @@ PROJ_FILES=./_LINUX
 #Pulls ROS image
 docker pull $IMAGE_NAME
 
+#Removes the old container
+docker container rm -f $CONTAINER_NAME
+
 #Runs ros image
 docker run -it \
   --name $CONTAINER_NAME \
