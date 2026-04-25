@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/project/ros2_ws/src/wildfire_msgs
+CMAKE_SOURCE_DIR = /home/project/src/ros2_ws/src/wildfire_msgs
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/project/ros2_ws/build/wildfire_msgs
+CMAKE_BINARY_DIR = /home/project/src/ros2_ws/build/wildfire_msgs
 
 # Utility rule file for wildfire_msgs.
 
@@ -66,11 +66,11 @@ include CMakeFiles/wildfire_msgs.dir/compiler_depend.make
 # Include the progress variables for this target.
 include CMakeFiles/wildfire_msgs.dir/progress.make
 
-CMakeFiles/wildfire_msgs: /home/project/ros2_ws/src/wildfire_msgs/msg/Mode.msg
-CMakeFiles/wildfire_msgs: /home/project/ros2_ws/src/wildfire_msgs/msg/ButtonEvent.msg
-CMakeFiles/wildfire_msgs: /home/project/ros2_ws/src/wildfire_msgs/msg/Detection.msg
-CMakeFiles/wildfire_msgs: /home/project/ros2_ws/src/wildfire_msgs/msg/DriveCmd.msg
-CMakeFiles/wildfire_msgs: /home/project/ros2_ws/src/wildfire_msgs/msg/PanTiltCmd.msg
+CMakeFiles/wildfire_msgs: /home/project/src/ros2_ws/src/wildfire_msgs/msg/Mode.msg
+CMakeFiles/wildfire_msgs: /home/project/src/ros2_ws/src/wildfire_msgs/msg/ButtonEvent.msg
+CMakeFiles/wildfire_msgs: /home/project/src/ros2_ws/src/wildfire_msgs/msg/Detection.msg
+CMakeFiles/wildfire_msgs: /home/project/src/ros2_ws/src/wildfire_msgs/msg/DriveCmd.msg
+CMakeFiles/wildfire_msgs: /home/project/src/ros2_ws/src/wildfire_msgs/msg/PanTiltCmd.msg
 CMakeFiles/wildfire_msgs: /opt/ros/humble/share/builtin_interfaces/msg/Duration.idl
 CMakeFiles/wildfire_msgs: /opt/ros/humble/share/builtin_interfaces/msg/Time.idl
 CMakeFiles/wildfire_msgs: /opt/ros/humble/share/std_msgs/msg/Bool.idl
@@ -145,6 +145,6 @@ CMakeFiles/wildfire_msgs.dir/clean:
 .PHONY : CMakeFiles/wildfire_msgs.dir/clean
 
 CMakeFiles/wildfire_msgs.dir/depend:
-	cd /home/project/ros2_ws/build/wildfire_msgs && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/project/ros2_ws/src/wildfire_msgs /home/project/ros2_ws/src/wildfire_msgs /home/project/ros2_ws/build/wildfire_msgs /home/project/ros2_ws/build/wildfire_msgs /home/project/ros2_ws/build/wildfire_msgs/CMakeFiles/wildfire_msgs.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/project/src/ros2_ws/build/wildfire_msgs && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/project/src/ros2_ws/src/wildfire_msgs /home/project/src/ros2_ws/src/wildfire_msgs /home/project/src/ros2_ws/build/wildfire_msgs /home/project/src/ros2_ws/build/wildfire_msgs /home/project/src/ros2_ws/build/wildfire_msgs/CMakeFiles/wildfire_msgs.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/wildfire_msgs.dir/depend
 

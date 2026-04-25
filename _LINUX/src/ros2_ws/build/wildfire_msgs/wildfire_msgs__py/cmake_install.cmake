@@ -1,8 +1,8 @@
-# Install script for directory: /home/project/ros2_ws/build/wildfire_msgs/wildfire_msgs__py
+# Install script for directory: /home/project/src/ros2_ws/build/wildfire_msgs/wildfire_msgs__py
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/home/project/ros2_ws/install/wildfire_msgs")
+  set(CMAKE_INSTALL_PREFIX "/home/project/src/ros2_ws/install/wildfire_msgs")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 

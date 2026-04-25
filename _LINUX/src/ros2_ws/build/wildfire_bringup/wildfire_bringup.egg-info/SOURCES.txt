@@ -8,6 +8,7 @@ setup.py
 ../../build/wildfire_bringup/wildfire_bringup.egg-info/top_level.txt
 ../../build/wildfire_bringup/wildfire_bringup.egg-info/zip-safe
 config/params.yaml
+launch/__init__.py
 launch/bringup.launch.py
 resource/wildfire_bringup
 wildfire_bringup/__init__.py

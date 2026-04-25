@@ -1,13 +1,13 @@
 {
   "package_name": "wildfire_msgs",
-  "output_dir": "/home/project/ros2_ws/build/wildfire_msgs/rosidl_generator_py/wildfire_msgs",
+  "output_dir": "/home/project/src/ros2_ws/build/wildfire_msgs/rosidl_generator_py/wildfire_msgs",
   "template_dir": "/opt/ros/humble/share/rosidl_generator_py/cmake/../resource",
   "idl_tuples": [
-    "/home/project/ros2_ws/build/wildfire_msgs/rosidl_adapter/wildfire_msgs:msg/Mode.idl",
-    "/home/project/ros2_ws/build/wildfire_msgs/rosidl_adapter/wildfire_msgs:msg/ButtonEvent.idl",
-    "/home/project/ros2_ws/build/wildfire_msgs/rosidl_adapter/wildfire_msgs:msg/Detection.idl",
-    "/home/project/ros2_ws/build/wildfire_msgs/rosidl_adapter/wildfire_msgs:msg/DriveCmd.idl",
-    "/home/project/ros2_ws/build/wildfire_msgs/rosidl_adapter/wildfire_msgs:msg/PanTiltCmd.idl"
+    "/home/project/src/ros2_ws/build/wildfire_msgs/rosidl_adapter/wildfire_msgs:msg/Mode.idl",
+    "/home/project/src/ros2_ws/build/wildfire_msgs/rosidl_adapter/wildfire_msgs:msg/ButtonEvent.idl",
+    "/home/project/src/ros2_ws/build/wildfire_msgs/rosidl_adapter/wildfire_msgs:msg/Detection.idl",
+    "/home/project/src/ros2_ws/build/wildfire_msgs/rosidl_adapter/wildfire_msgs:msg/DriveCmd.idl",
+    "/home/project/src/ros2_ws/build/wildfire_msgs/rosidl_adapter/wildfire_msgs:msg/PanTiltCmd.idl"
   ],
   "ros_interface_dependencies": [
     "builtin_interfaces:/opt/ros/humble/share/builtin_interfaces/msg/Duration.idl",
@@ -117,11 +117,11 @@
     "/opt/ros/humble/share/rosidl_generator_py/cmake/../resource/_msg.py.em",
     "/opt/ros/humble/share/rosidl_generator_py/cmake/../resource/_srv_pkg_typesupport_entry_point.c.em",
     "/opt/ros/humble/share/rosidl_generator_py/cmake/../resource/_srv.py.em",
-    "/home/project/ros2_ws/build/wildfire_msgs/rosidl_adapter/wildfire_msgs/msg/Mode.idl",
-    "/home/project/ros2_ws/build/wildfire_msgs/rosidl_adapter/wildfire_msgs/msg/ButtonEvent.idl",
-    "/home/project/ros2_ws/build/wildfire_msgs/rosidl_adapter/wildfire_msgs/msg/Detection.idl",
-    "/home/project/ros2_ws/build/wildfire_msgs/rosidl_adapter/wildfire_msgs/msg/DriveCmd.idl",
-    "/home/project/ros2_ws/build/wildfire_msgs/rosidl_adapter/wildfire_msgs/msg/PanTiltCmd.idl",
+    "/home/project/src/ros2_ws/build/wildfire_msgs/rosidl_adapter/wildfire_msgs/msg/Mode.idl",
+    "/home/project/src/ros2_ws/build/wildfire_msgs/rosidl_adapter/wildfire_msgs/msg/ButtonEvent.idl",
+    "/home/project/src/ros2_ws/build/wildfire_msgs/rosidl_adapter/wildfire_msgs/msg/Detection.idl",
+    "/home/project/src/ros2_ws/build/wildfire_msgs/rosidl_adapter/wildfire_msgs/msg/DriveCmd.idl",
+    "/home/project/src/ros2_ws/build/wildfire_msgs/rosidl_adapter/wildfire_msgs/msg/PanTiltCmd.idl",
     "/opt/ros/humble/share/builtin_interfaces/msg/Duration.idl",
     "/opt/ros/humble/share/builtin_interfaces/msg/Time.idl",
     "/opt/ros/humble/share/std_msgs/msg/Bool.idl",

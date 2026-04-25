@@ -53,10 +53,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/project/ros2_ws/src/wildfire_msgs
+CMAKE_SOURCE_DIR = /home/project/src/ros2_ws/src/wildfire_msgs
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/project/ros2_ws/build/wildfire_msgs
+CMAKE_BINARY_DIR = /home/project/src/ros2_ws/build/wildfire_msgs
 
 # Utility rule file for wildfire_msgs_uninstall.
 
@@ -67,7 +67,7 @@ include CMakeFiles/wildfire_msgs_uninstall.dir/compiler_depend.make
 include CMakeFiles/wildfire_msgs_uninstall.dir/progress.make
 
 CMakeFiles/wildfire_msgs_uninstall:
-	/usr/bin/cmake -P /home/project/ros2_ws/build/wildfire_msgs/ament_cmake_uninstall_target/ament_cmake_uninstall_target.cmake
+	/usr/bin/cmake -P /home/project/src/ros2_ws/build/wildfire_msgs/ament_cmake_uninstall_target/ament_cmake_uninstall_target.cmake
 
 wildfire_msgs_uninstall: CMakeFiles/wildfire_msgs_uninstall
 wildfire_msgs_uninstall: CMakeFiles/wildfire_msgs_uninstall.dir/build.make
@@ -82,6 +82,6 @@ CMakeFiles/wildfire_msgs_uninstall.dir/clean:
 .PHONY : CMakeFiles/wildfire_msgs_uninstall.dir/clean
 
 CMakeFiles/wildfire_msgs_uninstall.dir/depend:
-	cd /home/project/ros2_ws/build/wildfire_msgs && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/project/ros2_ws/src/wildfire_msgs /home/project/ros2_ws/src/wildfire_msgs /home/project/ros2_ws/build/wildfire_msgs /home/project/ros2_ws/build/wildfire_msgs /home/project/ros2_ws/build/wildfire_msgs/CMakeFiles/wildfire_msgs_uninstall.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/project/src/ros2_ws/build/wildfire_msgs && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/project/src/ros2_ws/src/wildfire_msgs /home/project/src/ros2_ws/src/wildfire_msgs /home/project/src/ros2_ws/build/wildfire_msgs /home/project/src/ros2_ws/build/wildfire_msgs /home/project/src/ros2_ws/build/wildfire_msgs/CMakeFiles/wildfire_msgs_uninstall.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/wildfire_msgs_uninstall.dir/depend
 
