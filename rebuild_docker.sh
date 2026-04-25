@@ -16,6 +16,7 @@ docker run -it \
   --name $CONTAINER_NAME \
   -v "$PROJ_FILES/src/ros2_ws/src:/home/project/src/ros2_ws" \
   -v "$PROJ_FILES/start.sh:/start.sh" \
+  -v "$PROJ_FILES/test_images:/home/project"
   $IMAGE_NAME
 
 echo -e "\nSTARTED SUCCESSFULLY"
