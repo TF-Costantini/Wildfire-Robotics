@@ -3,15 +3,19 @@ set -e
 
 IMAGE_NAME=ros:humble
 CONTAINER_NAME=ros2_dev
-PROJ_FILES=./_LINUX/
+PROJ_FILES=./_LINUX
 
 #Pulls ROS image
 docker pull $IMAGE_NAME
 
-#Removes container
+#Removes the old container
 docker container rm -f $CONTAINER_NAME
 
 #Runs ros image
-docker run -it --name $CONTAINER_NAME -v "$PROJ_FILES:/home/project" $IMAGE_NAME
+docker run -it \
+  --name $CONTAINER_NAME \
+  -v "$PROJ_FILES:/home/project" \
+  -v "$PROJ_FILES/start.sh:/start.sh" \
+  $IMAGE_NAME
 
 echo -e "\nSTARTED SUCCESSFULLY"
