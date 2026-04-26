@@ -7,9 +7,16 @@ ROSDEP_ENTRY="yaml file://$SRC_PATH/src/wildfire_vision/rosdep/python3-ultralyti
 
 cd $SRC_PATH
 
-# Installing python-3
+# Installing python-3 and core build tools.
+# Note: python3-venv, build-essential and binutils are required by the
+# MCU firmware build flow (see _RTOS/setup_firmware.sh). They are
+# installed here so a single `bash setup.sh` bootstraps the container
+# for both the ROS2 stack and the firmware build.
 echo -e "\INSTALLING PYTHON AND EXTERNAL DEPENDENCIES\n"
-apt-get install -y python3-pip
+apt-get install -y \
+    python3-pip python3-venv \
+    build-essential binutils \
+    git curl ca-certificates libusb-1.0-0
 pip3 install ultralytics
 
 # Updates all
@@ -52,3 +59,12 @@ echo -e "\nPACKAGES FOUND! BUILD SUCCESSFUL!\n"
 # Adding sources to ./bashrc if not existing yet so that they are sourced automatically on new sessions
 grep -qxF 'source /home/project/ros2_ws/install/setup.bash' ~/.bashrc || echo 'source /home/project/ros2_ws/install/setup.bash' >> ~/.bashrc
 grep -qxF 'source /opt/ros/humble/setup.bash' ~/.bashrc || echo 'source /opt/ros/humble/setup.bash' >> ~/.bashrc
+grep -qxF 'export PATH="$HOME/.platformio/penv/bin:$PATH"' ~/.bashrc || echo 'export PATH="$HOME/.platformio/penv/bin:$PATH"' >> ~/.bashrc
+
+# To also build the MCU firmware (PlatformIO + micro-ROS), run:
+#   bash /home/project/_RTOS/setup_firmware.sh
+# It is intentionally NOT run here because the first build downloads
+# ~1 GB of toolchains + micro-ROS sources (~10 min) and not every
+# teammate needs the firmware built every time.
+echo -e "\nMCU firmware build is optional. Run when needed:"
+echo -e "    bash /home/project/_RTOS/setup_firmware.sh\n"

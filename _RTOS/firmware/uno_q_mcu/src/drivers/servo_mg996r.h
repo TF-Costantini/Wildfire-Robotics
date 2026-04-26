@@ -1,59 +1,45 @@
 /**
  * servo_mg996r.h — Wildfire Robotics UGV
+ * Public API for the pan/tilt MG996R servo pair.
  */
 
 #ifndef SERVO_MG996R_H
 #define SERVO_MG996R_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdint.h>
 #include <stdbool.h>
 
-// === API PUBBLICA ===
-
-/**
- * Inizializzare i servo MG996R
- */
+/** Attach pan and tilt servos, configure 50 Hz PWM, move to home (0,0). */
 void servo_init(void);
 
-/**
- * Impostare angolo pan
- * @param deg: angolo in gradi
- */
+/** Set pan angle in degrees (clamped to configured limits). */
 void servo_pan_set(float deg);
 
-/**
- * Impostare angolo tilt
- * @param deg: angolo in gradi
- */
+/** Set tilt angle in degrees (clamped to configured limits). */
 void servo_tilt_set(float deg);
 
-/**
- * Impostare entrambi gli angoli
- * @param pan_deg: angolo pan in gradi
- * @param tilt_deg: angolo tilt in gradi
- */
+/** Set pan and tilt at once. */
 void servo_set_position(float pan_deg, float tilt_deg);
 
-/**
- * Spostare i servo alla posizione home (0°, 0°)
- */
+/** Move both servos to (0, 0). */
 void servo_home(void);
 
-/**
- * Spostare i servo alla posizione safe
- */
+/** Move both servos to a safe stowed position. */
 void servo_safe_position(void);
 
-/**
- * Ottenere posizioni attuali
- * @param pan: output per angolo pan (può essere NULL)
- * @param tilt: output per angolo tilt (può essere NULL)
- */
+/** Read back last commanded angles. NULL pointers are skipped. */
 void servo_get_position(float *pan, float *tilt);
 
-/**
- * Impostare limiti fisici dei servo
- */
-void servo_set_limits(float pan_min, float pan_max, float tilt_min, float tilt_max);
+/** Override the default soft limits. */
+void servo_set_limits(float pan_min, float pan_max,
+                      float tilt_min, float tilt_max);
 
-#endif // SERVO_MG996R_H
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* SERVO_MG996R_H */

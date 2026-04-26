@@ -1,39 +1,34 @@
 /**
  * laser_ky008.h — Wildfire Robotics UGV
+ * Public API for the KY-008 laser pointer.
  */
 
 #ifndef LASER_KY008_H
 #define LASER_KY008_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdbool.h>
 
-// === API PUBBLICA ===
-
-/**
- * Inizializzare il laser KY-008
- * Configurare GPIO come output
- */
+/** Configure laser GPIO as output, output low (laser off). */
 void laser_init(void);
 
-/**
- * Accendere il laser
- */
+/** Drive the laser GPIO high. */
 void laser_on(void);
 
-/**
- * Spegnere il laser
- */
+/** Drive the laser GPIO low. */
 void laser_off(void);
 
-/**
- * Toggle laser stato
- */
+/** Flip the laser state. */
 void laser_toggle(void);
 
-/**
- * Ottenere stato corrente
- * @return: true se acceso
- */
+/** True if the last commanded state is on. */
 bool laser_is_on(void);
 
-#endif // LASER_KY008_H
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* LASER_KY008_H */

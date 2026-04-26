@@ -1,61 +1,41 @@
 /**
  * ultrasonic_hcsr04.h — Wildfire Robotics UGV
+ * Public API for the front-left / front-right HC-SR04 pair.
  */
 
 #ifndef ULTRASONIC_HCSR04_H
 #define ULTRASONIC_HCSR04_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdint.h>
 #include <stdbool.h>
 
-// === API PUBBLICA ===
+#define HCSR04_LEFT   0
+#define HCSR04_RIGHT  1
 
-/**
- * Inizializzare i sensori HC-SR04
- */
+/** Configure TRIG as output, ECHO as input, attach EXTI on both edges. */
 void hcsr04_init(void);
 
-/**
- * Avviare una misura sul sensore specificato
- * @param id: 0=sensor#1 (left), 1=sensor#2 (right)
- */
+/** Fire a 10 us trigger pulse on the given sensor (id = 0/1). */
 void hcsr04_trigger(uint8_t id);
 
-/**
- * Avviare misura su entrambi i sensori
- */
+/** Trigger both sensors back-to-back (with a small spacing). */
 void hcsr04_trigger_all(void);
 
-/**
- * Ottenere distanza letta
- * @param id: 0=left, 1=right
- * @return: distanza in cm, -1 se non valida
- */
+/** Periodic housekeeping: invalidate readings older than HCSR04_TIMEOUT_US. */
+void hcsr04_update(void);
+
+/** Last valid distance in cm (id = 0/1). Returns -1.0f if not valid. */
 float hcsr04_get_distance(uint8_t id);
 
-/**
- * Ottenere distanza con timeout
- * @param id: 0=left, 1=right
- * @param timeout_ms: timeout in millisecondi
- * @return: distanza in cm, -1 se timeout
- */
-float hcsr04_get_distance_timeout(uint8_t id, uint32_t timeout_ms);
-
-/**
- * Verificare se la misura è valida
- * @param id: 0=left, 1=right
- * @return: true se distanza valida
- */
+/** True if last reading is valid and within timeout. */
 bool hcsr04_is_valid(uint8_t id);
 
-/**
- * Gestire interrupt ECHO per sensore sinistro
- */
-void hcsr04_echo_interrupt_left(void);
+#ifdef __cplusplus
+}
+#endif
 
-/**
- * Gestire interrupt ECHO per sensore destro
- */
-void hcsr04_echo_interrupt_right(void);
-
-#endif // ULTRASONIC_HCSR04_H
+#endif /* ULTRASONIC_HCSR04_H */

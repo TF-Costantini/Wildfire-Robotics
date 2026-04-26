@@ -1,43 +1,42 @@
 /**
  * button.h — Wildfire Robotics UGV
+ * Public API for the mode-cycle push button.
  */
 
 #ifndef BUTTON_H
 #define BUTTON_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdint.h>
 #include <stdbool.h>
 
-// Tipi di evento pulsante
-#define BUTTON_EVENT_NONE    0
-#define BUTTON_EVENT_PRESS   1
-#define BUTTON_EVENT_RELEASE 2
+#define BUTTON_EVENT_NONE     0
+#define BUTTON_EVENT_PRESS    1
+#define BUTTON_EVENT_RELEASE  2
 
-// === API PUBBLICA ===
-
-/**
- * Inizializzare il pulsante
- * Configurare GPIO come input con pull-up e debounce
- */
+/** Configure GPIO as input pull-up; reset internal state. */
 void button_init(void);
 
 /**
- * Processare il pulsante (da chiamare nel main loop o timer)
- * Gestisce debounce software e genera eventi
- * @return: tipo evento (BUTTON_EVENT_NONE, BUTTON_EVENT_PRESS, BUTTON_EVENT_RELEASE)
+ * Process the button. Call from the main loop frequently
+ * (e.g. >= 100 Hz). Performs software debounce and emits one
+ * event per stable transition.
+ *
+ * @return BUTTON_EVENT_NONE / _PRESS / _RELEASE
  */
 uint8_t button_process(void);
 
-/**
- * Verificare se il pulsante è premuto (raw)
- * @return: true se premuto
- */
+/** Raw, undebounced read (true if currently pressed). */
 bool button_is_pressed(void);
 
-/**
- * Ottenere ultimo timestamp press
- * @return: timestamp in ms
- */
+/** millis() timestamp of the last debounced press event. */
 uint32_t button_last_press_time(void);
 
-#endif // BUTTON_H
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* BUTTON_H */
