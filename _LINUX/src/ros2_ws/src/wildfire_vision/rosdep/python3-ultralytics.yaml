@@ -1,0 +1,6 @@
+# src/wildfire_vision/rosdep/python3-ultralytics.yaml
+python3-ultralytics:
+  ubuntu:
+    pip:
+      packages:
+        - ultralytics

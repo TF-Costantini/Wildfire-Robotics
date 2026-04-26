@@ -1,13 +1,25 @@
 #!/bin/bash
 set -e
 
-SRC_PATH=/home/project/ros2_ws
+SRC_PATH="/home/project/ros2_ws"
+ROSDEP_FILE="/etc/ros/rosdep/sources.list.d/50-wildfire.list"
+ROSDEP_ENTRY="yaml file://$SRC_PATH/src/wildfire_vision/rosdep/python3-ultralytics.yaml"
 
 cd $SRC_PATH
 
-# Updates Linux runtime
+# Installing python-3
+echo -e "\INSTALLING PYTHON AND EXTERNAL DEPENDENCIES\n"
+apt-get install -y python3-pip
+pip3 install ultralytics
+
+# Updates all
 echo -e "\nUPDATING LINUX\n"
-apt update
+apt update && apt upgrade
+
+# Adds Ultralytics to RosDep ONLY if missing
+if ! grep -qF "$ROSDEP_ENTRY" "$ROSDEP_FILE" 2>/dev/null; then
+  echo "$ROSDEP_ENTRY" >> "$ROSDEP_FILE"
+fi
 
 # Updates the local cache of rosdep dependency database
 echo -e "\nUPDATING ROS DEPENDENCY DATABASE\n"
@@ -15,7 +27,7 @@ rosdep update
 
 # Installs libraries and dependencies to build the proj
 echo -e "\nINSTALLING ROS REQUIRED DEPENDENCY\n"
-rosdep install --from-paths . --ignore-src -y --rosdistro humble
+rosdep install --from-paths ./src --ignore-src -y --rosdistro humble
 
 # Removing old build files
 rm -rf "$SRC_PATH/build"
@@ -26,7 +38,7 @@ rm -rf "$SRC_PATH/log"
 echo -e "\nBUILDING ROS2_WS\n"
 source /opt/ros/humble/setup.bash
 touch "$SRC_PATH/build.log"
-colcon build --event-handlers console_direct+ > "$SRC_PATH/build.log"
+colcon build --event-handlers console_direct+ > "$SRC_PATH/build.log" --cmake-clean-cache
 
 # Sources the setup file
 echo -e "\nSOURCING INSTALL FILE\n"
