@@ -101,18 +101,31 @@ class McuSimNode(Node):
         self.create_subscription(
             Empty, '/sim/inject_button', self._on_inject_button, qos)
 
+        # ---- Last-seen actuator state (for change-only logging) ---------
+        self._last_drive   = None  # (left, right)
+        self._last_pantilt = None  # (pan, tilt)
+        self._last_laser   = None  # bool
+
         # ---- Periodic publish timer -------------------------------------
         self.create_timer(1.0 / rate_hz, self._publish_ultrasonics)
 
         # ---- Stdin console thread ---------------------------------------
+        # Only spawn console reader when stdin is a real TTY, so the node
+        # can also run from a launch file / nohup / docker -d without
+        # exiting on EOF.
         self._stop = threading.Event()
-        self._stdin_thread = threading.Thread(
-            target=self._stdin_loop, daemon=True)
-        self._stdin_thread.start()
-
-        self.get_logger().info(
-            'McuSimNode running. Type "b" for button, "l <cm>" or '
-            '"r <cm>" or "d <cm>" to set distances, "q" to quit.')
+        if sys.stdin and sys.stdin.isatty():
+            self._stdin_thread = threading.Thread(
+                target=self._stdin_loop, daemon=True)
+            self._stdin_thread.start()
+            self.get_logger().info(
+                'McuSimNode running. Type "b" for button, "l <cm>" or '
+                '"r <cm>" or "d <cm>" to set distances, "q" to quit.')
+        else:
+            self._stdin_thread = None
+            self.get_logger().info(
+                'McuSimNode running (no TTY). Use ros2 topic pub on '
+                '/sim/inject_button and ros2 param set for distances.')
 
     # ───── Periodic publishers ────────────────────────────────────────────
 
@@ -146,15 +159,28 @@ class McuSimNode(Node):
     # ───── Subscriber callbacks ──────────────────────────────────────────
 
     def _on_drive(self, msg: DriveCmd):
-        self.get_logger().info(
-            f'[motor] left={msg.left:+.2f}  right={msg.right:+.2f}')
+        # Quantize to avoid spam from float jitter while still showing
+        # meaningful changes (1% wheel-speed resolution).
+        cur = (round(msg.left, 2), round(msg.right, 2))
+        if cur != self._last_drive:
+            self._last_drive = cur
+            self.get_logger().info(
+                f'[motor] left={cur[0]:+.2f}  right={cur[1]:+.2f}')
 
     def _on_pantilt(self, msg: PanTiltCmd):
-        self.get_logger().info(
-            f'[servo] pan={msg.pan_deg:+.1f} deg  tilt={msg.tilt_deg:+.1f} deg')
+        cur = (round(msg.pan_deg, 1), round(msg.tilt_deg, 1))
+        if cur != self._last_pantilt:
+            self._last_pantilt = cur
+            self.get_logger().info(
+                f'[servo] pan={cur[0]:+.1f} deg  tilt={cur[1]:+.1f} deg')
 
     def _on_laser(self, msg: Bool):
-        self.get_logger().info(f'[laser] {"ON" if msg.data else "OFF"}')
+        if msg.data != self._last_laser:
+            self._last_laser = msg.data
+            self.get_logger().info(f'[laser] {"ON" if msg.data else "OFF"}')
+
+    def _on_inject_button(self, _msg: Empty):
+        self._emit_button()
 
     # ───── Stdin command console ─────────────────────────────────────────
 

@@ -10,3 +10,13 @@
 **/build/
 **/install/
 **/.cmake/
+
+# macOS / Python / PlatformIO clutter
+.DS_Store
+**/.DS_Store
+**/__pycache__/
+**/*.pyc
+**/.pio/
+
+# Host-driver test binary
+_RTOS/firmware/uno_q_mcu/tests/test_drivers

@@ -44,6 +44,8 @@ class StateMachineNode(Node):
 
         # Timestamp ultimo comando ricevuto (in secondi, per confronto semplice)
         self._last_cmd_sec = self.get_clock().now().nanoseconds / 1e9
+        # Watchdog edge-detect: warn solo quando si entra in stale.
+        self._watchdog_stale = False
 
         # QoS standard
         qos = QoSProfile(
@@ -164,19 +166,26 @@ class StateMachineNode(Node):
         """Memorizza l'ultimo cmd_drive ricevuto e aggiorna watchdog."""
         with self.lock:
             self._drive_cmd = msg
-            self._last_cmd_sec = self.get_clock().now().nanoseconds / 1e9
+            self._mark_cmd_received()
 
     def _pantilt_callback(self, msg: PanTiltCmd):
         """Memorizza l'ultimo cmd_pantilt ricevuto e aggiorna watchdog."""
         with self.lock:
             self._pantilt_cmd = msg
-            self._last_cmd_sec = self.get_clock().now().nanoseconds / 1e9
+            self._mark_cmd_received()
 
     def _laser_callback(self, msg: Bool):
         """Memorizza l'ultimo cmd_laser ricevuto e aggiorna watchdog."""
         with self.lock:
             self._laser_cmd = msg
-            self._last_cmd_sec = self.get_clock().now().nanoseconds / 1e9
+            self._mark_cmd_received()
+
+    def _mark_cmd_received(self):
+        """Aggiorna timestamp e clear stato stale del watchdog."""
+        self._last_cmd_sec = self.get_clock().now().nanoseconds / 1e9
+        if self._watchdog_stale:
+            self._watchdog_stale = False
+            self.get_logger().info('Watchdog: comandi ripresi')
 
     # ─── Forwarding timer ───────────────────────────────────────────────────
 
@@ -190,12 +199,13 @@ class StateMachineNode(Node):
         """Se non arrivano comandi da 500 ms, azzera i valori memorizzati."""
         elapsed = (self.get_clock().now().nanoseconds / 1e9) - self._last_cmd_sec
         if elapsed > (self.watchdog_timeout_ms / 1000.0):
-            self.get_logger().warn(f'Watchdog timeout ({self.watchdog_timeout_ms} ms senza comandi) — neutralizzo')
             with self.lock:
                 self._reset_to_neutral()
-            # Reset del timestamp per non ripetere il warning ogni tick.
-            # Il prossimo forward_callback pubblicherà i neutri.
-            self._last_cmd_sec = self.get_clock().now().nanoseconds / 1e9
+                if not self._watchdog_stale:
+                    self._watchdog_stale = True
+                    self.get_logger().warn(
+                        f'Watchdog timeout ({self.watchdog_timeout_ms} ms '
+                        'senza comandi) — neutralizzo')
 
     # ─── Publishing ─────────────────────────────────────────────────────────
 
