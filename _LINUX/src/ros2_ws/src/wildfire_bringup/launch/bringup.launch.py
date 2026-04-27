@@ -10,13 +10,28 @@ Nodi avviati (in ordine):
   5. follow_controller_node (wildfire_control)
   6. fire_controller_node   (wildfire_control)
 
-In modalita simulata (use_sim:=true) viene avviato anche
-mcu_sim_node (wildfire_control), che impersona il firmware MCU
-sul grafo ROS2: pubblica /ultrasonic/* e /button_event, sottoscrive
-i topic /cmd_*_mcu. Utile per testare lo stack senza l'Arduino UNO Q.
+Modalita HARDWARE (default, use_sim:=false):
+  Viene avviato il micro_ros_agent (pacchetto micro_ros_agent) sulla
+  porta seriale specificata da agent_dev (default /dev/ttyACM0). L'agent
+  fa da bridge fra il firmware micro-ROS sull'UNO Q (STM32U585) e il
+  grafo ROS2: senza di lui i topic /ultrasonic/*, /button_event,
+  /cmd_*_mcu non passano fra MCU e MPU.
 
-  ros2 launch wildfire_bringup bringup.launch.py            # default, hardware reale
-  ros2 launch wildfire_bringup bringup.launch.py use_sim:=true   # senza hardware
+Modalita SIMULATA (use_sim:=true):
+  Niente agent reale. Viene avviato mcu_sim_node (wildfire_control) che
+  impersona il firmware sul grafo ROS2: pubblica /ultrasonic/* e
+  /button_event, sottoscrive i topic /cmd_*_mcu. Utile per testare lo
+  stack senza l'Arduino UNO Q collegato.
+
+Esempi:
+  # Hardware reale (UNO Q via ST-LINK su /dev/ttyACM0)
+  ros2 launch wildfire_bringup bringup.launch.py
+
+  # Senza hardware (sim)
+  ros2 launch wildfire_bringup bringup.launch.py use_sim:=true
+
+  # Override seriale dell'agent
+  ros2 launch wildfire_bringup bringup.launch.py agent_dev:=/dev/ttyUSB0 agent_baud:=115200
 
 I parametri sono caricati da config/params.yaml.
 """
@@ -25,7 +40,7 @@ import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
-from launch.conditions import IfCondition
+from launch.conditions import IfCondition, UnlessCondition
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
@@ -41,6 +56,20 @@ def generate_launch_description():
                     'the real micro-ROS firmware on /dev/tty*.'
     )
     use_sim = LaunchConfiguration('use_sim')
+
+    agent_dev_arg = DeclareLaunchArgument(
+        'agent_dev',
+        default_value='/dev/ttyACM0',
+        description='Serial device for the micro_ros_agent transport. '
+                    'On UNO Q the ST-LINK CDC enumerates here.'
+    )
+    agent_baud_arg = DeclareLaunchArgument(
+        'agent_baud',
+        default_value='115200',
+        description='Baud rate of the micro_ros_agent serial transport.'
+    )
+    agent_dev  = LaunchConfiguration('agent_dev')
+    agent_baud = LaunchConfiguration('agent_baud')
 
     # ================================================================
     # 1. VISION — camera
@@ -121,10 +150,31 @@ def generate_launch_description():
     )
 
     # ================================================================
+    # 8. HARDWARE — micro-ROS Agent (only when use_sim:=false)
+    # ----------------------------------------------------------------
+    # Bridge fra il firmware micro-ROS sull'UNO Q (STM32U585) e il
+    # grafo ROS2 dell'MPU. Il pacchetto deriva da
+    # github.com/micro-ROS/micro-ROS-Agent ed e' installato da setup.sh
+    # in /home/project/microros_ws/install. La sessione deve quindi
+    # avere quel local_setup.bash sourcato (setup.sh aggiunge la riga
+    # in ~/.bashrc).
+    # ================================================================
+    micro_ros_agent = Node(
+        package='micro_ros_agent',
+        executable='micro_ros_agent',
+        name='micro_ros_agent',
+        output='screen',
+        arguments=['serial', '--dev', agent_dev, '-b', agent_baud],
+        condition=UnlessCondition(use_sim),
+    )
+
+    # ================================================================
     # Launch description
     # ================================================================
     return LaunchDescription([
         use_sim_arg,
+        agent_dev_arg,
+        agent_baud_arg,
         camera_node,
         person_detector_node,
         fire_detector_node,
@@ -132,4 +182,5 @@ def generate_launch_description():
         follow_controller_node,
         fire_controller_node,
         mcu_sim_node,
+        micro_ros_agent,
     ])

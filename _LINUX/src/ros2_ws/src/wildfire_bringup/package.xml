@@ -12,6 +12,12 @@
   <exec_depend>wildfire_vision</exec_depend>
   <exec_depend>wildfire_control</exec_depend>
   <exec_depend>wildfire_msgs</exec_depend>
+  <!-- micro_ros_agent is built from source by _LINUX/setup.sh into
+       /home/project/microros_ws. It is exec-only (no rosdep key on
+       Humble apt), so we do not declare it via <exec_depend>. The
+       launch file gates it with UnlessCondition(use_sim) to keep
+       the simulated stack free of the dependency. -->
+
 
   <export>
     <build_type>ament_python</build_type>
