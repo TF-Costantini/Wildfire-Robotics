@@ -26,4 +26,6 @@ add_executable(Repo
         src/drivers/ultrasonic_hcsr04.h
         src/drivers/laser_ky008.h
         src/drivers/button.h
+        src/led_matrix/LedMatrixHandler.cpp
+        src/led_matrix/LedMatrixHandler.h
 )
