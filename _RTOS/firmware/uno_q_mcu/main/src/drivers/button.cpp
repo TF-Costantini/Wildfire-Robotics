@@ -17,10 +17,8 @@
  *
  * One event is emitted per stable transition, eliminating both
  * mechanical bounce and brief noise glitches without using a timer
- * peripheral. No EXTI is required — the state machine is purely
+ * peripheral. No EXIT is required — the state machine is purely
  * driven by polling, which keeps the ISR side empty and predictable
- * (important since the same MCU is also handling micro-ROS and
- * HC-SR04 ECHO interrupts).
  */
 
 #include "button.h"
@@ -39,7 +37,7 @@ struct State {
 
 State g_state = { false, false, 0, 0 };
 
-inline bool read_raw(void) {
+bool read_raw() {
     /* Pull-up: idle HIGH, pressed LOW. Invert so true == pressed. */
     return digitalRead(PIN_BUTTON) == LOW;
 }

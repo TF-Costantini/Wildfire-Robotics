@@ -9,6 +9,10 @@
  * This driver enforces no policy — it just toggles the pin.
  */
 
+/*
+ * REVIEWED OK
+ */
+
 #include "laser_ky008.h"
 #include "pins.h"
 

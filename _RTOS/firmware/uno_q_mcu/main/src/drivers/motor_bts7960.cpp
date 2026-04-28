@@ -18,7 +18,7 @@
  */
 
 #include "motor_bts7960.h"
-#include "../include/pins.h"
+#include "pins.h"
 
 #include <Arduino.h>
 
@@ -32,17 +32,17 @@ struct State {
 
 State g_state = { 0.0f, 0.0f, false };
 
-inline float clamp_unit(float v) {
+float clamp_unit(float v) {
     if (v >  1.0f) return  1.0f;
     if (v < -1.0f) return -1.0f;
     return v;
 }
 
-inline int duty_from_unit(float u) {
+int duty_from_unit(float u) {
     /* u expected in [0, 1] */
     if (u <= 0.0f) return 0;
     if (u >= 1.0f) return MOTOR_DUTY_MAX;
-    return (int)(u * (float)MOTOR_DUTY_MAX + 0.5f);
+    return static_cast<int>(u * (float)MOTOR_DUTY_MAX + 0.5f);
 }
 
 void apply_channel(int rpwm_pin, int lpwm_pin, float v) {

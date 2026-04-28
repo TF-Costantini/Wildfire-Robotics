@@ -10,9 +10,6 @@
 extern "C" {
 #endif
 
-#include <stdint.h>
-#include <stdbool.h>
-
 /** Attach pan and tilt servos, configure 50 Hz PWM, move to home (0,0). */
 void servo_init(void);
 

@@ -9,7 +9,7 @@ include_directories(
         ~/Library/Arduino15/packages/arduino/hardware/zephyr/0.53.1/libraries/Arduino_RouterBridge/src
         ~/Library/Arduino15/packages/arduino/hardware/zephyr/0.53.1/libraries/Servo/src
 
-        include/pins.h
+        include
 )
 
 

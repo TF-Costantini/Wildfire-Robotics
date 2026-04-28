@@ -31,11 +31,11 @@
 #include <Arduino_RouterBridge.h>
 
 extern "C" {
+#include "src/drivers/button.h"
+#include "src/drivers/laser_ky008.h"
+#include "src/drivers/ultrasonic_hcsr04.h"
 #include "src/drivers/motor_bts7960.h"
 #include "src/drivers/servo_mg996r.h"
-#include "src/drivers/ultrasonic_hcsr04.h"
-#include "src/drivers/laser_ky008.h"
-#include "src/drivers/button.h"
 }
 
 // =====================================================================
