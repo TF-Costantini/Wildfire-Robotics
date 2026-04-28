@@ -161,6 +161,7 @@ static void task_drive_watchdog(void) {
 
 void healthIndicatorRow()
 {
+    Monitor.println("Health Indicator call");
     //Checks and advances, if not target, returns
     if (health_row_skip_count++ != BLINK_TOGGLE_COUNT) return;
 
@@ -172,7 +173,6 @@ void healthIndicatorRow()
     LEDMatrixHandler::fillColumn(&matrix, 0, health_row_state);
 
     Monitor.println("LED TOGGLE");
-    Serial.println("LED TOGGLE");
 }
 
 // =====================================================================
