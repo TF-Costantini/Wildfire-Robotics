@@ -30,6 +30,8 @@
 #include <Arduino.h>
 #include <Arduino_RouterBridge.h>
 
+#include "src/led_matrix/LedMatrixHandler.h"
+
 extern "C" {
 #include "src/drivers/button.h"
 #include "src/drivers/laser_ky008.h"
@@ -45,6 +47,8 @@ extern "C" {
 #define HCSR04_TRIG_PERIOD_MS  60       // trigger faster than publish
 #define WATCHDOG_TIMEOUT_MS    500
 
+#define BLINK_TOGGLE_COUNT    100
+
 // =====================================================================
 // Bookkeeping
 // =====================================================================
@@ -52,6 +56,10 @@ static uint32_t g_last_drive_cmd_ms  = 0;
 static uint32_t g_last_us_publish_ms = 0;
 static uint32_t g_last_us_trigger_ms = 0;
 static bool     g_drive_zeroed_by_wd = false;
+
+Arduino_LED_Matrix matrix;
+bool health_row_state = true;
+int health_row_skip_count = 0;
 
 // =====================================================================
 // RPC methods provided by the MCU
@@ -151,14 +159,31 @@ static void task_drive_watchdog(void) {
     }
 }
 
+void healthIndicatorRow()
+{
+    //Checks and advances, if not target, returns
+    if (health_row_skip_count != BLINK_TOGGLE_COUNT) return;
+
+    //Resets count
+    health_row_skip_count = 0;
+
+    //Else toggles row
+    health_row_state = !health_row_state;
+    LEDMatrixHandler::fillColumn(&matrix, 0, health_row_state);
+
+    Monitor.println("LED TOGGLE");
+    Serial.println("LED TOGGLE");
+}
+
 // =====================================================================
 // Arduino entry points
 // =====================================================================
-void setup(void) {
+void setup() {
     // Bridge.begin() initialises Serial1 at 115200 and performs the
     // handshake with the arduino-router service on the MPU.
     Bridge.begin();
     Monitor.begin(); // debug output (goes to MPU-side log)
+    Serial.begin(115200);
 
     // Register the methods the MPU is allowed to call on us.
     // provide_safe() = dispatched in loop() via update_safe(), so
@@ -179,6 +204,9 @@ void setup(void) {
     laser_init();
     button_init();
 
+    //Inits led matrix
+     matrix.begin();
+
     // Safe starting state
     motor_set(0.0f, 0.0f);
     servo_home();
@@ -189,6 +217,7 @@ void setup(void) {
     g_last_us_trigger_ms = millis();
 
     Monitor.println("MCU ready");
+    Serial.println("MCU ready");
 }
 
 void loop(void) {
@@ -203,4 +232,6 @@ void loop(void) {
     // Push sensor data and events to the MPU.
     task_publish_ultrasonics();
     task_publish_button();
+
+    healthIndicatorRow();
 }
