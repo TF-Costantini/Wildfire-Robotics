@@ -1,6 +1,8 @@
+#include <Arduino_LED_Matrix.h>
 #include <Arduino_RouterBridge.h>
-#include "LEDMatrixBounce.h"
+#include "LEDMatrixHandler/LEDMatrixBounce.h"
 
+class LEDMatrixHandler;
 ArduinoLEDMatrix matrix;
 LEDMatrixHandler* ledMatrixHandler;
 

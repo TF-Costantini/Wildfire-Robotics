@@ -18,10 +18,9 @@
  */
 
 #include "motor_bts7960.h"
-#include "pins.h"
+#include "../include/pins.h"
 
 #include <Arduino.h>
-#include <math.h>
 
 namespace {
 
@@ -43,7 +42,7 @@ inline int duty_from_unit(float u) {
     /* u expected in [0, 1] */
     if (u <= 0.0f) return 0;
     if (u >= 1.0f) return MOTOR_DUTY_MAX;
-    return (int)lroundf(u * (float)MOTOR_DUTY_MAX);
+    return (int)(u * (float)MOTOR_DUTY_MAX + 0.5f);
 }
 
 void apply_channel(int rpwm_pin, int lpwm_pin, float v) {

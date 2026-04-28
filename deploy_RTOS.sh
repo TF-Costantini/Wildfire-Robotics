@@ -5,6 +5,7 @@
 set -e
 
 clear
+
 arduino-cli \
   compile "$SRC_DIR" \
     --fqbn arduino:zephyr:unoq \
