@@ -57,7 +57,6 @@ static uint32_t g_last_us_publish_ms = 0;
 static uint32_t g_last_us_trigger_ms = 0;
 static bool     g_drive_zeroed_by_wd = false;
 
-Arduino_LED_Matrix matrix;
 bool health_row_state = true;
 int health_row_skip_count = 0;
 
@@ -110,7 +109,7 @@ static bool rpc_set_laser(bool on) {
  * Distances are converted from cm to meters before sending.
  * Out-of-range readings are sent as -1.0 (NaN equivalent for msgpack).
  */
-static void task_publish_ultrasonics(void) {
+static void task_publish_ultrasonics() {
     const uint32_t now = millis();
 
     if ((uint32_t)(now - g_last_us_trigger_ms) >= HCSR04_TRIG_PERIOD_MS) {
@@ -137,7 +136,7 @@ static void task_publish_ultrasonics(void) {
  * Poll the button driver and push a PRESS event to the MPU when
  * one is detected.
  */
-static void task_publish_button(void) {
+static void task_publish_button() {
     uint8_t ev = button_process();
     if (ev == BUTTON_EVENT_PRESS) {
         Bridge.call("on_button", (int)0); // 0 = PRESS
@@ -149,7 +148,7 @@ static void task_publish_button(void) {
  * force the motors to stop. This prevents runaway if the MPU crashes
  * or the bridge drops.
  */
-static void task_drive_watchdog(void) {
+static void task_drive_watchdog() {
     const uint32_t now = millis();
     if ((uint32_t)(now - g_last_drive_cmd_ms) > WATCHDOG_TIMEOUT_MS) {
         if (!g_drive_zeroed_by_wd) {
@@ -161,7 +160,6 @@ static void task_drive_watchdog(void) {
 
 void healthIndicatorRow()
 {
-    Monitor.println("Health Indicator call");
     //Checks and advances, if not target, returns
     if (health_row_skip_count++ != BLINK_TOGGLE_COUNT) return;
 
@@ -170,9 +168,7 @@ void healthIndicatorRow()
 
     //Else toggles row
     health_row_state = !health_row_state;
-    LEDMatrixHandler::fillColumn(&matrix, 0, health_row_state);
-
-    Monitor.println("LED TOGGLE");
+    LEDMatrixHandler::setColInBitmap(0, health_row_state);
 }
 
 // =====================================================================
@@ -231,4 +227,6 @@ void loop(void) {
     task_publish_button();
 
     healthIndicatorRow();
+
+    LEDMatrixHandler::applyToLed(&matrix);
 }
