@@ -162,7 +162,7 @@ static void task_drive_watchdog(void) {
 void healthIndicatorRow()
 {
     //Checks and advances, if not target, returns
-    if (health_row_skip_count != BLINK_TOGGLE_COUNT) return;
+    if (health_row_skip_count++ != BLINK_TOGGLE_COUNT) return;
 
     //Resets count
     health_row_skip_count = 0;
@@ -179,11 +179,12 @@ void healthIndicatorRow()
 // Arduino entry points
 // =====================================================================
 void setup() {
-    // Bridge.begin() initialises Serial1 at 115200 and performs the
-    // handshake with the arduino-router service on the MPU.
+
     Bridge.begin();
-    Monitor.begin(); // debug output (goes to MPU-side log)
-    Serial.begin(115200);
+    Monitor.begin();
+
+    //Inits led matrix
+    matrix.begin();
 
     // Register the methods the MPU is allowed to call on us.
     // provide_safe() = dispatched in loop() via update_safe(), so
@@ -204,9 +205,6 @@ void setup() {
     laser_init();
     button_init();
 
-    //Inits led matrix
-     matrix.begin();
-
     // Safe starting state
     motor_set(0.0f, 0.0f);
     servo_home();
@@ -217,7 +215,6 @@ void setup() {
     g_last_us_trigger_ms = millis();
 
     Monitor.println("MCU ready");
-    Serial.println("MCU ready");
 }
 
 void loop(void) {
