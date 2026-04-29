@@ -213,7 +213,7 @@ void setup() {
     Monitor.println("MCU ready");
 }
 
-void loop(void) {
+void loop() {
     // Dispatch any pending incoming RPC calls (set_drive, set_pantilt,
     // set_laser) that arrived since the last loop iteration.
     Bridge.update();
@@ -228,5 +228,7 @@ void loop(void) {
 
     healthIndicatorRow();
 
+    LEDMatrixHandler::handle_loop_decrease();
+    LEDMatrixHandler::handle_loop_apply();
     LEDMatrixHandler::applyToLed(&matrix);
 }
