@@ -20,3 +20,4 @@
 
 # Host-driver test binary
 _RTOS/firmware/uno_q_mcu/tests/test_drivers
+/_LINUX/ros_humble/
