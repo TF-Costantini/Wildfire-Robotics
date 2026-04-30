@@ -24,6 +24,8 @@ apt-get install -y \
 
 pip3 install --no-cache-dir torch torchvision --index-url https://download.pytorch.org/whl/cpu
 pip3 install ultralytics
+pip3 install --no-cache-dir "opencv-python-headless<4.9" "numpy<2" --force-reinstall
+pip3 uninstall opencv-python -y
 
 # Adds Ultralytics to RosDep ONLY if missing
 if ! grep -qF "$ROSDEP_ENTRY" "$ROSDEP_FILE" 2>/dev/null; then

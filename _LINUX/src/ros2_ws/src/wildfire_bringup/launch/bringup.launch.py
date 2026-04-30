@@ -150,25 +150,6 @@ def generate_launch_description():
     )
 
     # ================================================================
-    # 8. HARDWARE — micro-ROS Agent (only when use_sim:=false)
-    # ----------------------------------------------------------------
-    # Bridge fra il firmware micro-ROS sull'UNO Q (STM32U585) e il
-    # grafo ROS2 dell'MPU. Il pacchetto deriva da
-    # github.com/micro-ROS/micro-ROS-Agent ed e' installato da setup.sh
-    # in /home/project/microros_ws/install. La sessione deve quindi
-    # avere quel local_setup.bash sourcato (setup.sh aggiunge la riga
-    # in ~/.bashrc).
-    # ================================================================
-    micro_ros_agent = Node(
-        package='micro_ros_agent',
-        executable='micro_ros_agent',
-        name='micro_ros_agent',
-        output='screen',
-        arguments=['serial', '--dev', agent_dev, '-b', agent_baud],
-        condition=UnlessCondition(use_sim),
-    )
-
-    # ================================================================
     # Launch description
     # ================================================================
     return LaunchDescription([
@@ -181,6 +162,5 @@ def generate_launch_description():
         state_machine_node,
         follow_controller_node,
         fire_controller_node,
-        mcu_sim_node,
-        micro_ros_agent,
+        mcu_sim_node
     ])
