@@ -65,5 +65,3 @@ cd "$SRC_PATH"
 # Adding sources to ./bashrc if not existing yet so that they are sourced automatically on new sessions
 grep -qxF 'source /home/project/ros2_ws/install/setup.bash' ~/.bashrc || echo 'source /home/project/ros2_ws/install/setup.bash' >> ~/.bashrc
 grep -qxF 'source /opt/ros/humble/setup.bash' ~/.bashrc || echo 'source /opt/ros/humble/setup.bash' >> ~/.bashrc
-grep -qxF 'source /home/project/microros_ws/install/local_setup.bash' ~/.bashrc || echo 'source /home/project/microros_ws/install/local_setup.bash' >> ~/.bashrc
-grep -qxF 'export PATH="$HOME/.platformio/penv/bin:$PATH"' ~/.bashrc || echo 'export PATH="$HOME/.platformio/penv/bin:$PATH"' >> ~/.bashrc

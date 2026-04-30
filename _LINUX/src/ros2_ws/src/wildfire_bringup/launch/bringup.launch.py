@@ -57,20 +57,6 @@ def generate_launch_description():
     )
     use_sim = LaunchConfiguration('use_sim')
 
-    agent_dev_arg = DeclareLaunchArgument(
-        'agent_dev',
-        default_value='/dev/ttyACM0',
-        description='Serial device for the micro_ros_agent transport. '
-                    'On UNO Q the ST-LINK CDC enumerates here.'
-    )
-    agent_baud_arg = DeclareLaunchArgument(
-        'agent_baud',
-        default_value='115200',
-        description='Baud rate of the micro_ros_agent serial transport.'
-    )
-    agent_dev  = LaunchConfiguration('agent_dev')
-    agent_baud = LaunchConfiguration('agent_baud')
-
     # ================================================================
     # 1. VISION — camera
     # ================================================================
@@ -154,8 +140,6 @@ def generate_launch_description():
     # ================================================================
     return LaunchDescription([
         use_sim_arg,
-        agent_dev_arg,
-        agent_baud_arg,
         camera_node,
         person_detector_node,
         fire_detector_node,

@@ -19,6 +19,7 @@ docker run -itd \
   -v "$PROJ_FILES/test_images:/home/project/test_images" \
   --net=host \
   --restart unless-stopped \
+  --device=/dev/video0
   $IMAGE_NAME
 
 echo -e "\nSTARTED SUCCESSFULLY\n"
