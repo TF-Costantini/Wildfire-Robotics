@@ -186,9 +186,6 @@ void setup() {
     //Inits led matrix
     matrix.begin();
 
-    // Register the methods the MPU is allowed to call on us.
-    // provide_safe() = dispatched in loop() via update_safe(), so
-    // it is safe to touch hardware from inside the callback.
     if (!Bridge.provide("set_drive",   rpc_set_drive))
         Monitor.println("ERR: register set_drive");
 
