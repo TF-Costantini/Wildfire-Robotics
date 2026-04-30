@@ -25,6 +25,7 @@
 #include "pins.h"
 
 #include <Arduino.h>
+#include <Arduino_RouterBridge.h>
 
 #include "../led_matrix/LedMatrixHandler.h"
 
