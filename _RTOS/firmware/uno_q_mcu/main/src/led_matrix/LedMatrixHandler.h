@@ -12,7 +12,8 @@
 #define LED_MAT_H 8  //correct value = 8
 #define LED_MAT_W 13  //correct value = 13
 
-#define ON_FOR_N_LOOPS 20 // Number of loops for which the led should stay on
+#define STD_ON_FOR_N_LOOPS 20 // Number of loops for which the led should stay on
+#define BUTTON_ON_FOR_N_LOOPS 200 // Number of loops for which the led should stay on
 
 inline Arduino_LED_Matrix matrix;
 inline uint8_t ledBitmap[LED_MAT_H][LED_MAT_W] = {};
@@ -25,6 +26,8 @@ inline std::atomic_int camera_on_count = 0;
 
 inline std::atomic_int left_ultrasonic_on_count = 0;
 inline std::atomic_int right_ultrasonic_on_count = 0;
+
+inline std::atomic_int button_on_count = 0;
 
 class LEDMatrixHandler
 {
@@ -48,27 +51,32 @@ public:
 
     static void left_motor_on()
     {
-        left_motor_on_count.store(ON_FOR_N_LOOPS);
+        left_motor_on_count.store(STD_ON_FOR_N_LOOPS);
     }
 
     static void right_motor_on()
     {
-        right_motor_on_count.store(ON_FOR_N_LOOPS);
+        right_motor_on_count.store(STD_ON_FOR_N_LOOPS);
     }
 
     static void left_ultrasonic_on()
     {
-        left_ultrasonic_on_count.store(ON_FOR_N_LOOPS);
+        left_ultrasonic_on_count.store(STD_ON_FOR_N_LOOPS);
     }
 
     static void right_ultrasonic_on()
     {
-        right_ultrasonic_on_count.store(ON_FOR_N_LOOPS);
+        right_ultrasonic_on_count.store(STD_ON_FOR_N_LOOPS);
     }
 
     static void camera_on()
     {
-        camera_on_count.store(ON_FOR_N_LOOPS);
+        camera_on_count.store(STD_ON_FOR_N_LOOPS);
+    }
+
+    static void button_on()
+    {
+        button_on_count.store(BUTTON_ON_FOR_N_LOOPS);
     }
 
     static void handle_loop_decrease()
@@ -78,6 +86,7 @@ public:
         camera_decrease();
         left_ultrasonic_decrease();
         right_ultrasonic_decrease();
+        button_decrease();
     }
 
     static void handle_loop_apply()
@@ -87,6 +96,7 @@ public:
         update_led_camera();
         update_led_left_motor();
         update_led_right_motor();
+        update_led_button();
     }
 
 
@@ -166,9 +176,26 @@ private:
     {
         const bool value = camera_on_count.load() > 0;
 
-        setValueInBitMap(3, 9, value);
         setValueInBitMap(3, 10, value);
         setValueInBitMap(3, 11, value);
+        setValueInBitMap(4, 10, value);
+        setValueInBitMap(4, 11, value);
+    }
+
+    static void button_decrease()
+    {
+        if (button_on_count.load() == 0) return;
+        --button_on_count;
+    }
+
+    static void update_led_button()
+    {
+        const bool value = button_on_count.load() > 0;
+
+        setValueInBitMap(3, 7, value);
+        setValueInBitMap(3, 6, value);
+        setValueInBitMap(4, 7, value);
+        setValueInBitMap(4, 6, value);
     }
 
 };
