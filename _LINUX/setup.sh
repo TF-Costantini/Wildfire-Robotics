@@ -7,21 +7,23 @@ ROSDEP_ENTRY="yaml file://$SRC_PATH/src/wildfire_vision/rosdep/python3-ultralyti
 
 cd $SRC_PATH
 
+# Updates all
+echo -e "\nUPDATING LINUX\n"
+apt update && apt upgrade
+
 # Installing python-3 and core build tools.
 # Note: python3-venv, build-essential and binutils are required by the
 # MCU firmware build flow (see _RTOS/setup_firmware.sh). They are
 # installed here so a single `bash setup.sh` bootstraps the container
 # for both the ROS2 stack and the firmware build.
-echo -e "\INSTALLING PYTHON AND EXTERNAL DEPENDENCIES\n"
+echo -e "\nINSTALLING PYTHON AND EXTERNAL DEPENDENCIES\n"
 apt-get install -y \
     python3-pip python3-venv \
     build-essential binutils \
     git curl ca-certificates libusb-1.0-0
-pip3 install ultralytics
 
-# Updates all
-echo -e "\nUPDATING LINUX\n"
-apt update && apt upgrade
+pip3 install --no-cache-dir torch torchvision --index-url https://download.pytorch.org/whl/cpu
+pip3 install ultralytics
 
 # Adds Ultralytics to RosDep ONLY if missing
 if ! grep -qF "$ROSDEP_ENTRY" "$ROSDEP_FILE" 2>/dev/null; then
