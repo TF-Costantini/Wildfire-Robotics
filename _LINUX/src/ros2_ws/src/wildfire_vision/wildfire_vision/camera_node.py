@@ -29,6 +29,7 @@ class CameraNode(Node):
         self.declare_parameter('frame_height', 480)
         self.declare_parameter('fps', 15)
         self.declare_parameter('camera_name', 'camera')
+
         # Modalità test: se true, usa cv2.imread invece di VideoCapture
         self.declare_parameter('test_image_path', '')  # es. '../test_fire.jpg'
 
@@ -114,6 +115,7 @@ class CameraNode(Node):
                 return
 
             ret, frame = self._cap.read()
+
             if not ret:
                 self.get_logger().warn('Frame non valido —可能的 disconnect')
                 self._cap.release()

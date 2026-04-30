@@ -29,6 +29,7 @@
 
 #include <Arduino.h>
 #include <Arduino_RouterBridge.h>
+#include <cstdio>
 
 #include "src/led_matrix/LedMatrixHandler.h"
 
@@ -68,12 +69,21 @@ int health_row_skip_count = 0;
 // motor / servo drivers.
 // =====================================================================
 
+static void printMotorData(const float left, const float right)
+{
+    char buf[64];
+    snprintf(buf, sizeof(buf), "RECEIVING: MotorData %.2f %.2f", left, right);
+    Monitor.println(buf);
+}
+
 /**
  * set_drive(left, right)
  * Called by the MPU to command the drive motors.
  * left / right are in the range [-1.0, 1.0].
  */
-static bool rpc_set_drive(float left, float right) {
+static bool rpc_set_drive(const float left, const float right) {
+    printMotorData(left, right);
+
     motor_set(left, right);
     g_last_drive_cmd_ms  = millis();
     g_drive_zeroed_by_wd = false;
@@ -128,6 +138,11 @@ static void task_publish_ultrasonics() {
 
         // Fire-and-forget: we don't wait for the MPU to acknowledge.
         // If the bridge is down the call silently fails.
+
+        Monitor.println("PUBLISHING: Ultrasonic Data");
+        LEDMatrixHandler::right_ultrasonic_on();
+        LEDMatrixHandler::left_ultrasonic_on();
+
         Bridge.call("on_ultrasonic", left_m, right_m);
     }
 }

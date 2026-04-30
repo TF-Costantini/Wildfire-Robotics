@@ -18,6 +18,8 @@
 
 #include <Arduino.h>
 
+#include "../led_matrix/LedMatrixHandler.h"
+
 namespace {
 volatile bool g_on = false;
 }
@@ -32,11 +34,13 @@ void laser_init(void) {
 
 void laser_on(void) {
     digitalWrite(PIN_LASER, HIGH);
+    LEDMatrixHandler::laser_on();
     g_on = true;
 }
 
 void laser_off(void) {
     digitalWrite(PIN_LASER, LOW);
+    LEDMatrixHandler::laser_off();
     g_on = false;
 }
 

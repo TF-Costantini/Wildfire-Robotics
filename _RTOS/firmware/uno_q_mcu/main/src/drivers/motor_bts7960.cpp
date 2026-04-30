@@ -21,6 +21,7 @@
 #include "pins.h"
 
 #include <Arduino.h>
+#include "../src/led_matrix/LedMatrixHandler.h"
 
 namespace {
 
@@ -88,6 +89,9 @@ void motor_set(float left, float right) {
     g_state.right = right;
 
     if (!g_state.enabled) return;
+
+    if (left != 0) LEDMatrixHandler::left_motor_on();
+    if (right != 0) LEDMatrixHandler::right_motor_on();
 
     apply_channel(PIN_MOTOR_A_RPWM, PIN_MOTOR_A_LPWM, left);
     apply_channel(PIN_MOTOR_B_RPWM, PIN_MOTOR_B_LPWM, right);

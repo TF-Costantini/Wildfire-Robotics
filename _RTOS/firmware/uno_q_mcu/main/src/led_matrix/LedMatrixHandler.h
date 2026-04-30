@@ -22,7 +22,7 @@ inline uint8_t ledBitmap[LED_MAT_H][LED_MAT_W] = {};
 inline std::atomic_int left_motor_on_count = 0;
 inline std::atomic_int right_motor_on_count = 0;
 
-inline std::atomic_int camera_on_count = 0;
+inline std::atomic_bool laser_enabled = false;
 
 inline std::atomic_int left_ultrasonic_on_count = 0;
 inline std::atomic_int right_ultrasonic_on_count = 0;
@@ -69,9 +69,14 @@ public:
         right_ultrasonic_on_count.store(STD_ON_FOR_N_LOOPS);
     }
 
-    static void camera_on()
+    static void laser_on()
     {
-        camera_on_count.store(STD_ON_FOR_N_LOOPS);
+        laser_enabled = true;
+    }
+
+    static void laser_off()
+    {
+        laser_enabled = false;
     }
 
     static void button_on()
@@ -83,7 +88,6 @@ public:
     {
         left_motor_decrease();
         right_motor_decrease();
-        camera_decrease();
         left_ultrasonic_decrease();
         right_ultrasonic_decrease();
         button_decrease();
@@ -93,7 +97,7 @@ public:
     {
         update_led_left_ultrasonic();
         update_led_right_ultrasonic();
-        update_led_camera();
+        update_led_laser();
         update_led_left_motor();
         update_led_right_motor();
         update_led_button();
@@ -130,12 +134,12 @@ private:
     {
         const bool value = right_motor_on_count.load() > 0;
 
-        setValueInBitMap(5, 7, value);
-        setValueInBitMap(5, 8, value);
-        setValueInBitMap(5, 9, value);
         setValueInBitMap(6, 7, value);
         setValueInBitMap(6, 8, value);
         setValueInBitMap(6, 9, value);
+        setValueInBitMap(7, 7, value);
+        setValueInBitMap(7, 8, value);
+        setValueInBitMap(7, 9, value);
     }
 
     static void left_ultrasonic_decrease()
@@ -162,19 +166,13 @@ private:
     {
         const bool value = right_ultrasonic_on_count.load() > 0;
 
-        setValueInBitMap(5, 12, value);
         setValueInBitMap(6, 12, value);
+        setValueInBitMap(7, 12, value);
     }
 
-    static void camera_decrease()
+    static void update_led_laser()
     {
-        if (camera_on_count.load() == 0) return;
-        --camera_on_count;
-    }
-
-    static void update_led_camera()
-    {
-        const bool value = camera_on_count.load() > 0;
+        const bool value = laser_enabled.load();
 
         setValueInBitMap(3, 10, value);
         setValueInBitMap(3, 11, value);
