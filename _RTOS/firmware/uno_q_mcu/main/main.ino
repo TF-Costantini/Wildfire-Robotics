@@ -137,10 +137,14 @@ static void task_publish_ultrasonics() {
  * one is detected.
  */
 static void task_publish_button() {
-    uint8_t ev = button_process();
-    if (ev == BUTTON_EVENT_PRESS) {
-        Bridge.call("on_button", (int)0); // 0 = PRESS
+
+    if (button_process() == BUTTON_EVENT_PRESS) {
+        Monitor.println("PUBLISHING: Button Press");
+        LEDMatrixHandler::button_on();
+
+        Bridge.call("on_button", static_cast<int>(0));
     }
+
 }
 
 /**

@@ -25,7 +25,6 @@
 #include "pins.h"
 
 #include <Arduino.h>
-#include <Arduino_RouterBridge.h>
 
 #include "../led_matrix/LedMatrixHandler.h"
 
@@ -34,7 +33,6 @@ namespace {
 struct State {
     bool     raw;             /* last sampled raw level (true = pressed) */
     bool     stable;          /* last accepted debounced level           */
-    bool     previousStable;
     uint32_t last_change_ms;  /* millis() when raw last changed          */
     uint32_t last_press_ms;   /* millis() of last accepted PRESS         */
 };
@@ -79,19 +77,9 @@ uint8_t button_process(void) {
     g_state.stable = raw;
     if (raw) {
         g_state.last_press_ms = now;
-
-        // Button Change State
-        if (g_state.stable != g_state.previousStable)
-        {
-            Monitor.println("Button: Pressed");
-            LEDMatrixHandler::button_on();
-        }
-
-        g_state.previousStable = g_state.stable;
         return BUTTON_EVENT_PRESS;
     }
 
-    g_state.previousStable = g_state.stable;
     return BUTTON_EVENT_RELEASE;
 }
 
