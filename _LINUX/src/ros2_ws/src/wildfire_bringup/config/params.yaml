@@ -16,7 +16,7 @@ camera_node:
     frame_height: 480
     fps: 15
     camera_name: 'camera'
-    test_image_path: '/home/project/test_images/test_fire.jpg'
+    test_image_path: '/home/project/test_images/test_person.jpg'
 
 person_detector_node:
   ros__parameters:
@@ -41,12 +41,6 @@ fire_detector_node:
     enable_red: true
     enable_orange: true
 
-state_machine_node:
-  ros__parameters:
-    watchdog_timeout_ms: 500
-    pan_home: 0.0
-    tilt_home: 0.0
-
 follow_controller_node:
   ros__parameters:
     target_distance_cm: 80.0
@@ -65,9 +59,9 @@ fire_controller_node:
     pan_max_deg: 60.0
     tilt_min_deg: 0.0
     tilt_max_deg: 30.0
-    sweep_step_deg: 10.0
+    sweep_step_deg: 0.5
     sweep_pause_s: 0.2
-    tilt_increment_deg: 10.0
+    tilt_increment_deg: 0.5
     pd_kp_pan: 0.5
     pd_kp_tilt: 0.5
     pd_kd: 0.1

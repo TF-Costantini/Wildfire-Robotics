@@ -4,6 +4,9 @@ set -e
 BASE_PATH='/home/project'
 SRC_PATH="$BASE_PATH/ros2_ws"
 
+echo -e "\nSTOPPING ALL NODES\n"
+pkill -9 -f ros2 | true
+
 cd $SRC_PATH
 
 # Removing old build files

@@ -18,7 +18,7 @@ Logica:
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Image
-from wildfire_msgs.msg import Detection
+from wildfire_msgs.msg import Detection, Mode
 from cv_bridge import CvBridge
 import cv2
 import numpy as np
@@ -29,12 +29,12 @@ class FireDetectorNode(Node):
     Nodo per il rilevamento fuoco basato su colori HSV.
     Configurabile per diversi ambienti e condizioni di illuminazione.
     """
-
     def __init__(self):
         super().__init__('fire_detector_node')
 
         # --- Parametri ---
         self.declare_parameter('camera_topic', '/camera/image_raw')
+
 
         # Soglie rosso (due range)
         self.declare_parameter('red_h1_low', 0)
@@ -60,7 +60,10 @@ class FireDetectorNode(Node):
         self.declare_parameter('enable_red', True)
         self.declare_parameter('enable_orange', True)
 
-        camera_topic = self.get_parameter('camera_topic').value
+        self.mode_topic = "/mode"
+        self.camera_subscription = None
+
+        self.camera_topic = self.get_parameter('camera_topic').value
         self.sat_min = self.get_parameter('sat_min').value
         self.val_min = self.get_parameter('val_min').value
         self.min_area = self.get_parameter('min_area').value
@@ -92,10 +95,11 @@ class FireDetectorNode(Node):
         )
 
         # --- Subscriber ---
+
         self.create_subscription(
-            Image,
-            camera_topic,
-            self._image_callback,
+            Mode,
+            self.mode_topic,
+            self._mode_callback,
             10
         )
 
@@ -107,7 +111,32 @@ class FireDetectorNode(Node):
             f'val_min={self.val_min}, min_area={self.min_area}'
         )
 
+    def _start_camera_processing(self):
+        if self.camera_subscription is not None:
+            return
+
+        self.camera_subscription = self.create_subscription(
+                Image,
+                self.camera_topic,
+                self._image_callback,
+                10
+            )
+
+    def _stop_camera_processing(self):
+        if self.camera_subscription is None:
+            return
+
+        self.destroy_subscription(self.camera_subscription)
+        self.camera_subscription = None
+
+
     # ─── Callback principale ─────────────────────────────────────────────────
+
+    def _mode_callback(self, mode_msg: Mode):
+        if (mode_msg.mode == Mode.FIRE):
+            self._start_camera_processing()
+            return
+        self._stop_camera_processing()
 
     def _image_callback(self, msg: Image):
         """Processa ogni frame e pubblica detection."""

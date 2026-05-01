@@ -9,6 +9,7 @@ PROJ_FILES=./_LINUX
 docker pull $IMAGE_NAME
 
 # Removes the old container
+docker stop $CONTAINER_NAME
 docker container rm -f $CONTAINER_NAME
 
 docker run -itd \

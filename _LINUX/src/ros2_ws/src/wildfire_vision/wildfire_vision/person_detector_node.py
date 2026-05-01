@@ -16,7 +16,7 @@ Logica:
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Image
-from wildfire_msgs.msg import Detection
+from wildfire_msgs.msg import Detection, Mode
 from cv_bridge import CvBridge
 import cv2
 
@@ -38,6 +38,9 @@ class PersonDetectorNode(Node):
         self.declare_parameter('model_name', 'yolov8n.pt')
         self.declare_parameter('device', 'cpu')
 
+        self.mode_topic = "/mode"
+        self.camera_subscription = None
+
         self.camera_topic = self.get_parameter('camera_topic').value
         self.conf_threshold = self.get_parameter('conf_threshold').value
         model_name = self.get_parameter('model_name').value
@@ -52,9 +55,9 @@ class PersonDetectorNode(Node):
 
         # --- Subscriber ---
         self.create_subscription(
-            Image,
-            self.camera_topic,
-            self._image_callback,
+            Mode,
+            self.mode_topic,
+            self._mode_callback,
             10
         )
 
@@ -67,7 +70,6 @@ class PersonDetectorNode(Node):
         )
 
     # ─── Model loading ───────────────────────────────────────────────────────
-
     def _load_model(self, model_name: str, device: str):
         """Carica YOLOv8n con fallback in caso di errore."""
         try:
@@ -79,7 +81,32 @@ class PersonDetectorNode(Node):
             self.get_logger().warn('YOLOv8n non disponibile — il nodo non pubblicherà detection')
             self._model = None
 
+
+    def _start_camera_processing(self):
+        if self.camera_subscription is not None:
+            return
+
+        self.camera_subscription = self.create_subscription(
+            Image,
+            self.camera_topic,
+            self._image_callback,
+            10
+        )
+
+    def _stop_camera_processing(self):
+        if self.camera_subscription is None:
+            return
+
+        self.destroy_subscription(self.camera_subscription)
+        self.camera_subscription = None
+
     # ─── Callback principale ─────────────────────────────────────────────────
+
+    def _mode_callback(self, mode_msg: Mode):
+        if (mode_msg.mode == Mode.FOLLOW):
+            self._start_camera_processing()
+            return
+        self._stop_camera_processing()
 
     def _image_callback(self, msg: Image):
         """Processa ogni frame e pubblica detection persona."""

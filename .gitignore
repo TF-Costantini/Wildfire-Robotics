@@ -11,6 +11,9 @@
 **/install/
 **/.cmake/
 
+**/*.log
+**/*.pt
+
 # macOS / Python / PlatformIO clutter
 .DS_Store
 **/.DS_Store

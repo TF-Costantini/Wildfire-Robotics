@@ -51,9 +51,9 @@ class FireControllerNode(Node):
         self.declare_parameter('tilt_max_deg', 30.0)
 
         # --- Parametri sweep ---
-        self.declare_parameter('sweep_step_deg', 10.0)
+        self.declare_parameter('sweep_step_deg', 0.2)
         self.declare_parameter('sweep_pause_s', 0.2)
-        self.declare_parameter('tilt_increment_deg', 10.0)
+        self.declare_parameter('tilt_increment_deg', 0.2)
 
         # --- Parametri PD ---
         self.declare_parameter('pd_kp_pan', 0.5)
