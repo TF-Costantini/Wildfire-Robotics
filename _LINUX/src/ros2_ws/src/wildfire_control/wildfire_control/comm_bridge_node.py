@@ -52,7 +52,6 @@ class UnoQBridgeNode(Node):
         self.get_logger().info("UNO Q Bridge node started")
 
     def _on_pantilt(self, msg: PanTiltCmd):
-        self.get_logger().info("Received PanTilt Cmd")
         Bridge.call("set_pantilt", msg.pan_deg, msg.tilt_deg)
         return
 
