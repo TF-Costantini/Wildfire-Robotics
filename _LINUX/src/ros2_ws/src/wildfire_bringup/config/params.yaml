@@ -59,9 +59,9 @@ fire_controller_node:
     pan_max_deg: 60.0
     tilt_min_deg: 0.0
     tilt_max_deg: 30.0
-    sweep_step_deg: 0.5
+    sweep_step_deg: 1
     sweep_pause_s: 0.2
-    tilt_increment_deg: 0.5
+    tilt_increment_deg: 5
     pd_kp_pan: 0.5
     pd_kp_tilt: 0.5
     pd_kd: 0.1

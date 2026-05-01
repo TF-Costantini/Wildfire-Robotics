@@ -90,11 +90,19 @@ static bool rpc_set_drive(const float left, const float right) {
     return true;
 }
 
+static void printPanTiltData(const float pan, const float tilt)
+{
+    char buf[64];
+    snprintf(buf, sizeof(buf), "RECEIVING: PanTilt %.2f %.2f", pan, tilt);
+    Monitor.println(buf);
+}
+
 /**
  * set_pantilt(pan_deg, tilt_deg)
  * Called by the MPU to command the pan/tilt servo.
  */
-static bool rpc_set_pantilt(float pan_deg, float tilt_deg) {
+static bool rpc_set_pantilt(const float pan_deg, const float tilt_deg) {
+    //printPanTiltData(pan_deg, tilt_deg);
     servo_set_position(pan_deg, tilt_deg);
     return true;
 }
