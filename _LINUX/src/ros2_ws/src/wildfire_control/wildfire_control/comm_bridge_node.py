@@ -7,6 +7,15 @@ from wildfire_msgs.msg import ButtonEvent
 from arduino.app_utils import Bridge, App
 import threading
 
+def get_label(kind: Int32):
+    match kind:
+        case 0:
+            return ButtonEvent.PRESS
+        case 2:
+            return ButtonEvent.LONG_PRESS
+        case _:
+            return ButtonEvent.RELEASE
+
 
 class UnoQBridgeNode(Node):
     def __init__(self):
@@ -35,9 +44,9 @@ class UnoQBridgeNode(Node):
             msg.range           = distance
             pub.publish(msg)
 
-    def on_button(self, kind: ButtonEvent):
+    def on_button(self, kind: Int32):
         msg = Int32()
-        msg.data = kind
+        msg.data = get_label(kind)
         self.button_pub.publish(msg)
 
 

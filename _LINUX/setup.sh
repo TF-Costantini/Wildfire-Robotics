@@ -27,7 +27,7 @@ pip3 install ultralytics
 pip3 install --no-cache-dir "opencv-python-headless<4.9" "numpy<2" --force-reinstall
 pip3 uninstall opencv-python -y
 curl -L "https://github.com/arduino/app-bricks-py/releases/download/release/0.9.2/arduino_app_bricks-0.9.2-py3-none-any.whl" -o /tmp/arduino_app_bricks-0.9.2-py3-none-any.whl
-pip3 install --break-system-packages /tmp/arduino_app_bricks-0.9.2-py3-none-any.whl --ignore-requires-python
+pip3 install /tmp/arduino_app_bricks-0.9.2-py3-none-any.whl --ignore-requires-python
 pip3 install watchdog msgpack requests pillow pyyaml
 
 # Adds Ultralytics to RosDep ONLY if missing

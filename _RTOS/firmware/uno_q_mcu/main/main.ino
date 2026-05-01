@@ -139,7 +139,7 @@ static void task_publish_ultrasonics() {
         // Fire-and-forget: we don't wait for the MPU to acknowledge.
         // If the bridge is down the call silently fails.
 
-        Monitor.println("PUBLISHING: Ultrasonic Data");
+        //Monitor.println("PUBLISHING: Ultrasonic Data");
         LEDMatrixHandler::right_ultrasonic_on();
         LEDMatrixHandler::left_ultrasonic_on();
 
@@ -154,7 +154,7 @@ static void task_publish_ultrasonics() {
 static void task_publish_button() {
 
     if (button_process() == BUTTON_EVENT_PRESS) {
-        Monitor.println("PUBLISHING: Button Press");
+        //Monitor.println("PUBLISHING: Button Press");
         LEDMatrixHandler::button_on();
 
         Bridge.call("on_button", static_cast<int>(0));
@@ -194,9 +194,10 @@ void healthIndicatorRow()
 // Arduino entry points
 // =====================================================================
 void setup() {
-
     Bridge.begin();
     Monitor.begin();
+
+    Monitor.println("MCU Setup Started");
 
     //Inits led matrix
     matrix.begin();

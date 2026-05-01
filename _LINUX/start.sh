@@ -29,3 +29,9 @@ echo -e "\nPACKAGES FOUND! BUILD SUCCESSFUL!\n"
 # Adding sources to ./bashrc if not existing yet so that they are sourced automatically on new sessions
 grep -qxF 'source /home/project/ros2_ws/install/setup.bash' ~/.bashrc || echo 'source /home/project/ros2_ws/install/setup.bash' >> ~/.bashrc
 grep -qxF 'source /opt/ros/humble/setup.bash' ~/.bashrc || echo 'source /opt/ros/humble/setup.bash' >> ~/.bashrc
+
+# STARTING NODES
+echo -e "\nSTARTING NODES\n"
+nohup ros2 launch wildfire_bringup bringup.launch.py use_sim:=false > ~/all_nodes.log 2>&1 &
+
+echo -e "\nSTARTING SEQUENCE COMPLETE\n"
