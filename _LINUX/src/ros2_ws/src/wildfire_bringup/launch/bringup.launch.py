@@ -9,6 +9,7 @@ Nodi avviati (in ordine):
   4. state_machine_node   (wildfire_control)
   5. follow_controller_node (wildfire_control)
   6. fire_controller_node   (wildfire_control)
+  7. comm_bridge_node       (wildfire_control)
 
 Modalita HARDWARE (default, use_sim:=false):
   Viene avviato il micro_ros_agent (pacchetto micro_ros_agent) sulla
@@ -56,6 +57,16 @@ def generate_launch_description():
                     'the real micro-ROS firmware on /dev/tty*.'
     )
     use_sim = LaunchConfiguration('use_sim')
+
+    # ================================================================
+    # 0. COMM BRIDGE NODE — connection
+    # ================================================================
+    comm_bridge_node = Node(
+        package='wildfire_control',
+        executable='comm_bridge_node',
+        name='comm_bridge_node',
+        output='screen'
+    )
 
     # ================================================================
     # 1. VISION — camera
@@ -146,5 +157,6 @@ def generate_launch_description():
         state_machine_node,
         follow_controller_node,
         fire_controller_node,
+        comm_bridge_node,
         mcu_sim_node
     ])

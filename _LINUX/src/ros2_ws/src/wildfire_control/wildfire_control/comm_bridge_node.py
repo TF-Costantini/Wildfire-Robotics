@@ -1,0 +1,58 @@
+from arduino.app_utils import *
+import rclpy
+from rclpy.node import Node
+from sensor_msgs.msg import Range
+from std_msgs.msg import Int32
+from wildfire_msgs.msg import ButtonEvent
+from arduino.app_utils import Bridge, App
+import threading
+
+
+class UnoQBridgeNode(Node):
+    def __init__(self):
+        super().__init__('comm_bridge_node')
+
+        self.ultrasonic_left_pub  = self.create_publisher(Range, 'ultrasonic/left', 10)
+        self.ultrasonic_right_pub = self.create_publisher(Range, 'ultrasonic/right', 10)
+        self.button_pub           = self.create_publisher(ButtonEvent, '/button_event', 10)
+
+        Bridge.provide("on_ultrasonic", self.on_ultrasonic)
+        Bridge.provide("on_button", self.on_button)
+
+        self.get_logger().info("UNO Q Bridge node started")
+
+    def on_ultrasonic(self, left_m: float, right_m: float):
+        stamp = self.get_clock().now().to_msg()
+
+        for pub, distance in ((self.ultrasonic_left_pub, left_m),
+                              (self.ultrasonic_right_pub, right_m)):
+            msg = Range()
+            msg.header.stamp    = stamp
+            msg.header.frame_id = "ultrasonic"
+            msg.radiation_type  = Range.ULTRASOUND
+            msg.min_range       = 0.02
+            msg.max_range       = 4.0
+            msg.range           = distance
+            pub.publish(msg)
+
+    def on_button(self, kind: ButtonEvent):
+        msg = Int32()
+        msg.data = kind
+        self.button_pub.publish(msg)
+
+
+def main():
+    rclpy.init()
+    node = UnoQBridgeNode()
+
+    # Spin ROS in a background thread — Bridge.provide callbacks run on the Bridge thread
+    ros_thread = threading.Thread(target=rclpy.spin, args=(node,), daemon=True)
+    ros_thread.start()
+
+    App.run()  # blocks, keeps Bridge alive
+
+    rclpy.shutdown()
+
+
+if __name__ == '__main__':
+    main()

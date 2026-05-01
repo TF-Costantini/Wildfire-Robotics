@@ -17,6 +17,7 @@ docker run -itd \
   -v "$PROJ_FILES/setup.sh:/setup.sh" \
   -v "$PROJ_FILES/start.sh:/start.sh" \
   -v "$PROJ_FILES/test_images:/home/project/test_images" \
+  -v /var/run/arduino-router.sock:/var/run/arduino-router.sock \
   --net=host \
   --restart unless-stopped \
   --device=/dev/video0

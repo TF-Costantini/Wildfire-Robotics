@@ -1,7 +1,8 @@
 #!/bin/bash
 set -e
 
-SRC_PATH="/home/project/ros2_ws"
+BASE_PATH='/home/project'
+SRC_PATH="$BASE_PATH/ros2_ws"
 
 cd $SRC_PATH
 

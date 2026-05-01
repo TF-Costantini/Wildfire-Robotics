@@ -6,6 +6,8 @@ ARDUINO_BASE="/home/arduino"
 
 echo -e "\nCOPYING ALL REQUIRED DATA...\n"
 
+adb shell "rm -rf $ARDUINO_BASE$BASE_PATH/src/"
+
 adb push ".$BASE_PATH/src/." "$ARDUINO_BASE$BASE_PATH/src/"
 adb push ".$BASE_PATH/test_images/." "$ARDUINO_BASE$BASE_PATH/test_images"
 adb push ".$BASE_PATH/setup.sh" "$ARDUINO_BASE$BASE_PATH/setup.sh"
