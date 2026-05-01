@@ -17,6 +17,8 @@
 #include <Arduino.h>
 #include <Servo.h>
 
+#include "../led_matrix/LedMatrixHandler.h"
+
 namespace {
 
 struct State {
@@ -90,7 +92,9 @@ void servo_tilt_set(float deg) {
     g_tilt.writeMicroseconds( degrees_to_us(deg + g_state.tilt_offset) );
 }
 
-void servo_set_position(float pan_deg, float tilt_deg) {
+void servo_set_position(const float pan_deg, const float tilt_deg) {
+    if (pan_deg != 0.0f || tilt_deg != 0.0f)
+        LEDMatrixHandler::pantilt_on();
     servo_pan_set(pan_deg);
     servo_tilt_set(tilt_deg);
 }

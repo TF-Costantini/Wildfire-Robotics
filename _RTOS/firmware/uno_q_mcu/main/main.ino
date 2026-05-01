@@ -82,7 +82,7 @@ static void printMotorData(const float left, const float right)
  * left / right are in the range [-1.0, 1.0].
  */
 static bool rpc_set_drive(const float left, const float right) {
-    printMotorData(left, right);
+    //printMotorData(left, right);
 
     motor_set(left, right);
     g_last_drive_cmd_ms  = millis();
@@ -103,7 +103,8 @@ static bool rpc_set_pantilt(float pan_deg, float tilt_deg) {
  * set_laser(on)
  * Called by the MPU to turn the laser on or off.
  */
-static bool rpc_set_laser(bool on) {
+static bool rpc_set_laser(const bool on) {
+    //Monitor.println("RECEIVING: Laser Data");
     if (on) laser_on();
     else    laser_off();
     return true;

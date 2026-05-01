@@ -12,7 +12,11 @@
 #define LED_MAT_H 8  //correct value = 8
 #define LED_MAT_W 13  //correct value = 13
 
-#define STD_ON_FOR_N_LOOPS 20 // Number of loops for which the led should stay on
+#define PANTILT_START_ROW 2
+#define PANTILT_END_ROW 5
+
+#define STD_ON_FOR_N_LOOPS 100 // Number of loops for which the led should stay on
+#define MOTOR_ON_FOR_N_LOOPS 10
 #define BUTTON_ON_FOR_N_LOOPS 200 // Number of loops for which the led should stay on
 
 inline Arduino_LED_Matrix matrix;
@@ -28,6 +32,9 @@ inline std::atomic_int left_ultrasonic_on_count = 0;
 inline std::atomic_int right_ultrasonic_on_count = 0;
 
 inline std::atomic_int button_on_count = 0;
+
+inline std::atomic_int pantilt_on_count = 0;
+inline std::atomic_int pantilt_row_indicator = PANTILT_START_ROW;
 
 class LEDMatrixHandler
 {
@@ -51,12 +58,12 @@ public:
 
     static void left_motor_on()
     {
-        left_motor_on_count.store(STD_ON_FOR_N_LOOPS);
+        left_motor_on_count.store(MOTOR_ON_FOR_N_LOOPS);
     }
 
     static void right_motor_on()
     {
-        right_motor_on_count.store(STD_ON_FOR_N_LOOPS);
+        right_motor_on_count.store(MOTOR_ON_FOR_N_LOOPS);
     }
 
     static void left_ultrasonic_on()
@@ -79,6 +86,12 @@ public:
         laser_enabled = false;
     }
 
+    static void pantilt_on()
+    {
+        if (pantilt_on_count.load() > 0) return;
+        pantilt_on_count.store(STD_ON_FOR_N_LOOPS);
+    }
+
     static void button_on()
     {
         button_on_count.store(BUTTON_ON_FOR_N_LOOPS);
@@ -91,6 +104,7 @@ public:
         left_ultrasonic_decrease();
         right_ultrasonic_decrease();
         button_decrease();
+        pantilt_decrease();
     }
 
     static void handle_loop_apply()
@@ -101,10 +115,41 @@ public:
         update_led_left_motor();
         update_led_right_motor();
         update_led_button();
+        update_led_pantilt();
     }
 
 
 private:
+
+    static void pantilt_decrease()
+    {
+        if (pantilt_on_count.load() == 0) return;
+        --pantilt_on_count;
+
+        if (pantilt_on_count.load() == 0)
+        {
+            ++pantilt_row_indicator;
+            if (pantilt_row_indicator.load() <= PANTILT_END_ROW) return;
+            pantilt_row_indicator.store(PANTILT_START_ROW);
+        }
+    }
+
+    static void update_led_pantilt()
+    {
+        const bool value = pantilt_on_count.load() > 0;
+        const int active_row = pantilt_row_indicator.load();
+
+        setValueInBitMap(2, 8, value);
+        setValueInBitMap(3, 8, value);
+        setValueInBitMap(4, 8, value);
+        setValueInBitMap(5, 8, value);
+
+        for (int row = PANTILT_START_ROW; row <= PANTILT_END_ROW; row++)
+        {
+            setValueInBitMap(row, 10, value && row == active_row);
+            setValueInBitMap(row, 9, value && row == active_row);
+        }
+    }
 
     static void left_motor_decrease()
     {
@@ -174,10 +219,7 @@ private:
     {
         const bool value = laser_enabled.load();
 
-        setValueInBitMap(3, 10, value);
-        setValueInBitMap(3, 11, value);
-        setValueInBitMap(4, 10, value);
-        setValueInBitMap(4, 11, value);
+        setValueInBitMap(4, 12, value);
     }
 
     static void button_decrease()
@@ -190,10 +232,10 @@ private:
     {
         const bool value = button_on_count.load() > 0;
 
-        setValueInBitMap(3, 7, value);
-        setValueInBitMap(3, 6, value);
-        setValueInBitMap(4, 7, value);
-        setValueInBitMap(4, 6, value);
+        setValueInBitMap(3, 4, value);
+        setValueInBitMap(3, 3, value);
+        setValueInBitMap(4, 4, value);
+        setValueInBitMap(4, 3, value);
     }
 
 };
