@@ -2,8 +2,8 @@ from arduino.app_utils import *
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Range
-from std_msgs.msg import Int32
-from wildfire_msgs.msg import ButtonEvent
+from std_msgs.msg import Int32, Bool
+from wildfire_msgs.msg import *
 from arduino.app_utils import Bridge, App
 import threading
 
@@ -52,6 +52,7 @@ class UnoQBridgeNode(Node):
         self.get_logger().info("UNO Q Bridge node started")
 
     def _on_pantilt(self, msg: PanTiltCmd):
+        self.get_logger().info("Received PanTilt Cmd")
         Bridge.call("set_pantilt", msg.pan_deg, msg.tilt_deg)
         return
 

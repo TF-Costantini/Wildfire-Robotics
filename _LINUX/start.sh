@@ -38,3 +38,5 @@ echo -e "\nSTARTING NODES\n"
 nohup ros2 launch wildfire_bringup bringup.launch.py use_sim:=false > ~/all_nodes.log 2>&1 &
 
 echo -e "\nSTARTING SEQUENCE COMPLETE\n"
+
+tail -f ~/all_nodes.log
