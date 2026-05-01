@@ -176,6 +176,7 @@ class FireControllerNode(Node):
         now = time.time()
 
         if self.current_mode != Mode.FIRE:
+            # TODO avoid calling this everytime. Just once after the first transition
             # Gating: se non siamo in FIRE, home + laser OFF
             self._publish_pantilt(0.0, 0.0)
             self._publish_laser(False)

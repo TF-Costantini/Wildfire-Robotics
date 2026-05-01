@@ -135,6 +135,7 @@ class FollowControllerNode(Node):
         # Se non siamo in FOLLOW, pubblica zero (il gating dello state_machine
         # provvederà a non inoltrarlo al MCU)
         if self.current_mode != Mode.FOLLOW:
+            # TODO avoid calling this everytime. Just once after the first transition
             cmd = DriveCmd()
             cmd.left = 0.0
             cmd.right = 0.0
