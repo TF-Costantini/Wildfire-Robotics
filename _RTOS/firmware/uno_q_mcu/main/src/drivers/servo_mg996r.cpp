@@ -15,9 +15,13 @@
 #include "pins.h"
 
 #include <Arduino.h>
+#include <Arduino_RouterBridge.h>
 #include <Servo.h>
 
 #include "../led_matrix/LedMatrixHandler.h"
+
+//Does not react if the diff between curr angle and set angle is below 2deg. For smoothing
+#define DEADBAND 2.0f
 
 namespace {
 
@@ -35,10 +39,10 @@ struct State {
 State g_state = {
     /* pan_deg     */ 0.0f,
     /* tilt_deg    */ 0.0f,
-    /* pan_min     */ -60.0f,
-    /* pan_max     */  60.0f,
+    /* pan_min     */ -80.0f,
+    /* pan_max     */  80.0f,
     /* tilt_min    */   0.0f,
-    /* tilt_max    */  30.0f,
+    /* tilt_max    */  60.0f,
     /* pan_offset  */   0.0f,
     /* tilt_offset */   0.0f,
 };
@@ -82,12 +86,16 @@ void servo_init(void) {
 
 void servo_pan_set(float deg) {
     deg = clamp(deg, g_state.pan_min, g_state.pan_max);
+    if (fabsf(deg - g_state.pan_deg) < DEADBAND) return;
+
     g_state.pan_deg = deg;
     g_pan.writeMicroseconds( degrees_to_us(deg + g_state.pan_offset) );
 }
 
 void servo_tilt_set(float deg) {
     deg = clamp(deg, g_state.tilt_min, g_state.tilt_max);
+    if (fabsf(deg - g_state.tilt_deg) < DEADBAND) return;
+
     g_state.tilt_deg = deg;
     g_tilt.writeMicroseconds( degrees_to_us(deg + g_state.tilt_offset) );
 }

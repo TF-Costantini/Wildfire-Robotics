@@ -55,13 +55,13 @@ follow_controller_node:
 
 fire_controller_node:
   ros__parameters:
-    pan_min_deg: -60.0
-    pan_max_deg: 60.0
+    pan_min_deg: -70.0
+    pan_max_deg: 70.0
     tilt_min_deg: 0.0
-    tilt_max_deg: 30.0
-    sweep_step_deg: 1
-    sweep_pause_s: 0.2
-    tilt_increment_deg: 5
+    tilt_max_deg: 60.0
+    sweep_step_deg: 10.0
+    sweep_pause_s: 2.0
+    tilt_increment_deg: 5.0
     pd_kp_pan: 0.5
     pd_kp_tilt: 0.5
     pd_kd: 0.1
