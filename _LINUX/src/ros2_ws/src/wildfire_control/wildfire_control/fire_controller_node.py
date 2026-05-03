@@ -52,8 +52,8 @@ class FireControllerNode(Node):
 
         # --- Parametri sweep ---
         self.declare_parameter('sweep_step_deg', 0.2)
-        self.declare_parameter('sweep_pause_s', 0.2)
         self.declare_parameter('tilt_increment_deg', 0.2)
+        self.declare_parameter('sweeping_update_freq', 1.0)
 
         # --- Parametri PD ---
         self.declare_parameter('pd_kp_pan', 0.5)
@@ -67,7 +67,6 @@ class FireControllerNode(Node):
 
         # --- Area minima fuoco ---
         self.declare_parameter('min_fire_area', 100.0)
-        self.declare_parameter('loop_rate_hz', 20.0)
 
         # Leggi parametri
         self.pan_min = self.get_parameter('pan_min_deg').value
@@ -75,8 +74,8 @@ class FireControllerNode(Node):
         self.tilt_min = self.get_parameter('tilt_min_deg').value
         self.tilt_max = self.get_parameter('tilt_max_deg').value
         self.sweep_step = self.get_parameter('sweep_step_deg').value
-        self.sweep_pause = self.get_parameter('sweep_pause_s').value
         self.tilt_increment = self.get_parameter('tilt_increment_deg').value
+        self.sweeping_update_freq = self.get_parameter('sweeping_update_freq').value
         self.pd_kp_pan = self.get_parameter('pd_kp_pan').value
         self.pd_kp_tilt = self.get_parameter('pd_kp_tilt').value
         self.pd_kd = self.get_parameter('pd_kd').value
@@ -84,15 +83,9 @@ class FireControllerNode(Node):
         self.lock_time = self.get_parameter('lock_time_s').value
         self.unlock_time = self.get_parameter('unlock_time_s').value
         self.min_fire_area = self.get_parameter('min_fire_area').value
-        loop_rate = self.get_parameter('loop_rate_hz').value
 
         # --- Stato fire detection ---
         self.fire_detected = False
-        self.fire_cx = 0.0
-        self.fire_cy = 0.0
-        self.fire_area = 0.0
-        self.img_width = 640.0
-        self.img_height = 480.0
 
         # --- Stato modo globale ---
         self.current_mode = Mode.IDLE
@@ -102,14 +95,10 @@ class FireControllerNode(Node):
         self._current_pan = 0.0
         self._current_tilt = self.tilt_min
         self._sweep_direction = 1  # +1 = increasing pan, -1 = decreasing
+        self._tilt_direction = 1  # +1 = increasing tilt, -1 = decreasing
         self._lock_start_time = None
         self._fire_lost_time = None
         self._last_error_pan = 0.0  # per termine derivativo PD
-
-        # Timestamp ultimo sweep step (per sweep_pause)
-        self._last_sweep_time = time.time()
-        # Timestamp ultimo tilt increment (per evitare incrementi troppo rapidi)
-        self._last_tilt_change_time = time.time()
 
         # --- Subscriptions ---
         self.create_subscription(
@@ -130,10 +119,9 @@ class FireControllerNode(Node):
         self._pantilt_pub = self.create_publisher(PanTiltCmd, '/cmd_pantilt', 10)
         self._laser_pub = self.create_publisher(Bool, '/cmd_laser', 10)
 
-        # --- Timer 20 Hz ---
-        self.create_timer(1.0 / loop_rate, self._timer_callback)
+        # --- Timer For Sweeping Updates ---
+        self.create_timer(1.0/ self.sweeping_update_freq, self._sweeping_update)
 
-        state_names = {self.SWEEPING: 'SWEEPING', self.TRACKING: 'TRACKING', self.LOCKED: 'LOCKED'}
         self.get_logger().info(
             f'FireControllerNode avviato: pan=[{self.pan_min}..{self.pan_max}]°, '
             f'tilt=[{self.tilt_min}..{self.tilt_max}]°, lock={self.lock_threshold}px/{self.lock_time}s'
@@ -146,13 +134,15 @@ class FireControllerNode(Node):
         was_detected = self.fire_detected
         self.fire_detected = msg.found
 
-        if msg.found:
-            self.fire_cx = msg.cx
-            self.fire_cy = msg.cy
-            self.fire_area = msg.area
-            self.img_width = msg.img_w
-            self.img_height = msg.img_h
-            # Reset lost timer quando il fuoco viene ritrovato
+        # Esegui stato corrente
+        if self._internal_state == self.SWEEPING:
+            self._run_sweeping()
+        elif self._internal_state == self.TRACKING:
+            self._run_tracking(time.time())
+        else:
+            self._run_locked(time.time())
+
+        if self.fire_detected:
             if not was_detected:
                 self._fire_lost_time = None
         else:
@@ -162,67 +152,41 @@ class FireControllerNode(Node):
 
     def _mode_callback(self, msg: Mode):
         """Transizione di stato globale: reset della macchina interna."""
-        prev = self.current_mode
         self.current_mode = msg.mode
-        if prev != Mode.FIRE and msg.mode == Mode.FIRE:
-            # Siamo appena entrati in FIRE → reset a SWEEPING
+        if self.current_mode == Mode.FIRE:
             self.get_logger().info('Entrato in FIRE → reset a SWEEPING')
             self._reset_to_sweeping()
 
-    # ─── Timer callback ─────────────────────────────────────────────────────
+    def _sweeping_update(self):
+        if self.current_mode != Mode.FIRE or self._internal_state != self.SWEEPING: return
+        self._sweeping_logic()
+        self._publish_pantilt(self._current_pan, self._current_tilt)
 
-    def _timer_callback(self):
-        """Loop di controllo principale a 20 Hz."""
-        now = time.time()
-
-        if self.current_mode != Mode.FIRE:
-            # TODO avoid calling this everytime. Just once after the first transition
-            # Gating: se non siamo in FIRE, home + laser OFF
-            self._publish_pantilt(0.0, 0.0)
-            self._publish_laser(False)
+    def _sweeping_logic(self):
+        """ Runs pan and tilt sweeping logic on a timer (Only if SWEEPING enabled) """
+        next_pan_angle = self._current_pan + self.sweep_step * self._sweep_direction
+        # If next pan is in expected range, applies and returns
+        if self.pan_min <= next_pan_angle <= self.pan_max:
+            self._current_pan = next_pan_angle
             return
 
-        # Esegui stato corrente
-        if self._internal_state == self.SWEEPING:
-            self._run_sweeping(now)
-        elif self._internal_state == self.TRACKING:
-            self._run_tracking(now)
-        else:  # LOCKED
-            self._run_locked(now)
+        # Else changes sweep direction and updates tilt
+        self._sweep_direction *= -1 # Changes pan direction
 
-        # Pubblica comandi
-        self._publish_pantilt(self._current_pan, self._current_tilt)
-        self._publish_laser(self._internal_state == self.LOCKED)
+        next_tilt_angle = self._current_tilt + self.tilt_increment * self._tilt_direction
+        # If next tilt is in expected range, applies and returns
+        if self.tilt_min <= next_tilt_angle <= self.tilt_max:
+            self._current_tilt = next_tilt_angle
+            return
+
+        #Else changes tilt direction
+        self._tilt_direction *= -1 # Changes tilt direction
+
 
     # ─── SWEEPING ────────────────────────────────────────────────────────────
 
-    def _run_sweeping(self, now: float):
-        """Movimento oscillante pan-tilt per cercare il fuoco."""
-        # Pausa tra step per rendere lo sweep visibile
-        if now - self._last_sweep_time < self.sweep_pause:
-            return
-        self._last_sweep_time = now
-
-        # Avanza pan di uno step
-        self._current_pan += self.sweep_step * self._sweep_direction
-
-        # Rinforza limiti pan e inversione
-        if self._current_pan >= self.pan_max:
-            self._current_pan = self.pan_max
-            self._sweep_direction = -1
-            # A fine pan sweep: incrementa tilt se passato abbastanza tempo
-            if now - self._last_tilt_change_time > 1.0:
-                self._current_tilt += self.tilt_increment
-                self._last_tilt_change_time = now
-                if self._current_tilt > self.tilt_max:
-                    self._current_tilt = self.tilt_min
-                self.get_logger().info(f'Sweep tilt → {self._current_tilt}°')
-
-        elif self._current_pan <= self.pan_min:
-            self._current_pan = self.pan_min
-            self._sweep_direction = 1
-
-        # Transizione: fuoco trovato con area sufficiente?
+    def _run_sweeping(self):
+        # If it detects fire, transitions, actual updated to servo movements are on a background timer
         if self.fire_detected and self.fire_area >= self.min_fire_area:
             self.get_logger().info(f'Fuoco trovato! area={self.fire_area:.0f}px → TRACKING')
             self._internal_state = self.TRACKING
@@ -318,14 +282,9 @@ class FireControllerNode(Node):
     def _reset_to_sweeping(self):
         """Reset completo allo stato SWEEPING."""
         self._internal_state = self.SWEEPING
-        self._current_pan = 0.0
-        self._current_tilt = self.tilt_min
-        self._sweep_direction = 1
         self._lock_start_time = None
         self._fire_lost_time = None
         self._last_error_pan = 0.0
-        self._last_sweep_time = time.time()
-        self._last_tilt_change_time = time.time()
 
     # ─── Publishing ──────────────────────────────────────────────────────────
 
