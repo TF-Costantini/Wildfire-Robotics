@@ -1,30 +1,41 @@
-cmake_minimum_required(VERSION 4.1)
-project(Repo)
+cmake_minimum_required(VERSION 3.20)
+project(wildfire_mcu)
 
-set(CMAKE_CXX_STANDARD 17)
+set(ZEPHYR_BASE ~/Library/Arduino15/packages/arduino/hardware/zephyr/0.54.1)
+set(ZEPHYR_VARIANT ${ZEPHYR_BASE}/variants/arduino_uno_q_stm32u585xx)
+set(ARDUINO_LIBS ~/Documents/Arduino/libraries)
+
 
 include_directories(
-        ~/Library/Arduino15/packages/arduino/hardware/zephyr/0.53.1/cores/arduino
-        ~/Library/Arduino15/packages/arduino/hardware/zephyr/0.53.1/libraries/Arduino_LED_Matrix/src
-        ~/Library/Arduino15/packages/arduino/hardware/zephyr/0.53.1/libraries/Arduino_RouterBridge/src
-        ~/Library/Arduino15/packages/arduino/hardware/zephyr/0.53.1/libraries/Servo/src
+        # Core
+        ${ZEPHYR_BASE}/cores/arduino
+        ${ZEPHYR_BASE}/cores/arduino/api/deprecated
+        ${ZEPHYR_BASE}/cores/arduino/api/deprecated-avr-comp
 
+        # Variant + Zephyr headers
+        ${ZEPHYR_VARIANT}
+        ${ZEPHYR_VARIANT}/llext-edk/include/zephyr/include
+        ${ZEPHYR_VARIANT}/llext-edk/include/zephyr/include/zephyr
+        ${ZEPHYR_VARIANT}/llext-edk/include/zephyr/include/generated
+
+        # Bundled libraries
+        ${ZEPHYR_BASE}/libraries/Arduino_LED_Matrix/src
+
+        # User libraries
+        ${ARDUINO_LIBS}/Arduino_RouterBridge/src
+        ${ARDUINO_LIBS}/Arduino_RPClite/src
+        ${ARDUINO_LIBS}/MsgPack
+        ${ARDUINO_LIBS}/DebugLog
+        ${ARDUINO_LIBS}/ArxTypeTraits
+        ${ARDUINO_LIBS}/ArxContainer
+        ${ARDUINO_LIBS}/Servo/src
+
+        # Project headers
         include
 )
 
-
-add_executable(Repo
-        main.ino
-        src/drivers/motor_bts7960.cpp
-        src/drivers/servo_mg996r.cpp
-        src/drivers/ultrasonic_hcsr04.cpp
-        src/drivers/laser_ky008.cpp
-        src/drivers/button.cpp
-
-        src/drivers/motor_bts7960.h
-        src/drivers/servo_mg996r.h
-        src/drivers/ultrasonic_hcsr04.h
-        src/drivers/laser_ky008.h
-        src/drivers/button.h
-        src/led_matrix/LedMatrixHandler.h
+file(GLOB_RECURSE SOURCES "src/*.cpp" "src/*.h" "*.ino")
+add_executable(
+        wildfire_mcu ${SOURCES}
+        src/drivers/motor_watchdog.h
 )
