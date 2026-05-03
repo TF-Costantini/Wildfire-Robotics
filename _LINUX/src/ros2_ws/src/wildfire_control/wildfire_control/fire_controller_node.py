@@ -32,6 +32,7 @@ from rclpy.timer import Timer
 from wildfire_msgs.msg import Detection, PanTiltCmd, Mode
 from std_msgs.msg import Bool
 import time
+import threading
 
 
 class FireControllerNode(Node):
@@ -156,6 +157,8 @@ class FireControllerNode(Node):
         if self.current_mode == Mode.FIRE:
             self.get_logger().info('Entrato in FIRE → reset a SWEEPING')
             self._reset_to_sweeping()
+        else:
+            self._goto_home()
 
     def _sweeping_update(self):
         if self.current_mode != Mode.FIRE or self._internal_state != self.SWEEPING: return
@@ -181,6 +184,30 @@ class FireControllerNode(Node):
 
         #Else changes tilt direction
         self._tilt_direction *= -1 # Changes tilt direction
+
+    def _pan_goto_home(self) -> bool:
+        if self._current_pan >= 0:
+            self._current_pan -= self.sweep_step
+        else:
+            self._current_pan += self.sweep_step
+
+        if -1.5*self.sweep_step <= self._current_pan <= self.sweep_step*1.5:
+            self._current_pan = 0
+            return True
+
+        return False
+
+    def _tilt_goto_home(self) -> bool:
+        self._current_tilt -= self.tilt_increment / 2
+        if int(self._current_tilt) > 0: return False
+        self._current_tilt = 0
+        return True
+
+    def _goto_home(self):
+        if not (self._tilt_goto_home() and self._pan_goto_home()):
+            threading.Timer(1.0 / self.sweeping_update_freq, self._goto_home).start()
+        self._publish_pantilt(self._current_pan, self._current_tilt)
+
 
 
     # ─── SWEEPING ────────────────────────────────────────────────────────────
@@ -290,8 +317,8 @@ class FireControllerNode(Node):
 
     def _publish_pantilt(self, pan: float, tilt: float):
         msg = PanTiltCmd()
-        msg.pan_deg = round(pan, 2)
-        msg.tilt_deg = round(tilt, 2)
+        msg.pan_deg = float(round(pan, 2))
+        msg.tilt_deg = float(round(tilt, 2))
         msg.stamp = self.get_clock().now().to_msg()
         self._pantilt_pub.publish(msg)
 
