@@ -118,11 +118,10 @@ void hcsr04_trigger_all(void) {
 }
 
 void hcsr04_update(void) {
-    uint32_t now = micros();
-    for (int i = 0; i < 2; ++i) {
-        Sensor &s = g_sensor[i];
+    const uint32_t now = micros();
+    for (auto & s : g_sensor) {
         if (s.phase != PHASE_IDLE) {
-            uint32_t elapsed = (uint32_t)(now - s.trig_us);
+            const auto elapsed = now - s.trig_us;
             if (elapsed > HCSR04_TIMEOUT_US) {
                 s.phase = PHASE_IDLE;
                 s.valid = false;
@@ -131,7 +130,7 @@ void hcsr04_update(void) {
     }
 }
 
-float hcsr04_get_distance(uint8_t id) {
+float hcsr04_get_distance(const uint8_t id) {
     if (id > 1)              return -1.0f;
     if (!g_sensor[id].valid) return -1.0f;
     return g_sensor[id].distance_cm;

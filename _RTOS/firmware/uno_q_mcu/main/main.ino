@@ -48,6 +48,8 @@ extern "C" {
 #define HCSR04_TRIG_PERIOD_MS  60       // trigger faster than publish
 #define WATCHDOG_TIMEOUT_MS    500
 
+#define MIN_SAFE_DISTANCE 30 // centimeters
+
 #define BLINK_TOGGLE_COUNT    100
 
 // =====================================================================
@@ -83,7 +85,6 @@ static void printMotorData(const float left, const float right)
  */
 static bool rpc_set_drive(const float left, const float right) {
     //printMotorData(left, right);
-
     motor_set(left, right);
     g_last_drive_cmd_ms  = millis();
     g_drive_zeroed_by_wd = false;
@@ -139,8 +140,14 @@ static void task_publish_ultrasonics() {
     if ((uint32_t)(now - g_last_us_publish_ms) >= ULTRASONIC_PERIOD_MS) {
         g_last_us_publish_ms = now;
 
-        float dl = hcsr04_get_distance(HCSR04_LEFT);
-        float dr = hcsr04_get_distance(HCSR04_RIGHT);
+        const float dl = hcsr04_get_distance(HCSR04_LEFT);
+        const float dr = hcsr04_get_distance(HCSR04_RIGHT);
+
+        // STOPS THE MOTOR IMMEDIATELY IF EITHER BELOW SAFETY LIMIT
+        if (dl < MIN_SAFE_DISTANCE || dr < MIN_SAFE_DISTANCE)
+        {
+            motor_emergency_stop();
+        }
 
         float left_m  = (dl >= 0.0f) ? (dl * 0.01f) : -1.0f;
         float right_m = (dr >= 0.0f) ? (dr * 0.01f) : -1.0f;
@@ -166,7 +173,10 @@ static void task_publish_button() {
         //Monitor.println("PUBLISHING: Button Press");
         LEDMatrixHandler::button_on();
 
-        Bridge.call("on_button", static_cast<int>(0));
+        //TODO temporary. Motor are re-enabled by pressing the same button that cycles the states
+        motor_enable();
+
+        Bridge.call("on_button", 0);
     }
 
 }
@@ -178,9 +188,9 @@ static void task_publish_button() {
  */
 static void task_drive_watchdog() {
     const uint32_t now = millis();
-    if ((uint32_t)(now - g_last_drive_cmd_ms) > WATCHDOG_TIMEOUT_MS) {
+    if (now - g_last_drive_cmd_ms > WATCHDOG_TIMEOUT_MS) {
         if (!g_drive_zeroed_by_wd) {
-            motor_set(0.0f, 0.0f);
+            motor_emergency_stop();
             g_drive_zeroed_by_wd = true;
         }
     }

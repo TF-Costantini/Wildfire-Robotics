@@ -74,12 +74,10 @@ void motor_init(void) {
     analogWrite(PIN_MOTOR_B_RPWM, 0);
     analogWrite(PIN_MOTOR_B_LPWM, 0);
 
-    digitalWrite(PIN_MOTOR_A_EN, HIGH);
-    digitalWrite(PIN_MOTOR_B_EN, HIGH);
-
     g_state.left    = 0.0f;
     g_state.right   = 0.0f;
-    g_state.enabled = true;
+
+    motor_enable();
 }
 
 void motor_set(float left, float right) {
@@ -98,6 +96,7 @@ void motor_set(float left, float right) {
 }
 
 void motor_emergency_stop(void) {
+    motor_disable();
     analogWrite(PIN_MOTOR_A_RPWM, 0);
     analogWrite(PIN_MOTOR_A_LPWM, 0);
     analogWrite(PIN_MOTOR_B_RPWM, 0);
