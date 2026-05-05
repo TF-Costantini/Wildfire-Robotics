@@ -29,7 +29,6 @@
 
 #include <Arduino.h>
 #include <Arduino_RouterBridge.h>
-#include <cstdio>
 
 #include "src/led_matrix/LedMatrixHandler.h"
 
@@ -71,31 +70,16 @@ int health_row_skip_count = 0;
 // motor / servo drivers.
 // =====================================================================
 
-static void printMotorData(const float left, const float right)
-{
-    char buf[64];
-    snprintf(buf, sizeof(buf), "RECEIVING: MotorData %.2f %.2f", left, right);
-    Monitor.println(buf);
-}
-
 /**
  * set_drive(left, right)
  * Called by the MPU to command the drive motors.
  * left / right are in the range [-1.0, 1.0].
  */
 static bool rpc_set_drive(const float left, const float right) {
-    //printMotorData(left, right);
     motor_set(left, right);
     g_last_drive_cmd_ms  = millis();
     g_drive_zeroed_by_wd = false;
     return true;
-}
-
-static void printPanTiltData(const float pan, const float tilt)
-{
-    char buf[64];
-    snprintf(buf, sizeof(buf), "RECEIVING: PanTilt %.2f %.2f", pan, tilt);
-    Monitor.println(buf);
 }
 
 /**
@@ -103,7 +87,6 @@ static void printPanTiltData(const float pan, const float tilt)
  * Called by the MPU to command the pan/tilt servo.
  */
 static bool rpc_set_pantilt(const float pan_deg, const float tilt_deg) {
-    //printPanTiltData(pan_deg, tilt_deg);
     servo_set_position(pan_deg, tilt_deg);
     return true;
 }
@@ -113,7 +96,6 @@ static bool rpc_set_pantilt(const float pan_deg, const float tilt_deg) {
  * Called by the MPU to turn the laser on or off.
  */
 static bool rpc_set_laser(const bool on) {
-    //Monitor.println("RECEIVING: Laser Data");
     if (on) laser_on();
     else    laser_off();
     return true;
