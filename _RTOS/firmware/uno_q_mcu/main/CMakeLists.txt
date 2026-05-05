@@ -37,5 +37,4 @@ include_directories(
 file(GLOB_RECURSE SOURCES "src/*.cpp" "src/*.h" "*.ino")
 add_executable(
         wildfire_mcu ${SOURCES}
-        src/drivers/motor_watchdog.h
 )
