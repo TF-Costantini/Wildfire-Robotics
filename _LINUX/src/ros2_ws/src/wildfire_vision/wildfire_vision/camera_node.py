@@ -52,7 +52,6 @@ class CameraNode(Node):
         # --- VideoCapture (solo se NON in modalità test) ---
         self._cap = None
         self._reconnect_attempts = 0
-        self._max_reconnect_attempts = 5
         if not self.test_image_path:
             self._open_camera()
 
@@ -137,20 +136,7 @@ class CameraNode(Node):
         self._reconnect_attempts = 0  # Reset counter on success
 
     def _handle_disconnection(self):
-        """Tenta di riaprire la camera dopo una disconnessione.
-
-        Quando il limite di retry è raggiunto, ferma il timer di
-        pubblicazione e logga il messaggio di error UNA volta sola, per
-        evitare lo spam che sporcava i log a 15 Hz.
-        """
-        if self._reconnect_attempts >= self._max_reconnect_attempts:
-            if self._timer is not None:
-                self._timer.cancel()
-                self._timer = None
-                self.get_logger().error(
-                    f'Massimo tentativi di riconnessione ({self._max_reconnect_attempts}) raggiunti — timer fermato'
-                )
-            return
+        """Tenta di riaprire la camera dopo una disconnessione."""
 
         self._reconnect_attempts += 1
         self.get_logger().warn(

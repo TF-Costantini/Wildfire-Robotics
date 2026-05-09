@@ -129,6 +129,9 @@ static void task_publish_ultrasonics() {
         if (dl < MIN_SAFE_DISTANCE || dr < MIN_SAFE_DISTANCE)
         {
             motor_emergency_stop();
+        } else
+        {
+            motor_enable();
         }
 
         float left_m  = (dl >= 0.0f) ? (dl * 0.01f) : -1.0f;

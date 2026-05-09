@@ -75,8 +75,8 @@
 // Servo timing constants (MG996R)
 // =====================================================================
 #define SERVO_PWM_FREQ_HZ       50      // 50 Hz frame
-#define SERVO_PULSE_MIN_US      1000    // 1 ms  ->   0 deg
-#define SERVO_PULSE_MAX_US      2000    // 2 ms  -> 180 deg
+#define SERVO_PULSE_MIN_US      500    // 1 ms  ->   0 deg
+#define SERVO_PULSE_MAX_US      2500    // 2 ms  -> 180 deg
 #define SERVO_PULSE_RANGE_US    (SERVO_PULSE_MAX_US - SERVO_PULSE_MIN_US)
 
 // =====================================================================

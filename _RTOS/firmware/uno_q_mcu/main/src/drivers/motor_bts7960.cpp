@@ -112,7 +112,6 @@ void motor_enable(void) {
 }
 
 void motor_disable(void) {
-    motor_emergency_stop();
     digitalWrite(PIN_MOTOR_A_EN, LOW);
     digitalWrite(PIN_MOTOR_B_EN, LOW);
     g_state.enabled = false;

@@ -88,9 +88,14 @@ class FollowControllerNode(Node):
     def _person_callback(self, msg: Detection):
         """Aggiorna posizione della persona rilevata."""
         self.person_detected = msg.found
-        if not msg.found: return
+        if msg.found:
+            cmd = self._compute_drive_command(person_cx= msg.cx, img_width=msg.img_w)
+        else:
+            cmd = DriveCmd()
+            cmd.right = 0.0
+            cmd.left = 0.0
+            cmd.stamp = self.get_clock().now().to_msg()
 
-        cmd = self._compute_drive_command(person_cx= msg.cx, img_width=msg.img_w)
         self._drive_pub.publish(cmd)
 
     def _ultrasonic_left_callback(self, msg: Range):
