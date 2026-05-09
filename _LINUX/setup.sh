@@ -35,6 +35,8 @@ if ! grep -qF "$ROSDEP_ENTRY" "$ROSDEP_FILE" 2>/dev/null; then
   echo "$ROSDEP_ENTRY" >> "$ROSDEP_FILE"
 fi
 
+apt install tmux
+
 # Updates the local cache of rosdep dependency database
 echo -e "\nUPDATING ROS DEPENDENCY DATABASE\n"
 rosdep update

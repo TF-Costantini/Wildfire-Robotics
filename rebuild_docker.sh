@@ -28,3 +28,17 @@ echo -e "\nSTARTED SUCCESSFULLY\n"
 
 # Attaches to the container
 docker exec -it $CONTAINER_NAME /bin/bash
+
+# Automatically launches setup
+docker exec -it $CONTAINER_NAME bash -c "/setup.sh"
+
+# Updates container entrypoint with automatic launch of ros
+docker exec -it $CONTAINER_NAME bash -c \
+'cat > /ros_entrypoint.sh << EOF
+#!/bin/bash
+set -e
+source "/opt/ros/$ROS_DISTRO/setup.bash"
+source "/home/project/ros2_ws/install/setup.bash"
+nohup ros2 launch wildfire_bringup bringup.launch.py use_sim:=false > ~/all_nodes.log 2>&1 &
+exec "$@"
+EOF'
