@@ -16,7 +16,6 @@ camera_node:
     frame_height: 480
     fps: 15
     camera_name: 'camera'
-    test_image_path: '/home/project/test_images/test_person.jpg'
 
 person_detector_node:
   ros__parameters:
