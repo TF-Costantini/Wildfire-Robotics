@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-BASE_PATH="/_LINUX"
+BASE_PATH=""
 ARDUINO_BASE="/home/arduino"
 
 echo -e "\nCOPYING ALL REQUIRED DATA...\n"

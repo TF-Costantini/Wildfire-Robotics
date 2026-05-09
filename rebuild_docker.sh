@@ -21,7 +21,7 @@ docker run -itd \
   -v /var/run/arduino-router.sock:/var/run/arduino-router.sock \
   --net=host \
   --restart unless-stopped \
-  --device=/dev/video0 \
+  --device=/dev/video2 \
   $IMAGE_NAME
 
 echo -e "\nSTARTED SUCCESSFULLY\n"
