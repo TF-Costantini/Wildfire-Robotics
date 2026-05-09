@@ -137,11 +137,11 @@ class FireControllerNode(Node):
 
         # Esegui stato corrente
         if self._internal_state == self.SWEEPING:
-            self._run_sweeping()
+            self._run_sweeping(msg)
         elif self._internal_state == self.TRACKING:
-            self._run_tracking(time.time())
+            self._run_tracking(msg, time.time())
         else:
-            self._run_locked(time.time())
+            self._run_locked(msg, time.time())
 
         if self.fire_detected:
             if not was_detected:
@@ -212,21 +212,21 @@ class FireControllerNode(Node):
 
     # ─── SWEEPING ────────────────────────────────────────────────────────────
 
-    def _run_sweeping(self):
+    def _run_sweeping(self, msg: Detection):
         # If it detects fire, transitions, actual updated to servo movements are on a background timer
-        if self.fire_detected and self.fire_area >= self.min_fire_area:
-            self.get_logger().info(f'Fuoco trovato! area={self.fire_area:.0f}px → TRACKING')
+        if self.fire_detected and msg.area >= self.min_fire_area:
+            self.get_logger().info(f'Fuoco trovato! area={msg.area:.0f}px → TRACKING')
             self._internal_state = self.TRACKING
             self._lock_start_time = None
             self._fire_lost_time = None
 
     # ─── TRACKING ───────────────────────────────────────────────────────────
 
-    def _run_tracking(self, now: float):
+    def _run_tracking(self, msg: Detection, now: float):
         """PD controller per centrare il fuoco al centro del frame."""
         # Errore: distanza del centroide dal centro immagine
-        ex = self.fire_cx - self.img_width / 2.0   # px, >0 = fuoco a destra
-        ey = self.fire_cy - self.img_height / 2.0  # px, >0 = fuoco in basso
+        ex = msg.cx - msg.img_w / 2.0   # px, >0 = fuoco a destra
+        ey = msg.cy - msg.img_h / 2.0  # px, >0 = fuoco in basso
 
         error_mag = (ex ** 2 + ey ** 2) ** 0.5
 
@@ -274,7 +274,7 @@ class FireControllerNode(Node):
 
     # ─── LOCKED ─────────────────────────────────────────────────────────────
 
-    def _run_locked(self, now: float):
+    def _run_locked(self, msg: Detection, now: float):
         """Mantiene lock sul fuoco con correzioni minime. Laser ON."""
         if not self.fire_detected:
             if self._fire_lost_time is None:
@@ -287,8 +287,8 @@ class FireControllerNode(Node):
             self._fire_lost_time = None
 
         # Verifica degradazione lock
-        ex = self.fire_cx - self.img_width / 2.0
-        ey = self.fire_cy - self.img_height / 2.0
+        ex = msg.cx - msg.img_w / 2.0
+        ey = msg.cy - msg.img_h / 2.0
         error_mag = (ex ** 2 + ey ** 2) ** 0.5
 
         if error_mag > self.lock_threshold:
