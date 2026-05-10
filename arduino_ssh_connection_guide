@@ -1,0 +1,20 @@
+#---------MAC TERMINAL-----------
+# to verify the network connectivity between the host and the arduino
+ping phoenix.local
+
+# to establish a secure remote session to the arduino using an identity file (.pem)
+ssh -i $HOME/.ssh/auq_phoenix.pem arduino@phoenix.local
+
+#---------ARDUINO TERMINAL-----------
+# to access the terminal of the docker container already running on the arduino
+# this allows us to execute ROS 2 commands and manage hardware devices from within the container's environment
+./start_docker.sh
+
+#---------DOCKER TERMINAL-----------
+# to display the list of all currently active nodes
+ros2 node list
+
+
+# script to initialize a tmux session, automatically splitting windows and launching the nodes.
+./listen_all.sh
+

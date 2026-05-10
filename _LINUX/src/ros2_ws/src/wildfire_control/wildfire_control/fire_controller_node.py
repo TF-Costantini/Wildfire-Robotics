@@ -100,6 +100,7 @@ class FireControllerNode(Node):
         self._lock_start_time = None
         self._fire_lost_time = None
         self._last_error_pan = 0.0  # per termine derivativo PD
+        self._laser_on = False
 
         # --- Subscriptions ---
         self.create_subscription(
@@ -140,7 +141,7 @@ class FireControllerNode(Node):
             self._run_sweeping(msg)
         elif self._internal_state == self.TRACKING:
             self._run_tracking(msg, time.time())
-        else:
+        else: #self.LOCKED
             self._run_locked(msg, time.time())
 
         if self.fire_detected:
@@ -159,6 +160,7 @@ class FireControllerNode(Node):
             self._reset_to_sweeping()
         else:
             self._goto_home()
+            self._publish_laser(False)
 
     def _sweeping_update(self):
         if self.current_mode != Mode.FIRE or self._internal_state != self.SWEEPING: return
@@ -269,8 +271,9 @@ class FireControllerNode(Node):
         self._current_tilt += delta_tilt * 0.05
 
         # Clamp ai limiti fisici
-        self._current_pan = max(self.pan_min, min(self.pan_max, self._current_pan))
-        self._current_tilt = max(self.tilt_min, min(self.tilt_max, self._current_tilt))
+        self._current_pan = float(max(self.pan_min, min(self.pan_max, self._current_pan)))
+        self._current_tilt = float(max(self.tilt_min, min(self.tilt_max, self._current_tilt)))
+        self._publish_pantilt(self._current_pan, self._current_tilt)
 
     # ─── LOCKED ─────────────────────────────────────────────────────────────
 
@@ -283,8 +286,11 @@ class FireControllerNode(Node):
                 self.get_logger().warn('Lock perso → SWEEPING')
                 self._reset_to_sweeping()
                 return
-        else:
+
+        else: #FIRE DETECTED HERE
             self._fire_lost_time = None
+            if not self._laser_on:
+                self._publish_laser(True)
 
         # Verifica degradazione lock
         ex = msg.cx - msg.img_w / 2.0
@@ -301,8 +307,10 @@ class FireControllerNode(Node):
         self._current_pan -= ex * 0.02
         self._current_tilt -= ey * 0.02
 
-        self._current_pan = max(self.pan_min, min(self.pan_max, self._current_pan))
-        self._current_tilt = max(self.tilt_min, min(self.tilt_max, self._current_tilt))
+        # Clamp ai limiti fisici
+        self._current_pan = float(max(self.pan_min, min(self.pan_max, self._current_pan)))
+        self._current_tilt = float(max(self.tilt_min, min(self.tilt_max, self._current_tilt)))
+        self._publish_pantilt(self._current_pan, self._current_tilt)
 
     # ─── Reset ──────────────────────────────────────────────────────────────
 
@@ -325,6 +333,7 @@ class FireControllerNode(Node):
     def _publish_laser(self, on: bool):
         msg = Bool()
         msg.data = on
+        self._laser_on = on
         self._laser_pub.publish(msg)
 
 
