@@ -64,7 +64,7 @@ fire_controller_node:
     pd_kp_pan: 0.5
     pd_kp_tilt: 0.5
     pd_kd: 0.1
-    lock_threshold_px: 20.0
+    lock_threshold_px: 500.0
     lock_time_s: 0.5
     unlock_time_s: 0.3
     min_fire_area: 500.0

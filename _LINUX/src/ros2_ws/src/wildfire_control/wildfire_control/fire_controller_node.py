@@ -279,6 +279,10 @@ class FireControllerNode(Node):
 
     def _run_locked(self, msg: Detection, now: float):
         """Mantiene lock sul fuoco con correzioni minime. Laser ON."""
+        if not self._laser_on:
+            self._publish_laser(True)
+
+
         if not self.fire_detected:
             if self._fire_lost_time is None:
                 self._fire_lost_time = now
@@ -289,8 +293,6 @@ class FireControllerNode(Node):
 
         else: #FIRE DETECTED HERE
             self._fire_lost_time = None
-            if not self._laser_on:
-                self._publish_laser(True)
 
         # Verifica degradazione lock
         ex = msg.cx - msg.img_w / 2.0
@@ -320,6 +322,7 @@ class FireControllerNode(Node):
         self._lock_start_time = None
         self._fire_lost_time = None
         self._last_error_pan = 0.0
+        self._publish_laser(False)
 
     # ─── Publishing ──────────────────────────────────────────────────────────
 

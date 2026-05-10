@@ -137,10 +137,13 @@ class CameraNode(Node):
 
     def _handle_disconnection(self):
         """Tenta di riaprire la camera dopo una disconnessione."""
-
         self._reconnect_attempts += 1
+
+        # Every 3 seconds attempts reconnection
+        if (self._reconnect_attempts % (self.fps * 3)) != 0 : return
+
         self.get_logger().warn(
-            f'Tentativo riconnessione {self._reconnect_attempts}/{self._max_reconnect_attempts}...'
+            'Attempting Reconnection...'
         )
         self._open_camera()
 
