@@ -34,12 +34,13 @@ class FollowControllerNode(Node):
         self.declare_parameter('target_distance_cm', 80.0)
         self.declare_parameter('min_safe_distance_cm', 40.0)
         self.declare_parameter('max_distance_cm', 200.0)
-        self.declare_parameter('linear_kp', 0.01)
-        self.declare_parameter('angular_kp', 0.5)
-        self.declare_parameter('max_linear_speed', 0.5)
+        self.declare_parameter('linear_kp', 0.025)
+        self.declare_parameter('angular_kp', 0.8)
+        self.declare_parameter('max_linear_speed', 0.7)
         self.declare_parameter('max_angular_speed', 1.0)
-        self.declare_parameter('min_turn_speed', 0.2)
+        self.declare_parameter('min_turn_speed', 0.45)
         self.declare_parameter('loop_rate_hz', 10.0)
+        self.declare_parameter('min_drive', 0.40)
 
         self.target_distance = self.get_parameter('target_distance_cm').value
         self.min_safe_distance = self.get_parameter('min_safe_distance_cm').value
@@ -49,6 +50,7 @@ class FollowControllerNode(Node):
         self.max_linear_speed = self.get_parameter('max_linear_speed').value
         self.max_angular_speed = self.get_parameter('max_angular_speed').value
         self.min_turn_speed = self.get_parameter('min_turn_speed').value
+        self.min_drive = self.get_parameter('min_drive').value
 
         self.ultrasonic_left = float('inf')
         self.ultrasonic_right = float('inf')
@@ -159,6 +161,11 @@ class FollowControllerNode(Node):
         # 10. Clamp finale a [-1, 1]
         left = max(-1.0, min(1.0, left))
         right = max(-1.0, min(1.0, right))
+
+        if 0.0 < abs(left) < self.min_drive:
+            left = self.min_drive * (1 if left > 0 else -1)
+        if 0.0 < abs(right) < self.min_drive:
+            right = self.min_drive * (1 if right > 0 else -1)
 
         # 11. Rotazione pura: se quasi fermo ma deve girare, garantisce velocità angolare minima
         if abs(v) < 0.05 and abs(omega) > 0.05:
