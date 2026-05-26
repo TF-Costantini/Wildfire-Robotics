@@ -242,7 +242,7 @@ void loop() {
 
     // Always-on sensor housekeeping — independent of bridge state.
     hcsr04_update();
-    task_drive_watchdog();
+    //task_drive_watchdog();
 
     // Push sensor data and events to the MPU.
     task_publish_ultrasonics();

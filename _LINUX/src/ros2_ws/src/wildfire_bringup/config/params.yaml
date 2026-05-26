@@ -45,13 +45,13 @@ follow_controller_node:
     target_distance_cm: 80.0
     min_safe_distance_cm: 40.0
     max_distance_cm: 200.0
-    linear_kp: 0.025
+    linear_kp: 0.04
     angular_kp: 0.8
-    max_linear_speed: 0.7
+    max_linear_speed: 1.0
     max_angular_speed: 1.0
     min_turn_speed: 0.45
     loop_rate_hz: 10.0
-    min_drive: 0.40
+    min_drive: 0.55
 
 fire_controller_node:
   ros__parameters:

@@ -96,7 +96,7 @@ void motor_set(float left, float right) {
 }
 
 void motor_emergency_stop(void) {
-    motor_disable();
+    //motor_disable();
     analogWrite(PIN_MOTOR_A_RPWM, 0);
     analogWrite(PIN_MOTOR_A_LPWM, 0);
     analogWrite(PIN_MOTOR_B_RPWM, 0);

@@ -8,6 +8,7 @@ REMOTE=arduino@phoenix.local
 
 echo -e "\nCOPYING ALL REQUIRED DATA...\n"
 
+ssh -i "$PEM_PATH" "$REMOTE" "rm -rf $ARDUINO_BASE$BASE_PATH"
 ssh -i "$PEM_PATH" "$REMOTE" "mkdir -p $ARDUINO_BASE$BASE_PATH/src/"
 ssh -i "$PEM_PATH" "$REMOTE" "mkdir -p $ARDUINO_BASE$BASE_PATH/test_images/"
 
