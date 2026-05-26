@@ -144,7 +144,8 @@ static void task_publish_ultrasonics() {
         LEDMatrixHandler::right_ultrasonic_on();
         LEDMatrixHandler::left_ultrasonic_on();
 
-        Bridge.call("on_ultrasonic", left_m, right_m);
+        //TODO: Change -> LEFT ULTRASONIC IS BROKEN -- PASSING RIGHT TO BOTH
+        Bridge.call("on_ultrasonic", right_m, right_m);
     }
 }
 
