@@ -55,11 +55,11 @@
 // HC-SR04 ultrasonics — front-left and front-right
 // =====================================================================
 // #1 front-left
-#define PIN_HCSR04_1_TRIG      A0   // GPIO out (10us trigger pulse)
-#define PIN_HCSR04_1_ECHO      A1   // GPIO in,  EXTI rising+falling edge
+#define PIN_HCSR04_1_TRIG      A2   // GPIO out (10us trigger pulse)
+#define PIN_HCSR04_1_ECHO      A3   // GPIO in,  EXTI rising+falling edge
 // #2 front-right
-#define PIN_HCSR04_2_TRIG      A2   // GPIO out
-#define PIN_HCSR04_2_ECHO      A3   // GPIO in,  EXTI rising+falling edge
+#define PIN_HCSR04_2_TRIG      A0   // GPIO out
+#define PIN_HCSR04_2_ECHO      A1   // GPIO in,  EXTI rising+falling edge
 
 // =====================================================================
 // KY-008 laser module (5 V logic, active-high)
