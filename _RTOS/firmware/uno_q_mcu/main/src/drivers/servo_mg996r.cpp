@@ -39,8 +39,8 @@ State g_state = {
     /* tilt_deg    */ 0,
     /* pan_min     */ -80,
     /* pan_max     */  80,
-    /* tilt_min    */   0,
-    /* tilt_max    */  60,
+    /* tilt_min    */   -30,
+    /* tilt_max    */  30,
     /* pan_offset  */  90,
     /* tilt_offset */   0,
 };

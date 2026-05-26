@@ -323,6 +323,7 @@ class FireControllerNode(Node):
         self._fire_lost_time = None
         self._last_error_pan = 0.0
         self._publish_laser(False)
+        self._goto_home()
 
     # ─── Publishing ──────────────────────────────────────────────────────────
 

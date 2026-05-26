@@ -45,19 +45,20 @@ follow_controller_node:
     target_distance_cm: 80.0
     min_safe_distance_cm: 40.0
     max_distance_cm: 200.0
-    linear_kp: 0.01
-    angular_kp: 0.5
-    max_linear_speed: 0.5
+    linear_kp: 0.025
+    angular_kp: 0.8
+    max_linear_speed: 0.7
     max_angular_speed: 1.0
-    min_turn_speed: 0.2
+    min_turn_speed: 0.45
     loop_rate_hz: 10.0
+    min_drive: 0.40
 
 fire_controller_node:
   ros__parameters:
-    pan_min_deg: -70.0
-    pan_max_deg: 70.0
-    tilt_min_deg: 0.0
-    tilt_max_deg: 60.0
+    pan_min_deg: -60.0
+    pan_max_deg: 60.0
+    tilt_min_deg: -30.0
+    tilt_max_deg: 30.0
     sweep_step_deg: 0.5
     sweeping_update_freq: 80.0
     tilt_increment_deg: 5.0
