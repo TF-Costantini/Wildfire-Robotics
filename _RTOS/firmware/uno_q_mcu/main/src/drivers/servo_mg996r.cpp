@@ -14,8 +14,6 @@
 #include "servo_mg996r.h"
 #include "pins.h"
 
-#include <Arduino.h>
-#include <Arduino_RouterBridge.h>
 #include <Servo.h>
 
 #include "../led_matrix/LedMatrixHandler.h"
@@ -26,47 +24,34 @@
 namespace {
 
 struct State {
-    float pan_deg;
-    float tilt_deg;
-    float pan_min;
-    float pan_max;
-    float tilt_min;
-    float tilt_max;
-    float pan_offset;
-    float tilt_offset;
+    int pan_deg;
+    int tilt_deg;
+    int pan_min;
+    int pan_max;
+    int tilt_min;
+    int tilt_max;
+    int pan_offset;
+    int tilt_offset;
 };
 
 State g_state = {
-    /* pan_deg     */ 0.0f,
-    /* tilt_deg    */ 0.0f,
-    /* pan_min     */ -80.0f,
-    /* pan_max     */  80.0f,
-    /* tilt_min    */   0.0f,
-    /* tilt_max    */  60.0f,
-    /* pan_offset  */   0.0f,
-    /* tilt_offset */   0.0f,
+    /* pan_deg     */ 0,
+    /* tilt_deg    */ 0,
+    /* pan_min     */ -80,
+    /* pan_max     */  80,
+    /* tilt_min    */   0,
+    /* tilt_max    */  60,
+    /* pan_offset  */  90,
+    /* tilt_offset */   0,
 };
 
 Servo g_pan;
 Servo g_tilt;
 
-inline float clamp(float v, float lo, float hi) {
+int clamp(const int v, const int lo, const int hi) {
     if (v < lo) return lo;
     if (v > hi) return hi;
     return v;
-}
-
-/* Map a logical angle (deg) onto the MG996R pulse range. The library
- * accepts microseconds directly via writeMicroseconds. We anchor 0 deg
- * to the midpoint of the pulse window so positive and negative angles
- * are symmetric around the servo's mechanical center. */
-inline int degrees_to_us(float deg) {
-    const float center = 0.5f * (SERVO_PULSE_MIN_US + SERVO_PULSE_MAX_US);
-    const float us_per_deg = (float)SERVO_PULSE_RANGE_US / 180.0f;
-    float us = center + deg * us_per_deg;
-    if (us < SERVO_PULSE_MIN_US) us = SERVO_PULSE_MIN_US;
-    if (us > SERVO_PULSE_MAX_US) us = SERVO_PULSE_MAX_US;
-    return (int)us;
 }
 
 } /* namespace */
@@ -74,34 +59,32 @@ inline int degrees_to_us(float deg) {
 extern "C" {
 
 void servo_init(void) {
-    g_pan.attach(PIN_SERVO_PAN,  SERVO_PULSE_MIN_US, SERVO_PULSE_MAX_US);
-    g_tilt.attach(PIN_SERVO_TILT, SERVO_PULSE_MIN_US, SERVO_PULSE_MAX_US);
+    g_pan.attach(PIN_SERVO_PAN);
+    g_tilt.attach(PIN_SERVO_TILT);
 
-    g_state.pan_deg  = 0.0f;
-    g_state.tilt_deg = 0.0f;
+    g_state.pan_deg  = 0;
+    g_state.tilt_deg = 0;
 
-    g_pan.writeMicroseconds( degrees_to_us(g_state.pan_offset) );
-    g_tilt.writeMicroseconds( degrees_to_us(g_state.tilt_offset) );
+    g_pan.write( g_state.pan_offset );
+    g_tilt.write( g_state.tilt_offset );
 }
 
-void servo_pan_set(float deg) {
-    deg = clamp(deg, g_state.pan_min, g_state.pan_max);
-    if (fabsf(deg - g_state.pan_deg) < DEADBAND) return;
+void servo_pan_set(const int in) {
+    const int deg = in; //clamp(in, g_state.pan_min, g_state.pan_max);
 
     g_state.pan_deg = deg;
-    g_pan.writeMicroseconds( degrees_to_us(deg + g_state.pan_offset) );
+    g_pan.write( (deg + g_state.pan_offset) );
 }
 
-void servo_tilt_set(float deg) {
-    deg = clamp(deg, g_state.tilt_min, g_state.tilt_max);
-    if (fabsf(deg - g_state.tilt_deg) < DEADBAND) return;
+void servo_tilt_set(const int in) {
+    const int deg = clamp(in, g_state.tilt_min, g_state.tilt_max);
 
     g_state.tilt_deg = deg;
-    g_tilt.writeMicroseconds( degrees_to_us(deg + g_state.tilt_offset) );
+    g_tilt.write( (deg + g_state.tilt_offset) );
 }
 
-void servo_set_position(const float pan_deg, const float tilt_deg) {
-    if (pan_deg != 0.0f || tilt_deg != 0.0f)
+void servo_set_position(const int pan_deg, const int tilt_deg) {
+    if (pan_deg != 0 || tilt_deg != 0)
         LEDMatrixHandler::pantilt_on();
     servo_pan_set(pan_deg);
     servo_tilt_set(tilt_deg);
@@ -113,16 +96,15 @@ void servo_home(void) {
 
 void servo_safe_position(void) {
     /* Camera up, pan centered. Useful as a stowed/transport pose. */
-    servo_set_position(0.0f, g_state.tilt_max);
+    servo_set_position(0, g_state.tilt_max);
 }
 
-void servo_get_position(float *pan, float *tilt) {
+void servo_get_position(int *pan, int *tilt) {
     if (pan)  *pan  = g_state.pan_deg;
     if (tilt) *tilt = g_state.tilt_deg;
 }
 
-void servo_set_limits(float pan_min, float pan_max,
-                      float tilt_min, float tilt_max) {
+void servo_set_limits(const int pan_min, const int pan_max, const int tilt_min, const int tilt_max) {
     g_state.pan_min  = pan_min;
     g_state.pan_max  = pan_max;
     g_state.tilt_min = tilt_min;
