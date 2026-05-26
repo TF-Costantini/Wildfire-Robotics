@@ -58,8 +58,8 @@ fire_controller_node:
     pan_max_deg: 70.0
     tilt_min_deg: 0.0
     tilt_max_deg: 60.0
-    sweep_step_deg: 2.0
-    sweeping_update_freq: 20.0
+    sweep_step_deg: 0.5
+    sweeping_update_freq: 80.0
     tilt_increment_deg: 5.0
     pd_kp_pan: 0.5
     pd_kp_tilt: 0.5
