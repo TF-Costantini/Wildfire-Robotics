@@ -43,9 +43,9 @@ extern "C" {
 // =====================================================================
 // Constants
 // =====================================================================
-#define ULTRASONIC_PERIOD_MS   100      // 10 Hz publish rate
-#define HCSR04_TRIG_PERIOD_MS  60       // trigger faster than publish
-#define WATCHDOG_TIMEOUT_MS    500
+#define ULTRASONIC_PERIOD_MS   300      // 10 Hz publish rate
+#define HCSR04_TRIG_PERIOD_MS  200       // trigger faster than publish
+#define WATCHDOG_TIMEOUT_MS    1500
 
 #define MIN_SAFE_DISTANCE 30 // centimeters
 
@@ -114,28 +114,19 @@ static bool rpc_set_laser(const bool on) {
 static void task_publish_ultrasonics() {
     const uint32_t now = millis();
 
-    if ((uint32_t)(now - g_last_us_trigger_ms) >= HCSR04_TRIG_PERIOD_MS) {
+    if (now - g_last_us_trigger_ms >= HCSR04_TRIG_PERIOD_MS) {
         g_last_us_trigger_ms = now;
         hcsr04_trigger_all();
     }
 
-    if ((uint32_t)(now - g_last_us_publish_ms) >= ULTRASONIC_PERIOD_MS) {
+    if (now - g_last_us_publish_ms >= ULTRASONIC_PERIOD_MS) {
         g_last_us_publish_ms = now;
 
-        const float dl = hcsr04_get_distance(HCSR04_LEFT);
-        const float dr = hcsr04_get_distance(HCSR04_RIGHT);
+        const float dl = hcsr04_get_left_distance();
+        const float dr = hcsr04_get_right_distance();
 
-        // STOPS THE MOTOR IMMEDIATELY IF EITHER BELOW SAFETY LIMIT
-        if (dl < MIN_SAFE_DISTANCE || dr < MIN_SAFE_DISTANCE)
-        {
-            motor_emergency_stop();
-        } else
-        {
-            motor_enable();
-        }
-
-        float left_m  = (dl >= 0.0f) ? (dl * 0.01f) : -1.0f;
-        float right_m = (dr >= 0.0f) ? (dr * 0.01f) : -1.0f;
+        float left_m  = dl >= 0.0f ? dl * 0.01f : -1.0f;
+        float right_m = dr >= 0.0f ? dr * 0.01f : -1.0f;
 
         // Fire-and-forget: we don't wait for the MPU to acknowledge.
         // If the bridge is down the call silently fails.
@@ -144,8 +135,7 @@ static void task_publish_ultrasonics() {
         LEDMatrixHandler::right_ultrasonic_on();
         LEDMatrixHandler::left_ultrasonic_on();
 
-        //TODO: Change -> LEFT ULTRASONIC IS BROKEN -- PASSING RIGHT TO BOTH
-        Bridge.call("on_ultrasonic", right_m, right_m);
+        Bridge.call("on_ultrasonic", left_m, right_m);
     }
 }
 
@@ -172,7 +162,7 @@ static void task_publish_button() {
  * force the motors to stop. This prevents runaway if the MPU crashes
  * or the bridge drops.
  */
-static void task_drive_watchdog() {
+static void task_drive_motor_watchdog() {
     const uint32_t now = millis();
     if (now - g_last_drive_cmd_ms > WATCHDOG_TIMEOUT_MS) {
         if (!g_drive_zeroed_by_wd) {
@@ -235,6 +225,22 @@ void setup() {
     Monitor.println("MCU ready");
 }
 
+void checkSafetyMargin()
+{
+    const float dl = hcsr04_get_left_distance();
+    const float dr = hcsr04_get_right_distance();
+
+    // STOPS THE MOTOR IMMEDIATELY IF EITHER BELOW SAFETY LIMIT
+    if (dl < MIN_SAFE_DISTANCE || dr < MIN_SAFE_DISTANCE)
+    {
+        motor_emergency_stop();
+    } else
+    {
+        motor_enable();
+    }
+
+}
+
 void loop() {
     // Dispatch any pending incoming RPC calls (set_drive, set_pantilt,
     // set_laser) that arrived since the last loop iteration.
@@ -242,7 +248,9 @@ void loop() {
 
     // Always-on sensor housekeeping — independent of bridge state.
     hcsr04_update();
-    //task_drive_watchdog();
+    task_drive_motor_watchdog();
+
+    checkSafetyMargin();
 
     // Push sensor data and events to the MPU.
     task_publish_ultrasonics();

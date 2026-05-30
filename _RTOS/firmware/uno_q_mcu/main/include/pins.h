@@ -34,8 +34,8 @@
 // =====================================================================
 // Motor driver A — BTS7960 #1, left track
 // =====================================================================
-#define PIN_MOTOR_A_RPWM        3   // PWM out, forward
-#define PIN_MOTOR_A_LPWM        5   // PWM out, reverse
+#define PIN_MOTOR_A_RPWM        5   // PWM out, forward
+#define PIN_MOTOR_A_LPWM        3   // PWM out, reverse
 #define PIN_MOTOR_A_EN          4   // GPIO out, drives R_EN+L_EN tied
 
 // =====================================================================

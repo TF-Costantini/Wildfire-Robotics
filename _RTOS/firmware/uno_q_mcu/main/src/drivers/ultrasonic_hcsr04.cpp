@@ -46,12 +46,14 @@ Sensor g_sensor[2] = {
     { PIN_HCSR04_2_TRIG, PIN_HCSR04_2_ECHO, PHASE_IDLE, 0, 0, 0, false, 0.0f },
 };
 
-inline void echo_isr(uint8_t id) {
+void echo_isr(uint8_t id) {
     Sensor &s = g_sensor[id];
+
     /* digitalRead() inside an ISR is acceptable on Arduino-STM32 (it
      * just reads the GPIO input data register). */
-    bool high = (digitalRead(s.echo_pin) == HIGH);
-    uint32_t now = micros();
+
+    const bool high = digitalRead(s.echo_pin) == HIGH;
+    const uint32_t now = micros();
 
     if (high) {
         if (s.phase == PHASE_WAIT_RISE) {
@@ -62,10 +64,10 @@ inline void echo_isr(uint8_t id) {
         if (s.phase == PHASE_WAIT_FALL) {
             s.echo_end = now;
             s.phase    = PHASE_IDLE;
-            uint32_t width = (uint32_t)(s.echo_end - s.echo_start);
+            const auto width = s.echo_end - s.echo_start;
             if (width > 0 && width < HCSR04_TIMEOUT_US) {
-                s.distance_cm = ((float)width * 0.5f) *
-                                (float)HCSR04_SPEED_OF_SOUND_CM_US;
+                s.distance_cm = (static_cast<float>(width) * 0.5f) *
+                                static_cast<float>(HCSR04_SPEED_OF_SOUND_CM_US);
                 s.valid = true;
             } else {
                 s.valid = false;
@@ -74,8 +76,8 @@ inline void echo_isr(uint8_t id) {
     }
 }
 
-void echo_isr_left(void)  { echo_isr(HCSR04_LEFT);  }
-void echo_isr_right(void) { echo_isr(HCSR04_RIGHT); }
+void echo_isr_left()  { echo_isr(HCSR04_LEFT);  }
+void echo_isr_right() { echo_isr(HCSR04_RIGHT); }
 
 } /* namespace */
 
@@ -136,7 +138,18 @@ float hcsr04_get_distance(const uint8_t id) {
     return g_sensor[id].distance_cm;
 }
 
-bool hcsr04_is_valid(uint8_t id) {
+float hcsr04_get_left_distance(void)
+{
+    return hcsr04_get_distance(HCSR04_RIGHT);
+}
+
+float hcsr04_get_right_distance(void)
+{
+    return hcsr04_get_distance(HCSR04_RIGHT);
+}
+
+
+bool hcsr04_is_valid(const uint8_t id) {
     if (id > 1) return false;
     return g_sensor[id].valid;
 }

@@ -28,8 +28,11 @@ void hcsr04_trigger_all(void);
 /** Periodic housekeeping: invalidate readings older than HCSR04_TIMEOUT_US. */
 void hcsr04_update(void);
 
-/** Last valid distance in cm (id = 0/1). Returns -1.0f if not valid. */
-float hcsr04_get_distance(uint8_t id);
+/** Last valid LEFT distance in cm (id = 0/1). Returns -1.0f if not valid. */
+float hcsr04_get_left_distance(void);
+
+/** Last valid RIGHT distance in cm (id = 0/1). Returns -1.0f if not valid. */
+float hcsr04_get_right_distance(void);
 
 /** True if last reading is valid and within timeout. */
 bool hcsr04_is_valid(uint8_t id);
