@@ -42,7 +42,7 @@ State g_state = {
     /* tilt_min    */   -30,
     /* tilt_max    */  30,
     /* pan_offset  */  90,
-    /* tilt_offset */   0,
+    /* tilt_offset */   -15, //points slightly upwards
 };
 
 Servo g_pan;
