@@ -140,7 +140,7 @@ float hcsr04_get_distance(const uint8_t id) {
 
 float hcsr04_get_left_distance(void)
 {
-    return hcsr04_get_distance(HCSR04_RIGHT);
+    return hcsr04_get_distance(HCSR04_LEFT);
 }
 
 float hcsr04_get_right_distance(void)
