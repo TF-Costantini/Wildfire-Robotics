@@ -43,6 +43,7 @@ Note (revisione):
 import rclpy
 import math
 from rclpy.node import Node
+from rclpy.qos import qos_profile_sensor_data
 from wildfire_msgs.msg import Detection, DriveCmd, Mode, PanTiltCmd
 from sensor_msgs.msg import Range
 
@@ -128,9 +129,9 @@ class FollowControllerNode(Node):
         self._last_bearing_deg = 0.0       # per partire a cercare dal lato giusto
 
         # --- Subscriptions ---
-        self.create_subscription(Detection, '/vision/person', self._person_callback, 10)
-        self.create_subscription(Range, '/ultrasonic/left', self._ultrasonic_left_callback, 10)
-        self.create_subscription(Range, '/ultrasonic/right', self._ultrasonic_right_callback, 10)
+        self.create_subscription(Detection, '/vision/person', self._person_callback, qos_profile_sensor_data)
+        self.create_subscription(Range, '/ultrasonic/left', self._ultrasonic_left_callback, qos_profile_sensor_data)
+        self.create_subscription(Range, '/ultrasonic/right', self._ultrasonic_right_callback, qos_profile_sensor_data)
 
         # --- Publishers ---
         self._drive_pub = self.create_publisher(DriveCmd, '/cmd_drive', 10)
@@ -220,20 +221,24 @@ class FollowControllerNode(Node):
           - persona in frame → rientro graduale del pan verso 0 (la rotazione
             del corpo è gestita dal termine di bearing nel drive, quindi la
             persona resta inquadrata mentre la camera si ri-allinea);
-          - persona persa oltre il grace period → ricerca pan oscillante
-            (SOLO PAN, tilt sempre 0);
-          - vision muta (nessun heartbeat) → camera ferma, niente ricerca a vuoto.
+          - persona persa oltre il grace period (o MAI vista, anche al boot)
+            → ricerca pan oscillante (SOLO PAN, tilt sempre 0).
+        NB: la ricerca NON dipende dall'heartbeat della vision: funziona anche
+        se il vision node pubblica solo quando found=True. Le ruote restano
+        comunque ferme (watchdog + stop su found=False).
         """
         now = self.get_clock().now()
 
-        # Heartbeat vision: senza messaggi non ha senso cercare
-        if self._last_detection_time is None:
-            return
-        vision_age = (now - self._last_detection_time).nanoseconds * 1e-9
-        if vision_age > self.lost_person_timeout:
-            return
+        # "Persona in frame" = ultimo found=True recente. Così se la vision
+        # smette di pubblicare dopo un found=True, il flag non resta vero
+        # per sempre.
+        if self._last_person_time is None:
+            person_age = float('inf')
+        else:
+            person_age = (now - self._last_person_time).nanoseconds * 1e-9
+        person_fresh = person_age < self.search_start_delay
 
-        if self.person_detected:
+        if self.person_detected and person_fresh:
             # FOLLOW: ri-allinea la camera col fronte del robot
             if self._current_pan != 0.0:
                 if abs(self._current_pan) <= self.pan_recenter_step:
@@ -244,21 +249,18 @@ class FollowControllerNode(Node):
                 self._publish_pantilt(self._current_pan)
             return
 
-        # Persona non in frame: parte la ricerca dopo il grace period
-        if self._last_person_time is None:
-            lost_age = float('inf')
-        else:
-            lost_age = (now - self._last_person_time).nanoseconds * 1e-9
-        if lost_age < self.search_start_delay:
+        # Vista da poco ma non in questo frame → grace period, camera ferma
+        if person_fresh:
             return
 
+        # Persona non in frame (o mai vista) → RICERCA
         if not self._searching:
             self._searching = True
             # Parti a cercare dal lato in cui la persona è stata vista l'ultima
             # volta: bearing>0 = a destra del fronte → pan deve DIMINUIRE
             # (pan>0 = camera a sinistra)
             self._search_direction = -1 if self._last_bearing_deg > 0.0 else 1
-            self.get_logger().info('Persona persa → ricerca pan (no tilt)')
+            self.get_logger().info('Persona non in frame → ricerca pan (no tilt)')
 
         next_pan = self._current_pan + self.search_step * self._search_direction
         if not (self.pan_min <= next_pan <= self.pan_max):

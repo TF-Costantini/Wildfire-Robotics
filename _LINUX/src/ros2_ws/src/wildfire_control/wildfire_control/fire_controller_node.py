@@ -52,6 +52,7 @@ import time
 
 import rclpy
 from rclpy.node import Node
+from rclpy.qos import qos_profile_sensor_data
 from wildfire_msgs.msg import Detection, PanTiltCmd, Mode
 from std_msgs.msg import Bool
 
@@ -100,6 +101,8 @@ class FireControllerNode(Node):
         # Failsafe timer: se nessuna detection valida da così tanto in
         # TRACKING/LOCKED → reset (copre anche vision morta)
         self.declare_parameter('vision_timeout_s', 1.0)
+        # False = ignora /mode (test a banco senza supervisore che pubblica Mode.FIRE)
+        self.declare_parameter('require_fire_mode', True)
 
         # Leggi parametri
         self.pan_min = self.get_parameter('pan_min_deg').value
@@ -120,6 +123,7 @@ class FireControllerNode(Node):
         self.switch_area_ratio = self.get_parameter('switch_area_ratio').value
         self.ema_alpha = self.get_parameter('ema_alpha').value
         self.vision_timeout = self.get_parameter('vision_timeout_s').value
+        self.require_fire_mode = self.get_parameter('require_fire_mode').value
 
         # --- Stato modo globale ---
         self.current_mode = Mode.IDLE
@@ -144,7 +148,7 @@ class FireControllerNode(Node):
         self._img_h = 0.0
 
         # --- Subscriptions ---
-        self.create_subscription(Detection, '/vision/fire', self._fire_callback, 10)
+        self.create_subscription(Detection, '/vision/fire', self._fire_callback, qos_profile_sensor_data)  # BEST_EFFORT: compatibile con publisher sensor-data
         self.create_subscription(Mode, '/mode', self._mode_callback, 10)
 
         # --- Publishers ---
@@ -217,7 +221,13 @@ class FireControllerNode(Node):
     # ─── Subscription callbacks ───────────────────────────────────────────────
 
     def _fire_callback(self, msg: Detection):
-        if self.current_mode != Mode.FIRE:
+        if self.require_fire_mode and self.current_mode != Mode.FIRE:
+            # NON silenzioso: se nessuno pubblica /mode con Mode.FIRE il nodo
+            # non farà MAI nulla. Per test a banco: require_fire_mode:=false
+            self.get_logger().warn(
+                'Detection scartata: mode != FIRE. Pubblica Mode.FIRE su /mode '
+                'oppure lancia con -p require_fire_mode:=false',
+                throttle_duration_sec=5.0)
             return
 
         now = time.time()
@@ -261,7 +271,7 @@ class FireControllerNode(Node):
 
     def _timer_update(self):
         # Fuori da FIRE: completa solo l'homing, poi fermo
-        if self.current_mode != Mode.FIRE:
+        if self.require_fire_mode and self.current_mode != Mode.FIRE:
             if self._homing:
                 if self._step_home():
                     self._homing = False

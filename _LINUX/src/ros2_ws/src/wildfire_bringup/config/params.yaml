@@ -58,8 +58,8 @@ follow_controller_node:
     distance_deadband: 6.0
     lost_person_timeout_s: 1.5
     sensor_timeout_s: 1.0
-    pan_min_deg: -30
-    pan_max_deg: 30
+    pan_min_deg: -30.0
+    pan_max_deg: 30.0
     search_step_deg: 1.5
     pan_update_hz: 10.0
     search_start_delay_s: 1.0
@@ -79,7 +79,7 @@ fire_controller_node:
     pd_kp_pan: 0.5
     pd_kp_tilt: 0.5
     pd_kd: 0.1
-    assoc_gate_px: 120
+    assoc_gate_px: 120.0
     switch_area_ration: 1.4
     ema_alpha: 0.35
     vision_timeout_s: 1.0
