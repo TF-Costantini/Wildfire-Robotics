@@ -43,7 +43,7 @@ class FollowControllerNode(Node):
         # --- Parametri configurabili ---
         self.declare_parameter('target_distance_cm', 150.0)
         self.declare_parameter('min_safe_distance_cm', 60.0)
-        self.declare_parameter('max_distance_cm', 200.0)
+        self.declare_parameter('max_distance_cm', 400.0)
         self.declare_parameter('linear_kp', 0.010)
         self.declare_parameter('angular_kp', 0.45)
         self.declare_parameter('max_linear_speed', 0.25)

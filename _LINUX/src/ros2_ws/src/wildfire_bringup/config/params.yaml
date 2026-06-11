@@ -43,19 +43,19 @@ fire_detector_node:
 follow_controller_node:
   ros__parameters:
     target_distance_cm: 100.0
-    min_safe_distance_cm: 40.0
-    max_distance_cm: 200.0
+    min_safe_distance_cm: 60.0
+    max_distance_cm: 400.0
     linear_kp: 0.010
-    angular_kp: 0.45
+    angular_kp: 0.20
     max_linear_speed: 0.25
-    max_angular_speed: 0.45
-    min_turn_speed: 0.26
+    max_angular_speed: 0.40
+    min_turn_speed: 0.35
     min_drive: 0.35
     min_drive_reverse: 0.35
     loop_rate_hz: 10.0
     power_percentage: 1.0
-    center_deadband: 0.12
-    distance_deadband: 16.0
+    center_deadband: 0.8
+    distance_deadband: 6.0
     lost_person_timeout_s: 1.5
     sensor_timeout_s: 1.0
 
