@@ -71,6 +71,10 @@ fire_controller_node:
     pd_kp_pan: 0.5
     pd_kp_tilt: 0.5
     pd_kd: 0.1
+    assoc_gate_px: 120
+    switch_area_ration: 1.4
+    ema_alpha: 0.35
+    vision_timeout_s: 1.0
     lock_threshold_px: 500.0
     lock_time_s: 0.5
     unlock_time_s: 0.3
