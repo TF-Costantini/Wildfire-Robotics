@@ -16,6 +16,8 @@ Logica:
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import Image
+import numpy as np
+import cv2
 
 from .WebSocketClient import WebsocketClient
 from wildfire_msgs.msg import Detection, Mode
@@ -85,9 +87,28 @@ class PersonDetectorNode(Node):
     # ─── Callback principale ─────────────────────────────────────────────────
 
     async def send_to_inference_server(self, msg: Image):
-        """Send one image file and return the parsed response."""
-        image_bytes = convert_ros_msg_to_bytes(msg)
-        self.yolo_client.push_image(image_bytes)
+        try:
+            # 1. Converti i byte grezzi di ROS in una matrice NumPy (immagine specchio)
+            # Nota: assumendo che l'immagine sia rgb8 o bgr8 (3 canali)
+            frame = np.frombuffer(msg.data, dtype=np.uint8).reshape(msg.height, msg.width, 3)
+
+            # Se la tua telecamera ROS pubblica in RGB, convertila in BGR per OpenCV
+            if msg.encoding == 'rgb8':
+                frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+
+            # 2. Comprimi la matrice in un buffer JPEG (riduce il peso da 2MB a ~150KB!)
+            success, encoded_image = cv2.imencode('.jpg', frame, [int(cv2.IMWRITE_JPEG_QUALITY), 90])
+
+            if not success:
+                print("[ROS Node] Errore durante la codifica JPEG")
+                return
+
+            # 3. Trasforma il buffer in byte e sparalo sul WebSocketClient
+            jpeg_bytes = encoded_image.tobytes()
+            self.yolo_client.push_image(jpeg_bytes)
+
+        except Exception as e:
+            print(f"[ROS Node] Errore nel processing dell'immagine: {e}")
 
     def _mode_callback(self, mode_msg: Mode):
         if mode_msg.mode == Mode.FOLLOW:
@@ -110,18 +131,18 @@ class PersonDetectorNode(Node):
 
         self._publish_detection(
             True,
-            result["cx"],
-            result["cy"],
-            result["area"],
-            result["img_w"],
-            result["img_h"],
-            result["conf"]
+            detection["cx"],
+            detection["cy"],
+            detection["area"],
+            detection["img_w"],
+            detection["img_h"],
+            detection["conf"]
         )
 
     # ─── Publishing ─────────────────────────────────────────────────────────
 
     def _publish_detection(self, found: bool, cx: float, cy: float,
-                          area: float, img_w: float, img_h: float,
+                          area: float, img_w: int, img_h: int,
                           confidence: float):
         """Pubblica un messaggio Detection."""
         msg = Detection()
@@ -129,10 +150,11 @@ class PersonDetectorNode(Node):
         msg.cx = cx
         msg.cy = cy
         msg.area = area
-        msg.img_w = img_w
-        msg.img_h = img_h
+        msg.img_w = float(img_w)
+        msg.img_h = float(img_h)
         msg.confidence = confidence
         msg.use_confidence = True
+        
         self._pub.publish(msg)
 
 

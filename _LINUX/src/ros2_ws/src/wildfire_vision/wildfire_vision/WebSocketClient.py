@@ -1,96 +1,107 @@
-import asyncio
 import threading
 import json
+import time
 from typing import Callable, Optional
-import websockets
+from websockets.sync.client import connect as ws_connect
+from websockets.exceptions import ConnectionClosed
 
 class WebsocketClient:
     def __init__(self, server_url: str = "ws://localhost:8765", callback: Optional[Callable[[dict], None]] = None):
         self.server_url = server_url
         self.callback = callback
 
-        self.ws: Optional[websockets.WebSocketClientProtocol] = None
-        self._loop: Optional[asyncio.AbstractEventLoop] = None
+        self.ws = None
         self._thread: Optional[threading.Thread] = None
-        self._listen_task: Optional[asyncio.Task] = None
+        self._running = False
+        self._lock = threading.Lock()  # Protegge l'invio di frame concorrenti da ROS 2
 
     def connect(self):
-        """Starts a background thread with an event loop and connects to the server."""
-        if self._thread and self._thread.is_alive():
-            print("[YOLO Client] Already connected or connecting...")
-            return
+        """Stabilisce la connessione nativa bloccante e avvia il thread di ascolto."""
+        if self.ws is not None:
+            return  # Già connesso
 
-        # We spin up a dedicated background thread to run the asyncio loop
-        # so it doesn't block your ROS2 executor/main thread.
-        self._thread = threading.Thread(target=self._run_event_loop, daemon=True)
+        print(f"[YOLO Client] Tentativo di connessione a {self.server_url}...")
+        while True:
+            try:
+                # La nuova libreria blocca qui finché non è connessa al 100%
+                self.ws = ws_connect(self.server_url, max_size=None)
+                print("[YOLO Client] Connessione WebSocket stabilita con successo!")
+                break
+            except Exception as e:
+                print(f"[YOLO Client] Server YOLO non raggiungibile ({e}). Riprovo tra 2 secondi...")
+                self.ws = None
+                time.sleep(2)
+
+        # Avvia il ciclo di ricezione in un thread separato per non bloccare ROS 2
+        self._running = True
+        self._thread = threading.Thread(target=self._listen_loop, daemon=True)
         self._thread.start()
 
-        # Wait until the loop and connection are established in the background
-        while self.ws is None or not self.ws.open:
-            pass
-        print(f"[YOLO Client] Connected to {self.server_url}")
-
     def disconnect(self):
-        """Closes the connection and cleanly shuts down the background thread."""
-        if self._loop and self._loop.is_running():
-            asyncio.run_coroutine_threadsafe(self._async_disconnect(), self._loop)
-            if self._thread:
-                self._thread.join(timeout=2.0)
-        print("[YOLO Client] Disconnected.")
+        """Chiude la connessione in modo pulito e termina il thread."""
+        self._running = False
+        if self.ws:
+            try:
+                self.ws.close()
+            except Exception:
+                pass
+            self.ws = None
+
+        if self._thread and self._thread.is_alive():
+            self._thread.join(timeout=2.0)
+        print("[YOLO Client] Disconnesso.")
 
     def push_image(self, image_bytes: bytes):
-        """Thread-safe method to fire bytes over the socket from ROS2 callback."""
-        if not self.ws or not self.ws.open:
-            print("[YOLO Client] Error: Cannot push image, websocket is closed.")
+        """Invia i byte dell'immagine direttamente dal callback di ROS 2 (Thread-safe)."""
+        if self.ws is None:
+            print("[YOLO Client] Errore: Impossibile inviare frame, websocket chiuso.")
             return
 
-        # Safely schedules the async send on our dedicated background loop
-        asyncio.run_coroutine_threadsafe(self.ws.send(image_bytes), self._loop)
+        try:
+            with self._lock:
+                self.ws.send(image_bytes)
+        except (ConnectionClosed, Exception) as e:
+            print(f"[YOLO Client] Connessione persa durante l'invio: {e}")
+            self._handle_disconnection()
 
     # ----------------------------------------------------------------
-    # Internal Async / Threading Mechanics
+    # Meccanica di Background (Thread Sincrono Nativo)
     # ----------------------------------------------------------------
 
-    def _run_event_loop(self):
-        """Target for background thread: creates loop and runs it forever."""
-        self._loop = asyncio.new_event_loop()
-        asyncio.set_event_loop(self._loop)
-
-        # Run the initial connection setup inside the loop
-        self._loop.run_until_complete(self._async_connect())
-        # Keep the loop alive to handle scheduled send/receive tasks
-        self._loop.run_forever()
-
-    async def _async_connect(self):
-        """Internal async connector that triggers the listening loop task."""
-        try:
-            self.ws = await websockets.connect(self.server_url)
-            # Spawn the listener loop as an independent task on this loop
-            self._listen_task = asyncio.create_task(self._listen_loop())
-        except Exception as e:
-            print(f"[YOLO Client] Connection failed: {e}")
-
-    async def _listen_loop(self):
-        """Continuously listens for incoming inference data from the server."""
-        try:
-            async for message in self.ws:
-                if self.callback:
+    def _listen_loop(self):
+        """Riceve continuamente i dati di inferenza dal server YOLO."""
+        print("[YOLO Client] Thread di ascolto avviato.")
+        while self._running and self.ws is not None:
+            try:
+                # Lettura bloccante nativa sincrona
+                message = self.ws.recv()
+                if self.callback and message:
                     try:
                         parsed_data = json.loads(message)
-                        # Fire the user's callback function with the data
                         self.callback(parsed_data)
                     except Exception as callback_err:
-                        print(f"[YOLO Client] Error in callback execution: {callback_err}")
-        except websockets.exceptions.ConnectionClosed:
-            print("[YOLO Client] Connection closed by remote server.")
-        except Exception as e:
-            print(f"[YOLO Client] Error in listen loop: {e}")
+                        print(f"[YOLO Client] Errore nel callback di ROS 2: {callback_err}")
+            except ConnectionClosed:
+                print("[YOLO Client] Il server YOLO ha chiuso la connessione.")
+                break
+            except Exception as e:
+                if self._running:
+                    print(f"[YOLO Client] Errore nel ciclo di ricezione: {e}")
+                break
 
-    async def _async_disconnect(self):
-        """Internal async teardown."""
-        if self._listen_task:
-            self._listen_task.cancel()
+        if self._running:
+            self._handle_disconnection()
+
+    def _handle_disconnection(self):
+        """Pulisce il vecchio socket e lancia il thread di riconnessione."""
         if self.ws:
-            await self.ws.close()
-        if self._loop:
-            self._loop.stop()
+            try:
+                self.ws.close()
+            except Exception:
+                pass
+            self.ws = None
+
+        if self._running:
+            print("[YOLO Client] Avvio tentativo di riconnessione automatica...")
+            # Rilancia connect() che gestirà il loop di retry da 2 secondi
+            self.connect()

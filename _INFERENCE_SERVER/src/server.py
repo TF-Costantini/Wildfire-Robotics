@@ -81,47 +81,27 @@ def process_with_yolo(image_bytes: bytes) -> dict:
     }
 # ─────────────────────────────────────────────────────────────────────────────
 
-
-async def handle_client(websocket):
-    remote = websocket.remote_address
-    log.info("Client connected via CLI/websocat: %s:%s", *remote)
-
-    # Create an empty byte buffer to gather incoming file chunks
-    image_buffer = bytearray()
-    t0 = time.perf_counter()
-
+#  COME DEVE ESSERE SCRITTO IL SERVER (CORRETTO)
+async def handle_client(connection):
+    print("[INFO] connection open")
     try:
-        # Loop over fragments as they arrive
-        async for message in websocket:
-            if isinstance(message, bytes):
-                image_buffer.extend(message)
-            else:
-                try:
-                    payload = json.loads(message)
-                    image_buffer.extend(base64.b64decode(payload["image"]))
-                except Exception:
-                    # If it's a raw text fragment, append it as text data
-                    image_buffer.extend(message.encode('utf-8'))
+        async for message in connection:
+            # 'message' contiene già TUTTI i byte del singolo frame JPEG inviato
+            result = process_with_yolo(message)
 
-    except websockets.exceptions.ConnectionClosedOK:
-        log.info("Client finished streaming data.")
-    except Exception as exc:
-        log.error("Error reading stream: %s", exc)
-    finally:
-        # Once the stream finishes or breaks, process the accumulated frame
-        if len(image_buffer) > 0:
-            result = process_with_yolo(bytes(image_buffer))
-            result["elapsed_ms"] = round((time.perf_counter() - t0) * 1000, 2)
+            print(f"[INFO] Result summary: {result}")
 
-            # Send the final single evaluation response back
-            try:
-                await websocket.send(json.dumps(result))
-            except Exception:
-                log.info("Result summary: %s", json.dumps(result))
+            # Rispondi IMMEDIATAMENTE al client sullo stesso socket ancora aperto
+            await connection.send(json.dumps(result))
+
+    except websockets.exceptions.ConnectionClosed:
+        print("[INFO] connection closed gracefully")
+    except Exception as e:
+        print(f"[ERROR] Error reading stream: {e}")
 
 async def main():
     log.info("Starting YOLO WebSocket server on %s:%s", HOST, PORT)
-    async with websockets.serve(handle_client, HOST, PORT):
+    async with websockets.serve(handle_client, HOST, PORT, max_size=None):
         await asyncio.Future()  # run forever
 
 
