@@ -123,10 +123,10 @@ class PersonDetectorNode(Node):
             self.get_logger().info(f"ERROR while processing YOLO Inference...")
             return
 
-        self.get_logger().info(f"New YOLO Results Received...")
+        # self.get_logger().info(f"New YOLO Results Received...")
         detection = result["detection"]
         if detection is None:
-            self._publish_detection(False, 0.0, 0.0, 0.0, 0.0, 0.0, 1)
+            self._publish_detection(False, 0.0, 0.0, 0.0, 0, 0, 1)
             return
 
         self._publish_detection(
@@ -154,7 +154,7 @@ class PersonDetectorNode(Node):
         msg.img_h = float(img_h)
         msg.confidence = confidence
         msg.use_confidence = True
-        
+
         self._pub.publish(msg)
 
 

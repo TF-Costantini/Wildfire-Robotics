@@ -89,7 +89,7 @@ async def handle_client(connection):
             # 'message' contiene già TUTTI i byte del singolo frame JPEG inviato
             result = process_with_yolo(message)
 
-            print(f"[INFO] Result summary: {result}")
+            print(f"[INFO] Inference Time: {result['inference_ms']}")
 
             # Rispondi IMMEDIATAMENTE al client sullo stesso socket ancora aperto
             await connection.send(json.dumps(result))
