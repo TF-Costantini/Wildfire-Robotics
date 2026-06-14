@@ -24,7 +24,7 @@ class CameraNode(Node):
         super().__init__('camera_node')
 
         # --- Parametri ---
-        self.declare_parameter('device_id', 0)      # /dev/video0
+        self.declare_parameter('device', "/device/video0")      # /dev/video0
         self.declare_parameter('frame_width', 640)
         self.declare_parameter('frame_height', 480)
         self.declare_parameter('fps', 15)
@@ -33,7 +33,7 @@ class CameraNode(Node):
         # Modalità test: se true, usa cv2.imread invece di VideoCapture
         self.declare_parameter('test_image_path', '')  # es. '../test_fire.jpg'
 
-        self.device_id = self.get_parameter('device_id').value
+        self.device = self.get_parameter('device').value
         self.frame_width = self.get_parameter('frame_width').value
         self.frame_height = self.get_parameter('frame_height').value
         self.fps = self.get_parameter('fps').value
@@ -68,7 +68,7 @@ class CameraNode(Node):
         # --- Timer a 15 Hz ---
         self._timer = self.create_timer(1.0 / self.fps, self._timer_callback)
 
-        log_msg = (f'CameraNode avviato: device={self.device_id}, '
+        log_msg = (f'CameraNode avviato: device={self.device}, '
                     f'{self.frame_width}x{self.frame_height} @ {self.fps} fps')
         if self.test_image_path:
             log_msg += f' [TEST IMAGE: {self.test_image_path}]'
@@ -80,10 +80,10 @@ class CameraNode(Node):
             self._cap.release()
             self._cap = None
 
-        self._cap = cv2.VideoCapture(self.device_id)
+        self._cap = cv2.VideoCapture(self.device)
 
         if not self._cap.isOpened():
-            self.get_logger().error(f'Impossibile aprire /dev/video{self.device_id}')
+            self.get_logger().error(f'Impossibile aprire {self.device}')
             return
 
         # Configura risoluzione
