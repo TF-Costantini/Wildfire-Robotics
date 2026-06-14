@@ -20,9 +20,7 @@ camera_node:
 person_detector_node:
   ros__parameters:
     camera_topic: '/camera/image_raw'
-    conf_threshold: 0.5
-    model_name: 'yolov8n.pt'
-    device: 'cpu'
+    inference_server: 'ws://tfc-macbook.local:8765'
 
 fire_detector_node:
   ros__parameters:

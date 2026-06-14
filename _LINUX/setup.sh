@@ -29,6 +29,7 @@ pip3 uninstall opencv-python -y
 curl -L "https://github.com/arduino/app-bricks-py/releases/download/release/0.9.2/arduino_app_bricks-0.9.2-py3-none-any.whl" -o /tmp/arduino_app_bricks-0.9.2-py3-none-any.whl
 pip3 install /tmp/arduino_app_bricks-0.9.2-py3-none-any.whl --ignore-requires-python
 pip3 install watchdog msgpack requests pillow pyyaml
+pip3 install websockets
 
 # Adds Ultralytics to RosDep ONLY if missing
 if ! grep -qF "$ROSDEP_ENTRY" "$ROSDEP_FILE" 2>/dev/null; then
