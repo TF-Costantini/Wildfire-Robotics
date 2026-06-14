@@ -1,0 +1,6 @@
+websockets>=12.0
+
+# ── Add your YOLO dependencies below ──
+ultralytics>=8.0
+opencv-python-headless
+numpy
