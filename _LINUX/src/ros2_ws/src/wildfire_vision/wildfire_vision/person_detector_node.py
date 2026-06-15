@@ -126,7 +126,7 @@ class PersonDetectorNode(Node):
         # self.get_logger().info(f"New YOLO Results Received...")
         detection = result["detection"]
         if detection is None:
-            self._publish_detection(False, 0.0, 0.0, 0.0, 0, 0, 1)
+            self._publish_detection(False, 0.0, 0.0, 0.0, 0, 0, 0)
             return
 
         self._publish_detection(
