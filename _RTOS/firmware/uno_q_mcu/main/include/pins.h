@@ -41,15 +41,15 @@
 // =====================================================================
 // Motor driver B — BTS7960 #2, right track
 // =====================================================================
-#define PIN_MOTOR_B_RPWM        10   // PWM out, forward
-#define PIN_MOTOR_B_LPWM        11   // PWM out, reverse
-#define PIN_MOTOR_B_EN          12   // GPIO out, drives R_EN+L_EN tied
+#define PIN_MOTOR_B_RPWM        9   // PWM out, forward
+#define PIN_MOTOR_B_LPWM        10   // PWM out, reverse
+#define PIN_MOTOR_B_EN          8   // GPIO out, drives R_EN+L_EN tied
 
 // =====================================================================
 // Servos MG996R — pan / tilt (50 Hz, 1-2 ms pulse)
 // =====================================================================
 #define PIN_SERVO_PAN          6   // PWM, driven via Servo library
-#define PIN_SERVO_TILT         9   // PWM, driven via Servo library
+#define PIN_SERVO_TILT         11   // PWM, driven via Servo library
 
 // =====================================================================
 // HC-SR04 ultrasonics — front-left and front-right
@@ -64,12 +64,12 @@
 // =====================================================================
 // KY-008 laser module (5 V logic, active-high)
 // =====================================================================
-#define PIN_LASER              13   // GPIO out (also onboard LED)
+#define PIN_LASER              7   // GPIO out (also onboard LED)
 
 // =====================================================================
 // Push button — momentary, wired to GND, internal pull-up enabled
 // =====================================================================
-#define PIN_BUTTON              8   // GPIO in, EXTI falling edge
+#define PIN_BUTTON              2   // GPIO in, EXTI falling edge
 
 // =====================================================================
 // Servo timing constants (MG996R)
