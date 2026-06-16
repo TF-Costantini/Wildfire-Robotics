@@ -12,11 +12,12 @@ Output:
   - /cmd_drive       → DriveCmd (left/right normalizzati -1..1)
 
 Logica:
-  1. Se persona non detect → stop
-  2. Se distanza < min_safe_distance → stop di sicurezza
+  1. Solo in FOLLOW; persona non detect → stop
+  2. distanza < min_safe_distance → blocco solo dell'AVANTI (reverse/sterzo ok)
   3. errore orizzontale ex = (cx - img_w/2) / (img_w/2) → componente angolare
-  4. errore distanza ed = min(ultrasonic) - target_distance → componente lineare
-  5. Mix differenziale: left = v + ω, right = v - ω, clamp [-1, 1]
+  4. errore distanza ed = dist_lato_persona - target_distance → componente lineare
+     (dist = sensore sul LATO dove la camera vede la persona, non min() dei due)
+  5. Mix differenziale: left = v + ω, right = v - ω; saturazione ratio-preserving
 
 Note (revisione):
   - Floor di marcia indietro separato (min_drive_reverse): il reverse ha più
@@ -98,18 +99,24 @@ class FollowControllerNode(Node):
         self._last_right_time = None
         self._last_detection_time = None
         self._lost = False
+        self.current_mode = Mode.IDLE          # B: gate sul FOLLOW
+        self._last_cmd = self._stop_cmd()      # C: ultimo comando, ripubblicato a rate fisso
 
         # --- Subscriptions ---
         self.create_subscription(Detection, '/vision/person', self._person_callback, 10)
         self.create_subscription(Range, '/ultrasonic/left', self._ultrasonic_left_callback, 10)
         self.create_subscription(Range, '/ultrasonic/right', self._ultrasonic_right_callback, 10)
+        self.create_subscription(Mode, '/mode', self._mode_callback, 10)
 
         # --- Publisher ---
         self._drive_pub = self.create_publisher(DriveCmd, '/cmd_drive', 10)
 
-        # --- Watchdog (failsafe a comando lento) ---
+        # --- Control tick: ripubblica l'ultimo comando a rate FISSO (C) ---
+        #    Il comando ora è disaccoppiato dal rate di detection: anche se la
+        #    vision è lenta, il MCU (watchdog 1500 ms) resta alimentato e i
+        #    motori non singhiozzano. Lo stesso tick fa da failsafe se la vision tace.
         period = 1.0 / self.loop_rate if self.loop_rate > 0 else 0.1
-        self._watchdog_timer = self.create_timer(period, self._watchdog)
+        self._control_timer = self.create_timer(period, self._control_tick)
 
         self.get_logger().info(
             f'FollowControllerNode avviato: target={self.target_distance} cm, '
@@ -125,6 +132,11 @@ class FollowControllerNode(Node):
         Ogni messaggio (anche found=False) è un heartbeat valido della vision:
         resetta il watchdog. È l'ASSENZA di messaggi che fa scattare lo stop.
         """
+        # B: fuori dal FOLLOW non comandiamo i motori (in FIRE i cingoli sono
+        #    bloccati, in IDLE fermi). Una detection vagante non deve muovere il robot.
+        if self.current_mode != Mode.FOLLOW:
+            return
+
         self._last_detection_time = self.get_clock().now()
         self.person_detected = msg.found
 
@@ -135,6 +147,9 @@ class FollowControllerNode(Node):
         else:
             cmd = self._stop_cmd()
 
+        # C: memorizza; la pubblicazione a rate fisso la fa _control_tick.
+        #    Pubblica anche subito per reattività.
+        self._last_cmd = cmd
         self._drive_pub.publish(cmd)
 
     def _ultrasonic_left_callback(self, msg: Range):
@@ -150,27 +165,39 @@ class FollowControllerNode(Node):
             self._last_right_time = self.get_clock().now()
 
     def _mode_callback(self, msg: Mode):
-        # NB: non ancora sottoscritto. Se vuoi rispettare il FOLLOW mode,
-        # aggiungi la subscription e un guard in _person_callback.
-        return
+        """B: traccia il mode. All'uscita dal FOLLOW azzera subito i motori."""
+        prev = self.current_mode
+        self.current_mode = msg.mode
+        if prev == Mode.FOLLOW and msg.mode != Mode.FOLLOW:
+            self._last_cmd = self._stop_cmd()
+            self._drive_pub.publish(self._last_cmd)
 
-    # ─── Watchdog ─────────────────────────────────────────────────────────────
+    # ─── Control tick ─────────────────────────────────────────────────────────
 
-    def _watchdog(self):
-        """A 1 Hz, se la vision si blocca il robot eseguirebbe l'ultimo comando
-        all'infinito. Qui forziamo lo stop se non arrivano detection nel timeout."""
+    def _control_tick(self):
+        """C: a rate FISSO ripubblica l'ultimo comando per tenere alimentato il
+        watchdog del MCU (1500 ms) anche se la vision è lenta. Fa anche da
+        failsafe: se non arrivano detection entro il timeout → STOP."""
+        # Fuori dal FOLLOW non pubblichiamo nulla (B).
+        if self.current_mode != Mode.FOLLOW:
+            return
+
         now = self.get_clock().now()
         if self._last_detection_time is None:
             return
+
         age = (now - self._last_detection_time).nanoseconds * 1e-9
         if age > self.lost_person_timeout:
             if not self._lost:
                 self.get_logger().warn(
                     f'Nessuna detection da {age:.1f}s — STOP failsafe')
                 self._lost = True
-                self._drive_pub.publish(self._stop_cmd())
+            self._last_cmd = self._stop_cmd()
+            self._drive_pub.publish(self._last_cmd)
         else:
             self._lost = False
+            # Ripubblica l'ultimo comando valido (disaccoppia cmd-rate da detection-rate).
+            self._drive_pub.publish(self._last_cmd)
 
     # ─── Logica di controllo ────────────────────────────────────────────────
 
@@ -215,28 +242,8 @@ class FollowControllerNode(Node):
 
         now = self.get_clock().now()
 
-        # 1. Letture ultrasoniche FRESCHE (vecchia → inf). Usate solo come
-        #    backstop ravvicinato: da lontano non leggono.
-        left_d = self._fresh_distance(self.ultrasonic_left, self._last_left_time, now)
-        right_d = self._fresh_distance(self.ultrasonic_right, self._last_right_time, now)
-
-        # 2. Controllo distanza su target_distance (ULTRASUONI, OR dei due sensori).
-        #    dist = la più VICINA tra le letture valide → se uno dei due vede < target
-        #    si indietreggia. Nessuna lettura valida = persona oltre il range US ma
-        #    vista dalla camera → AVANTI costante finché un sensore aggancia.
-        candidates = [d for d in (left_d, right_d) if math.isfinite(d)]
-        if candidates:
-            dist = min(candidates)                       # OR: il più vicino comanda
-            ed = dist - self.target_distance             # >0 lontano→avanti; <0 vicino→indietro
-            if abs(ed) < self.distance_deadband:
-                ed = 0.0                                 # dentro deadband → fermo, si attesta
-            v = self._clamp(ed * self.linear_kp,
-                            -self.max_linear_speed, self.max_linear_speed)
-        else:
-            v = self.approach_speed                      # cieco = lontano → avvicinati
-
-        # 3. Steering verso il centro del bounding box (>0 ex: persona a destra).
-        #    Attivo sempre: traccia e gira mentre segue.
+        # 1. Steering verso il centro del bounding box (>0 ex: persona a destra).
+        #    Calcolato per PRIMO: serve a scegliere il sensore lato-persona (E).
         ex = (person_cx - img_width / 2.0) / (img_width / 2.0)
         if self.invert_steer:
             ex = -ex
@@ -245,43 +252,100 @@ class FollowControllerNode(Node):
         steer = self._clamp(ex * self.angular_kp,
                             -self.max_angular_speed, self.max_angular_speed)
 
-        # 7. Differential mix
+        # 2. Letture ultrasoniche FRESCHE (vecchia → inf).
+        left_d = self._fresh_distance(self.ultrasonic_left, self._last_left_time, now)
+        right_d = self._fresh_distance(self.ultrasonic_right, self._last_right_time, now)
+
+        # 3. Distanza LATO-PERSONA (E): non più min() dei due sensori.
+        #    min() faceva indietreggiare il robot per QUALSIASI lettura vicina
+        #    di UNO dei due sensori (una gamba di lato, un muro) → reverse spurio
+        #    ("si avventa e poi torna indietro"). Ora usiamo il sensore allineato
+        #    al lato dove la camera vede la persona; l'altro fa da fallback.
+        dist = self._select_distance(ex, left_d, right_d)
+
+        # 4. Controllo distanza su target_distance.
+        if math.isfinite(dist):
+            ed = dist - self.target_distance             # >0 lontano→avanti; <0 vicino→indietro
+            if abs(ed) < self.distance_deadband:
+                ed = 0.0                                 # dentro deadband → fermo, si attesta
+            v = self._clamp(ed * self.linear_kp,
+                            -self.max_linear_speed, self.max_linear_speed)
+            # A: sotto la distanza di sicurezza non si spinge MAI in avanti.
+            #    (reverse e sterzo restano per arretrare / restare in frame).
+            if dist < self.min_safe_distance:
+                v = min(v, 0.0)
+        else:
+            v = self.approach_speed                      # cieco = lontano → avvicinati
+
+        # 5. Differential mix
         left = v + steer
         right = v - steer
 
-        # 8. Ratio-preserving saturation: scale BOTH wheels, don't clip each.
-        #    Keeps the forward/turn balance when a wheel would exceed |1|.
+        # 6. Cap potenza PRIMA della saturazione (G): prima il *power poteva
+        #    spingere oltre 1, poi clamp/floor per-ruota schiacciavano il rapporto
+        #    sterzata in curva veloce. Ora power poi saturazione ratio-preserving.
+        left *= self.power_percentage
+        right *= self.power_percentage
+
+        # 7. Ratio-preserving saturation a [-1, 1]: scala ENTRAMBE le ruote,
+        #    mantiene il bilancio avanti/sterzata invece di clippare ogni ruota.
         peak = max(abs(left), abs(right), 1.0)
         left /= peak
         right /= peak
 
-        # 9. Overall speed cap for this robot
-        left *= self.power_percentage
-        right *= self.power_percentage
-
-        # 10. Minimum-motion guarantee — applied LAST so the output is the real command.
-        #     BUGFIX: il vecchio _apply_floor() alzava OGNI ruota al suo floor in
-        #     modo indipendente. In retromarcia / vicino allo stop entrambe le
-        #     ruote venivano portate allo STESSO floor → differenziale annullato →
-        #     il robot smetteva di girare e indietreggiava dritto, perdendo la
-        #     persona dal frame (il sintomo riportato). Ora scaliamo ENTRAMBE le
-        #     ruote dello stesso fattore: la ruota dominante raggiunge il floor e
-        #     il differenziale (cioè la sterzata) è preservato.
+        # 8. Floor di motion. Due garanzie, in ordine:
+        #    (a) la ruota DOMINANTE supera il floor (scala entrambe → preserva il
+        #        differenziale; fix del reverse-dritto che perdeva la persona).
+        #    (b) ANTI-STALL ruota debole: se la ruota interna è alimentata ma sotto
+        #        il floor (es. L=0.15, R=0.60) si pianta e FRENA la curva → il robot
+        #        non gira nonostante R=0.60. La portiamo al floor (stesso segno)
+        #        SOLO se la dominante è già sopra il floor, così la sterzata resta.
         pure_rotation = abs(v) < 0.05 <= abs(steer)
         if pure_rotation:
             floor = self.min_turn_speed
         else:
             floor = self.min_drive_reverse if v < 0.0 else self.min_drive
 
-        peak_cmd = max(abs(left), abs(right))
-        if 1e-6 < peak_cmd < floor:
-            scale = floor / peak_cmd
-            left *= scale
-            right *= scale
+        aL, aR = abs(left), abs(right)
+        peak_cmd = max(aL, aR)
+        if peak_cmd > 1e-6:
+            # (a) dominante ≥ floor, ratio preservato
+            if peak_cmd < floor:
+                scale = floor / peak_cmd
+                left *= scale
+                right *= scale
+                aL, aR = abs(left), abs(right)
+                peak_cmd = max(aL, aR)
+            # (b) anti-stall ruota debole
+            if peak_cmd > floor + 1e-6:
+                if 1e-6 < aL < floor:
+                    left = math.copysign(floor, left)
+                if 1e-6 < aR < floor:
+                    right = math.copysign(floor, right)
 
         cmd.left = round(self._clamp(left, -1.0, 1.0), 4)
         cmd.right = round(self._clamp(right, -1.0, 1.0), 4)
         return cmd
+
+    def _select_distance(self, ex, left_d, right_d) -> float:
+        """E: distanza del sensore sul LATO dove la camera vede la persona.
+        ex<0 → persona a sinistra → sensore sinistro; ex>0 → destro.
+        Centrata o sensore-lato cieco → fallback all'altro / minimo dei validi."""
+        l_ok = math.isfinite(left_d)
+        r_ok = math.isfinite(right_d)
+        if ex <= -self.center_deadband:        # persona a SINISTRA
+            if l_ok:
+                return left_d
+            if r_ok:
+                return right_d
+        elif ex >= self.center_deadband:       # persona a DESTRA
+            if r_ok:
+                return right_d
+            if l_ok:
+                return left_d
+        # centrata o nessun lato: minimo dei validi (backstop ravvicinato)
+        cands = [d for d in (left_d, right_d) if math.isfinite(d)]
+        return min(cands) if cands else float('inf')
 
 
 def main(args=None):

@@ -41,7 +41,7 @@ fire_detector_node:
 follow_controller_node:
   ros__parameters:
     target_distance_cm: 120.0
-    min_safe_distance_cm: 120.0
+    min_safe_distance_cm: 50.0     # A: emergenza ravvicinata (< target). Blocca solo l'AVANTI.
     max_distance_cm: 400.0
     linear_kp: 0.03
     angular_kp: 0.20
@@ -52,9 +52,10 @@ follow_controller_node:
     min_drive_reverse: 0.35
     approach_speed: 0.25           # avanti costante quando ultrasuoni CIECHI (persona lontana)
     loop_rate_hz: 10.0
-    power_percentage: 1.5
+    power_percentage: 1.5         # G: >1 schiacciava il rapporto sterzata dopo la saturazione
     center_deadband: 0.12
     distance_deadband: 6.0
+    invert_steer: false            # metti true se gira dal lato sbagliato (camera specchiata / cingoli invertiti)
     lost_person_timeout_s: 1.5
     sensor_timeout_s: 1.0
 
