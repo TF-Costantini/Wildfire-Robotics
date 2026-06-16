@@ -18,6 +18,7 @@ from rclpy.node import Node
 from sensor_msgs.msg import Image
 import numpy as np
 import cv2
+import time
 
 from .WebSocketClient import WebsocketClient
 from wildfire_msgs.msg import Detection, Mode
@@ -62,6 +63,9 @@ class PersonDetectorNode(Node):
             callback=self._inference_callback # This runs when data comes back
         )
 
+        self.latest_image = None
+        self.latest_result_time = 0
+
 
     def _start_camera_processing(self):
         if self.camera_subscription is not None:
@@ -72,7 +76,7 @@ class PersonDetectorNode(Node):
         self.camera_subscription = self.create_subscription(
             Image,
             self.camera_topic,
-            self.send_to_inference_server,
+            self.receive_image,
             10
         )
 
@@ -86,7 +90,16 @@ class PersonDetectorNode(Node):
 
     # ─── Callback principale ─────────────────────────────────────────────────
 
-    async def send_to_inference_server(self, msg: Image):
+    async def receive_image(self, msg: Image):
+        send_img = False
+        if self.latest_image is None:
+            send_img = True
+
+        self.latest_image = msg
+        if send_img or time.time_ns() - self.latest_result_time > 250000:
+            self.send_to_inference_server(self.latest_image)
+
+    def send_to_inference_server(self, msg: Image):
         try:
             # 1. Converti i byte grezzi di ROS in una matrice NumPy (immagine specchio)
             # Nota: assumendo che l'immagine sia rgb8 o bgr8 (3 canali)
@@ -106,6 +119,7 @@ class PersonDetectorNode(Node):
             # 3. Trasforma il buffer in byte e sparalo sul WebSocketClient
             jpeg_bytes = encoded_image.tobytes()
             self.yolo_client.push_image(jpeg_bytes)
+            self.latest_image = None
 
         except Exception as e:
             print(f"[ROS Node] Errore nel processing dell'immagine: {e}")
@@ -124,9 +138,11 @@ class PersonDetectorNode(Node):
             return
 
         # self.get_logger().info(f"New YOLO Results Received...")
+        self.latest_result_time = time.time_ns()
+        self.send_to_inference_server(self.latest_image)
         detection = result["detection"]
         if detection is None:
-            self._publish_detection(False, 0.0, 0.0, 0.0, 0, 0, 0)
+            self._publish_detection(False, 0.0, 0.0, 0.0, 0, 0, 0.0)
             return
 
         self._publish_detection(
@@ -154,6 +170,7 @@ class PersonDetectorNode(Node):
         msg.img_h = float(img_h)
         msg.confidence = confidence
         msg.use_confidence = True
+        msg.timestamp = time.time_ns()
 
         self._pub.publish(msg)
 

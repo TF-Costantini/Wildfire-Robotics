@@ -159,7 +159,7 @@ class FollowControllerNode(Node):
                 self.get_logger().warn(
                     f'Nessuna detection da {age:.1f}s — STOP failsafe')
                 self._lost = True
-            self._drive_pub.publish(self._stop_cmd())
+                self._drive_pub.publish(self._stop_cmd())
         else:
             self._lost = False
 

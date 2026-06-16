@@ -8,3 +8,4 @@ float32 img_w
 float32 img_h
 float32 confidence
 bool use_confidence
+int64 timestamp
