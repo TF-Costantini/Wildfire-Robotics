@@ -305,13 +305,11 @@ class FireControllerNode(Node):
             self._lock_start_time = None
             return
 
-        # Correzioni sottili per mantenere centrato
-        self._current_pan -= ex * 0.02
-        self._current_tilt -= ey * 0.02
-
-        # Clamp ai limiti fisici
-        self._current_pan = float(max(self.pan_min, min(self.pan_max, self._current_pan)))
-        self._current_tilt = float(max(self.tilt_min, min(self.tilt_max, self._current_tilt)))
+        # Deadband: entro lock_threshold il fuoco è considerato centrato.
+        # NESSUNA correzione → la pan-tilt resta ferma sul lock originale.
+        # Inseguire il centroide rumoroso qui faceva derivare e perdere il target.
+        # Si esce solo se l'errore supera la soglia (relock sopra) o il fuoco
+        # sparisce per > unlock_time (gestito sopra).
         self._publish_pantilt(self._current_pan, self._current_tilt)
 
     # ─── Reset ──────────────────────────────────────────────────────────────
