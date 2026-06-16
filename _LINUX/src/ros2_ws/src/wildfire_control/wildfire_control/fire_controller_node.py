@@ -66,6 +66,13 @@ class FireControllerNode(Node):
         self.declare_parameter('lock_time_s', 0.5)
         self.declare_parameter('unlock_time_s', 0.3)
 
+        # --- Parametri deadband LOCKED ---
+        # Entro lock_deadband_px nessuna correzione (anti-jitter).
+        # Oltre: corregge solo l'errore eccedente, con gain dolce e step massimo.
+        self.declare_parameter('lock_deadband_px', 8.0)
+        self.declare_parameter('lock_kp', 0.02)
+        self.declare_parameter('lock_max_step_deg', 1.0)
+
         # --- Area minima fuoco ---
         self.declare_parameter('min_fire_area', 100.0)
 
@@ -83,6 +90,9 @@ class FireControllerNode(Node):
         self.lock_threshold = self.get_parameter('lock_threshold_px').value
         self.lock_time = self.get_parameter('lock_time_s').value
         self.unlock_time = self.get_parameter('unlock_time_s').value
+        self.lock_deadband = self.get_parameter('lock_deadband_px').value
+        self.lock_kp = self.get_parameter('lock_kp').value
+        self.lock_max_step = self.get_parameter('lock_max_step_deg').value
         self.min_fire_area = self.get_parameter('min_fire_area').value
 
         # --- Stato fire detection ---
@@ -305,11 +315,24 @@ class FireControllerNode(Node):
             self._lock_start_time = None
             return
 
-        # Deadband: entro lock_threshold il fuoco è considerato centrato.
-        # NESSUNA correzione → la pan-tilt resta ferma sul lock originale.
-        # Inseguire il centroide rumoroso qui faceva derivare e perdere il target.
-        # Si esce solo se l'errore supera la soglia (relock sopra) o il fuoco
-        # sparisce per > unlock_time (gestito sopra).
+        # Segue il fuoco ma con deadband: entro lock_deadband_px nessuna
+        # correzione (resta fermo → niente jitter sul centroide rumoroso).
+        # Oltre la deadband corregge SOLO l'errore eccedente, con gain dolce
+        # e step massimo limitato → segue senza overshoot.
+        ex_corr = ex - self.lock_deadband if ex > self.lock_deadband else (
+            ex + self.lock_deadband if ex < -self.lock_deadband else 0.0)
+        ey_corr = ey - self.lock_deadband if ey > self.lock_deadband else (
+            ey + self.lock_deadband if ey < -self.lock_deadband else 0.0)
+
+        step_pan = max(-self.lock_max_step, min(self.lock_max_step, ex_corr * self.lock_kp))
+        step_tilt = max(-self.lock_max_step, min(self.lock_max_step, ey_corr * self.lock_kp))
+
+        self._current_pan -= step_pan
+        self._current_tilt -= step_tilt
+
+        # Clamp ai limiti fisici
+        self._current_pan = float(max(self.pan_min, min(self.pan_max, self._current_pan)))
+        self._current_tilt = float(max(self.tilt_min, min(self.tilt_max, self._current_tilt)))
         self._publish_pantilt(self._current_pan, self._current_tilt)
 
     # ─── Reset ──────────────────────────────────────────────────────────────
