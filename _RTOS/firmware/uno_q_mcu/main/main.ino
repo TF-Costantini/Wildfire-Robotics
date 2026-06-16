@@ -240,7 +240,16 @@ void checkSafetyMargin()
 
     if (left_too_close || right_too_close)
     {
-        motor_emergency_stop();
+        // Too close: block FORWARD push but ALLOW reverse so the robot can back
+        // out of the safety zone. A bare emergency_stop() every loop re-zeroed
+        // the reverse command from follow_controller → the robot froze here and
+        // could never escape. left/right in g_state are LOGICAL (pre wiring-sign),
+        // positive = forward, so clamp each wheel to <= 0.
+        float l, r;
+        motor_get_state(&l, &r);
+        l = l < 0.0f ? l : 0.0f;
+        r = r < 0.0f ? r : 0.0f;
+        motor_set(l, r);
     } else
     {
         motor_enable();

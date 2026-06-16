@@ -56,6 +56,10 @@ class FollowControllerNode(Node):
         self.declare_parameter('power_percentage', 1.0)
         self.declare_parameter('center_deadband', 0.12)      # ex deadband (normalized)
         self.declare_parameter('distance_deadband', 16.0)    # ed deadband (cm)
+        # Se la camera è montata specchiata (o i cingoli sono cablati invertiti),
+        # il robot gira dalla parte SBAGLIATA: persona a destra → muso a sinistra.
+        # Metti true per invertire il segno dello sterzo senza ricablare. TARARE A MANO.
+        self.declare_parameter('invert_steer', False)
 
         # --- Sicurezza / robustezza a 1 Hz ---
         self.declare_parameter('lost_person_timeout_s', 1.5)  # NEW: stop se la vision tace
@@ -79,6 +83,7 @@ class FollowControllerNode(Node):
         self.power_percentage = self.get_parameter('power_percentage').value
         self.center_deadband = self.get_parameter('center_deadband').value
         self.distance_deadband = self.get_parameter('distance_deadband').value
+        self.invert_steer = self.get_parameter('invert_steer').value
         self.loop_rate = self.get_parameter('loop_rate_hz').value
         self.lost_person_timeout = self.get_parameter('lost_person_timeout_s').value
         self.sensor_timeout = self.get_parameter('sensor_timeout_s').value
@@ -173,15 +178,6 @@ class FollowControllerNode(Node):
     def _clamp(x, lo, hi) -> float:
         return max(lo, min(hi, x))
 
-    @staticmethod
-    def _apply_floor(w, floor_fwd, floor_rev) -> float:
-        # Overcome static friction: bump a commanded wheel up to its floor, keep sign.
-        # Reverse usa un floor più alto (più attrito a muovere indietro).
-        if w == 0.0:
-            return 0.0
-        floor = floor_rev if w < 0.0 else floor_fwd
-        return math.copysign(max(abs(w), floor), w)
-
     def _stop_cmd(self) -> DriveCmd:
         cmd = DriveCmd()
         cmd.left = 0.0
@@ -242,6 +238,8 @@ class FollowControllerNode(Node):
         # 3. Steering verso il centro del bounding box (>0 ex: persona a destra).
         #    Attivo sempre: traccia e gira mentre segue.
         ex = (person_cx - img_width / 2.0) / (img_width / 2.0)
+        if self.invert_steer:
+            ex = -ex
         if abs(ex) < self.center_deadband:
             ex = 0.0
         steer = self._clamp(ex * self.angular_kp,
@@ -262,18 +260,27 @@ class FollowControllerNode(Node):
         right *= self.power_percentage
 
         # 10. Minimum-motion guarantee — applied LAST so the output is the real command.
-        #     Pure rotation needs a higher floor (both wheels fight friction);
-        #     in marcia, il floor è asimmetrico avanti/indietro.
+        #     BUGFIX: il vecchio _apply_floor() alzava OGNI ruota al suo floor in
+        #     modo indipendente. In retromarcia / vicino allo stop entrambe le
+        #     ruote venivano portate allo STESSO floor → differenziale annullato →
+        #     il robot smetteva di girare e indietreggiava dritto, perdendo la
+        #     persona dal frame (il sintomo riportato). Ora scaliamo ENTRAMBE le
+        #     ruote dello stesso fattore: la ruota dominante raggiunge il floor e
+        #     il differenziale (cioè la sterzata) è preservato.
         pure_rotation = abs(v) < 0.05 <= abs(steer)
         if pure_rotation:
-            fl_fwd = fl_rev = self.min_turn_speed
+            floor = self.min_turn_speed
         else:
-            fl_fwd, fl_rev = self.min_drive, self.min_drive_reverse
-        left = self._apply_floor(left, fl_fwd, fl_rev)
-        right = self._apply_floor(right, fl_fwd, fl_rev)
+            floor = self.min_drive_reverse if v < 0.0 else self.min_drive
 
-        cmd.left = round(left, 4)
-        cmd.right = round(right, 4)
+        peak_cmd = max(abs(left), abs(right))
+        if 1e-6 < peak_cmd < floor:
+            scale = floor / peak_cmd
+            left *= scale
+            right *= scale
+
+        cmd.left = round(self._clamp(left, -1.0, 1.0), 4)
+        cmd.right = round(self._clamp(right, -1.0, 1.0), 4)
         return cmd
 
 

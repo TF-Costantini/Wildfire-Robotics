@@ -19,6 +19,7 @@ from sensor_msgs.msg import Image
 import numpy as np
 import cv2
 import time
+import threading
 
 from .WebSocketClient import WebsocketClient
 from wildfire_msgs.msg import Detection, Mode
@@ -60,11 +61,18 @@ class PersonDetectorNode(Node):
 
         self.yolo_client = WebsocketClient(
             server_url=self.inference_server_addr,
-            callback=self._inference_callback # This runs when data comes back
+            callback=self._inference_callback,   # runs when a result comes back
+            on_disconnect=self._on_disconnect    # runs if the socket drops while waiting
         )
 
-        self.latest_image = None
-        self.latest_result_time = 0
+        # --- Stato gating richieste ---
+        # STRETTO: una sola richiesta "in volo" alla volta. La prossima parte
+        # SOLO dopo aver ricevuto un risultato (ok o errore). Nessun timeout di
+        # reinvio: due richieste contemporanee farebbero arrivare risultati di
+        # frame vecchi (la causa dei "dati di inferenza vecchi").
+        self._state_lock = threading.Lock()
+        self.latest_image = None      # frame più recente in attesa di invio
+        self._inflight = False        # True = richiesta inviata, risultato non ancora arrivato
 
 
     def _start_camera_processing(self):
@@ -90,16 +98,46 @@ class PersonDetectorNode(Node):
 
     # ─── Callback principale ─────────────────────────────────────────────────
 
-    async def receive_image(self, msg: Image):
-        send_img = False
-        if self.latest_image is None:
-            send_img = True
+    def receive_image(self, msg: Image):
+        # Tieni sempre solo il frame più recente; l'invio è gestito da _dispatch.
+        with self._state_lock:
+            self.latest_image = msg
+        self._dispatch()
 
-        self.latest_image = msg
-        if send_img or time.time_ns() - self.latest_result_time > 250000:
-            self.send_to_inference_server(self.latest_image)
+    def _dispatch(self):
+        """Invia il frame più recente SOLO se non c'è già una richiesta in volo.
 
-    def send_to_inference_server(self, msg: Image):
+        Chiamato dal thread ROS (receive_image) e dal thread WebSocket
+        (_on_response_done / _on_disconnect): il lock garantisce un solo invio
+        concorrente e un solo frame in volo.
+        """
+        with self._state_lock:
+            if self._inflight:
+                return  # STRETTO: aspetta il risultato precedente, nessun reinvio
+            img = self.latest_image
+            self.latest_image = None
+            if img is None:
+                return
+            self._inflight = True
+
+        if not self.send_to_inference_server(img):
+            # Invio fallito: nessun risultato arriverà → libera il gate.
+            with self._state_lock:
+                self._inflight = False
+
+    def _on_response_done(self):
+        """Risultato ricevuto (ok o errore): libera il gate e invia il prossimo frame."""
+        with self._state_lock:
+            self._inflight = False
+        self._dispatch()
+
+    def _on_disconnect(self):
+        """Socket caduto mentre si attendeva un risultato: libera il gate, altrimenti
+        resterebbe bloccato per sempre (il risultato non arriverà mai)."""
+        with self._state_lock:
+            self._inflight = False
+
+    def send_to_inference_server(self, msg: Image) -> bool:
         try:
             # 1. Converti i byte grezzi di ROS in una matrice NumPy (immagine specchio)
             # Nota: assumendo che l'immagine sia rgb8 o bgr8 (3 canali)
@@ -114,15 +152,15 @@ class PersonDetectorNode(Node):
 
             if not success:
                 print("[ROS Node] Errore durante la codifica JPEG")
-                return
+                return False
 
             # 3. Trasforma il buffer in byte e sparalo sul WebSocketClient
             jpeg_bytes = encoded_image.tobytes()
-            self.yolo_client.push_image(jpeg_bytes)
-            self.latest_image = None
+            return self.yolo_client.push_image(jpeg_bytes)
 
         except Exception as e:
             print(f"[ROS Node] Errore nel processing dell'immagine: {e}")
+            return False
 
     def _mode_callback(self, mode_msg: Mode):
         if mode_msg.mode == Mode.FOLLOW:
@@ -135,25 +173,27 @@ class PersonDetectorNode(Node):
 
         if status != "ok":
             self.get_logger().info(f"ERROR while processing YOLO Inference...")
+            # Libera comunque il gate e invia il prossimo frame.
+            self._on_response_done()
             return
 
         # self.get_logger().info(f"New YOLO Results Received...")
-        self.latest_result_time = time.time_ns()
-        self.send_to_inference_server(self.latest_image)
         detection = result["detection"]
         if detection is None:
             self._publish_detection(False, 0.0, 0.0, 0.0, 0, 0, 0.0)
-            return
+        else:
+            self._publish_detection(
+                True,
+                detection["cx"],
+                detection["cy"],
+                detection["area"],
+                detection["img_w"],
+                detection["img_h"],
+                detection["conf"]
+            )
 
-        self._publish_detection(
-            True,
-            detection["cx"],
-            detection["cy"],
-            detection["area"],
-            detection["img_w"],
-            detection["img_h"],
-            detection["conf"]
-        )
+        # Risposta gestita: sblocca il gate e invia il frame più recente.
+        self._on_response_done()
 
     # ─── Publishing ─────────────────────────────────────────────────────────
 

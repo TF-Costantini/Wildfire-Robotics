@@ -6,9 +6,12 @@ from websockets.sync.client import connect as ws_connect
 from websockets.exceptions import ConnectionClosed
 
 class WebsocketClient:
-    def __init__(self, server_url: str = "ws://localhost:8765", callback: Optional[Callable[[dict], None]] = None):
+    def __init__(self, server_url: str = "ws://localhost:8765",
+                 callback: Optional[Callable[[dict], None]] = None,
+                 on_disconnect: Optional[Callable[[], None]] = None):
         self.server_url = server_url
         self.callback = callback
+        self.on_disconnect = on_disconnect  # notificato quando il socket cade
 
         self.ws = None
         self._thread: Optional[threading.Thread] = None
@@ -51,18 +54,24 @@ class WebsocketClient:
             self._thread.join(timeout=2.0)
         print("[YOLO Client] Disconnesso.")
 
-    def push_image(self, image_bytes: bytes):
-        """Invia i byte dell'immagine direttamente dal callback di ROS 2 (Thread-safe)."""
+    def push_image(self, image_bytes: bytes) -> bool:
+        """Invia i byte dell'immagine direttamente dal callback di ROS 2 (Thread-safe).
+
+        Ritorna True se l'invio è riuscito, False altrimenti (socket chiuso o
+        connessione persa). Il chiamante usa l'esito per gestire il gate.
+        """
         if self.ws is None:
             print("[YOLO Client] Errore: Impossibile inviare frame, websocket chiuso.")
-            return
+            return False
 
         try:
             with self._lock:
                 self.ws.send(image_bytes)
+            return True
         except (ConnectionClosed, Exception) as e:
             print(f"[YOLO Client] Connessione persa durante l'invio: {e}")
             self._handle_disconnection()
+            return False
 
     # ----------------------------------------------------------------
     # Meccanica di Background (Thread Sincrono Nativo)
@@ -100,6 +109,13 @@ class WebsocketClient:
             except Exception:
                 pass
             self.ws = None
+
+        # Sblocca il gate del nodo: una richiesta in volo non riceverà mai risposta.
+        if self.on_disconnect:
+            try:
+                self.on_disconnect()
+            except Exception:
+                pass
 
         if self._running:
             print("[YOLO Client] Avvio tentativo di riconnessione automatica...")
