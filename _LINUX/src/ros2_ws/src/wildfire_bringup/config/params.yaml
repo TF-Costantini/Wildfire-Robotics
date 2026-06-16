@@ -40,19 +40,20 @@ fire_detector_node:
 
 follow_controller_node:
   ros__parameters:
-    target_distance_cm: 100.0
-    min_safe_distance_cm: 60.0
+    target_distance_cm: 120.0
+    min_safe_distance_cm: 120.0
     max_distance_cm: 400.0
-    linear_kp: 0.010
+    linear_kp: 0.03
     angular_kp: 0.20
     max_linear_speed: 0.25
     max_angular_speed: 0.40
     min_turn_speed: 0.35
-    min_drive: 0.35
+    min_drive: 0.25
     min_drive_reverse: 0.35
+    approach_speed: 0.25           # avanti costante quando ultrasuoni CIECHI (persona lontana)
     loop_rate_hz: 10.0
-    power_percentage: 1.0
-    center_deadband: 0.8
+    power_percentage: 1.5
+    center_deadband: 0.12
     distance_deadband: 6.0
     lost_person_timeout_s: 1.5
     sensor_timeout_s: 1.0

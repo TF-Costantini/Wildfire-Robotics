@@ -51,6 +51,7 @@ class FollowControllerNode(Node):
         self.declare_parameter('min_turn_speed', 0.26)
         self.declare_parameter('min_drive', 0.22)            # floor di marcia AVANTI
         self.declare_parameter('min_drive_reverse', 0.32)    # NEW: floor di marcia INDIETRO
+        self.declare_parameter('approach_speed', 0.25)       # avanti costante quando ULTRASUONI CIECHI (persona lontana)
         self.declare_parameter('loop_rate_hz', 10.0)         # ora usato dal watchdog
         self.declare_parameter('power_percentage', 1.0)
         self.declare_parameter('center_deadband', 0.12)      # ex deadband (normalized)
@@ -74,6 +75,7 @@ class FollowControllerNode(Node):
         self.min_turn_speed = self.get_parameter('min_turn_speed').value
         self.min_drive = self.get_parameter('min_drive').value
         self.min_drive_reverse = self.get_parameter('min_drive_reverse').value
+        self.approach_speed = self.get_parameter('approach_speed').value
         self.power_percentage = self.get_parameter('power_percentage').value
         self.center_deadband = self.get_parameter('center_deadband').value
         self.distance_deadband = self.get_parameter('distance_deadband').value
@@ -122,7 +124,9 @@ class FollowControllerNode(Node):
         self.person_detected = msg.found
 
         if msg.found:
-            cmd = self._compute_drive_command(person_cx=msg.cx, img_width=msg.img_w)
+            cmd = self._compute_drive_command(
+                person_cx=msg.cx, img_width=msg.img_w,
+                person_area=msg.area, img_height=msg.img_h)
         else:
             cmd = self._stop_cmd()
 
@@ -192,7 +196,8 @@ class FollowControllerNode(Node):
         age = (now - last_time).nanoseconds * 1e-9
         return value if age <= self.sensor_timeout else float('inf')
 
-    def _compute_drive_command(self, person_cx, img_width) -> DriveCmd:
+    def _compute_drive_command(self, person_cx, img_width,
+                               person_area=0.0, img_height=0.0) -> DriveCmd:
         """
         Differential drive command for person following.
         left/right in [-1.0, 1.0] (after power scaling).
@@ -214,58 +219,33 @@ class FollowControllerNode(Node):
 
         now = self.get_clock().now()
 
-        # 1. Nearest obstacle — solo da letture FRESCHE (una vecchia → inf)
+        # 1. Letture ultrasoniche FRESCHE (vecchia → inf). Usate solo come
+        #    backstop ravvicinato: da lontano non leggono.
         left_d = self._fresh_distance(self.ultrasonic_left, self._last_left_time, now)
         right_d = self._fresh_distance(self.ultrasonic_right, self._last_right_time, now)
-        min_dist = min(left_d, right_d)
 
-        # 2. Invalid (inf/NaN) or out-of-range -> treat as "at target" (no forward push)
-        #    Nessun sensore valido = non spingere avanti/indietro, ma lascia girare
-        #    per restare puntato sulla persona.
-        if not math.isfinite(min_dist) or min_dist > self.max_distance:
-            min_dist = self.target_distance
+        # 2. Controllo distanza su target_distance (ULTRASUONI, OR dei due sensori).
+        #    dist = la più VICINA tra le letture valide → se uno dei due vede < target
+        #    si indietreggia. Nessuna lettura valida = persona oltre il range US ma
+        #    vista dalla camera → AVANTI costante finché un sensore aggancia.
+        candidates = [d for d in (left_d, right_d) if math.isfinite(d)]
+        if candidates:
+            dist = min(candidates)                       # OR: il più vicino comanda
+            ed = dist - self.target_distance             # >0 lontano→avanti; <0 vicino→indietro
+            if abs(ed) < self.distance_deadband:
+                ed = 0.0                                 # dentro deadband → fermo, si attesta
+            v = self._clamp(ed * self.linear_kp,
+                            -self.max_linear_speed, self.max_linear_speed)
+        else:
+            v = self.approach_speed                      # cieco = lontano → avvicinati
 
-        # 3. Safety stop
-        if min_dist < self.min_safe_distance:
-            cmd.left = 0.0
-            cmd.right = 0.0
-            self.get_logger().warn(
-                f'Sicurezza: {min_dist:.1f} cm < {self.min_safe_distance} cm — STOP!')
-            return cmd
-
-        # 4. Normalized errors (>0 ex: person right; >0 ed: person too far)
+        # 3. Steering verso il centro del bounding box (>0 ex: persona a destra).
+        #    Attivo sempre: traccia e gira mentre segue.
         ex = (person_cx - img_width / 2.0) / (img_width / 2.0)
-        ed = min_dist - self.target_distance
-
-        # 5. Deadbands kill micro-jitter when already aligned / at distance
         if abs(ex) < self.center_deadband:
             ex = 0.0
-        if abs(ed) < self.distance_deadband:
-            ed = 0.0
-
-        # 5b. Anti-overshoot per loop lenti (opzionale, richiede una misura di velocità).
-        #     A 1 Hz un comando "minimo" (floor) percorre floor*vmax*period cm prima
-        #     della lettura successiva. Se questo supererebbe l'errore residuo, NON
-        #     muoverti: lascia che la deadband ti tenga fermo invece di oscillare.
-        if self.est_full_speed > 0.0 and self.command_period > 0.0 and ed != 0.0:
-            floor_dir = self.min_drive_reverse if ed < 0.0 else self.min_drive
-            floor_travel = floor_dir * self.est_full_speed * self.command_period
-            if abs(ed) < floor_travel:
-                ed = 0.0
-
-        # 6. P-control, each clamped to its own limit
-        v = self._clamp(ed * self.linear_kp,
-                        -self.max_linear_speed, self.max_linear_speed)
         steer = self._clamp(ex * self.angular_kp,
                             -self.max_angular_speed, self.max_angular_speed)
-
-        # 6b. Cap di velocità lineare: non percorrere più dell'errore residuo in un tick.
-        #     Garantisce che un singolo comando atterri AL target, non oltre.
-        #     (Combinato con 5b: floor_travel <= |ed| <= v_cap*period, quindi il floor
-        #     successivo non fa overshoot.)
-        if self.est_full_speed > 0.0 and self.command_period > 0.0 and ed != 0.0:
-            v_cap = abs(ed) / (self.est_full_speed * self.command_period)
-            v = math.copysign(min(abs(v), v_cap), v)
 
         # 7. Differential mix
         left = v + steer

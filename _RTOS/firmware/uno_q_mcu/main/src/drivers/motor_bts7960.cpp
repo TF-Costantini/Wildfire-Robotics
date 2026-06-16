@@ -80,6 +80,12 @@ void motor_init(void) {
     motor_enable();
 }
 
+// Polarità cablaggio invertita su entrambi i motori: comando logico +avanti
+// usciva come retromarcia fisica. Negazione unica qui → fisico = logico per
+// avanti, retro e sterzata. Se un solo lato è invertito, metti -1/+1 separati.
+#define MOTOR_A_SIGN (-1.0f)
+#define MOTOR_B_SIGN (-1.0f)
+
 void motor_set(float left, float right) {
     left  = clamp_unit(left);
     right = clamp_unit(right);
@@ -91,8 +97,8 @@ void motor_set(float left, float right) {
     if (left != 0) LEDMatrixHandler::left_motor_on();
     if (right != 0) LEDMatrixHandler::right_motor_on();
 
-    apply_channel(PIN_MOTOR_A_RPWM, PIN_MOTOR_A_LPWM, left);
-    apply_channel(PIN_MOTOR_B_RPWM, PIN_MOTOR_B_LPWM, right);
+    apply_channel(PIN_MOTOR_A_RPWM, PIN_MOTOR_A_LPWM, MOTOR_A_SIGN * left);
+    apply_channel(PIN_MOTOR_B_RPWM, PIN_MOTOR_B_LPWM, MOTOR_B_SIGN * right);
 }
 
 void motor_emergency_stop(void) {

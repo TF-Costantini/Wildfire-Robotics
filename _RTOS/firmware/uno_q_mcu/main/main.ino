@@ -230,8 +230,15 @@ void checkSafetyMargin()
     const float dl = hcsr04_get_left_distance();
     const float dr = hcsr04_get_right_distance();
 
-    // STOPS THE MOTOR IMMEDIATELY IF EITHER BELOW SAFETY LIMIT
-    if (dl < MIN_SAFE_DISTANCE || dr < MIN_SAFE_DISTANCE)
+    // STOPS THE MOTOR IMMEDIATELY IF EITHER BELOW SAFETY LIMIT.
+    // A negative reading (-1) means out-of-range / no echo: target far or
+    // sensor blind, NOT too close. Only a VALID reading (>= 0) below the
+    // limit counts as too-close — otherwise we'd brake forever when the
+    // person is beyond ultrasonic range (matches follow_controller bang-bang).
+    const bool left_too_close  = (dl >= 0.0f && dl < MIN_SAFE_DISTANCE);
+    const bool right_too_close = (dr >= 0.0f && dr < MIN_SAFE_DISTANCE);
+
+    if (left_too_close || right_too_close)
     {
         motor_emergency_stop();
     } else
