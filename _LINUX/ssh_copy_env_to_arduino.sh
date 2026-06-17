@@ -3,7 +3,7 @@ set -e
 
 BASE_PATH="/_LINUX"
 ARDUINO_BASE="/home/arduino"
-PEM_PATH=/Volumes/POLI/.ssh/auq_phoenix.pem
+PEM_PATH=~/.ssh/auq_phoenix.pem
 REMOTE=arduino@phoenix.local
 
 echo -e "\nSYNCING...\n"

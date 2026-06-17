@@ -2,7 +2,7 @@
 set -e
 
 BIN_DIR="./firmware/bin"
-PEM_PATH=/Volumes/POLI/.ssh/auq_phoenix.pem
+PEM_PATH=~/.ssh/auq_phoenix.pem
 REMOTE=arduino@phoenix.local
 REMOTE_DIR=/home/arduino/zephyr_bin
 
