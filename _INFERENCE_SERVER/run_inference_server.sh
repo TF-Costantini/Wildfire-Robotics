@@ -14,6 +14,7 @@ docker run -itd \
   --name $CONTAINER_NAME \
   --restart unless-stopped \
   -p "8765:8765" \
+  -p "8080:8080" \
   $IMAGE_NAME
 
 docker logs $CONTAINER_NAME -f -n 20

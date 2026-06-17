@@ -17,4 +17,7 @@ RUN pip install --default-timeout=1000 --no-cache-dir -r requirements.txt
 
 COPY server.py .
 
+# 8765 = YOLO WebSocket (ROS), 8080 = web UI MJPEG view
+EXPOSE 8765 8080
+
 CMD ["python", "server.py"]

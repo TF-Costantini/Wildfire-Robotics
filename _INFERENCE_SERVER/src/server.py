@@ -3,7 +3,9 @@ import base64
 import json
 import logging
 import os
+import threading
 import time
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 import websockets
 
@@ -12,6 +14,7 @@ log = logging.getLogger(__name__)
 
 HOST = os.getenv("HOST", "0.0.0.0")
 PORT = int(os.getenv("PORT", 8765))
+WEB_PORT = int(os.getenv("WEB_PORT", 8080))
 
 
 # ─── YOLO setup ──────────────────────────────────────────────────────────────
@@ -29,10 +32,68 @@ _model = YOLO(MODEL_PATH)
 log.info("Model loaded.")
 
 
+# ─── Web UI frame hub ────────────────────────────────────────────────────────
+# Shared latest annotated JPEG, produced by the inference path and consumed by
+# any number of browser MJPEG streams. Fully decoupled from the asyncio loop so
+# a slow/blocked browser can never stall the :8765 inference path.
+class FrameHub:
+    def __init__(self):
+        self._cond = threading.Condition()
+        self._jpeg = None
+        self._version = 0
+
+    def publish(self, jpeg: bytes):
+        with self._cond:
+            self._jpeg = jpeg
+            self._version += 1
+            self._cond.notify_all()
+
+    def get_after(self, last_version: int, timeout: float = 1.0):
+        """Block until a frame newer than last_version exists (or timeout).
+        Returns (jpeg_bytes, version). On timeout returns the current frame so
+        the MJPEG stream stays alive while idle."""
+        with self._cond:
+            if self._version == last_version:
+                self._cond.wait(timeout)
+            return self._jpeg, self._version
+
+
+_hub = FrameHub()
+
+
+def _placeholder_jpeg() -> bytes:
+    img = np.zeros((240, 320, 3), dtype=np.uint8)
+    cv2.putText(img, "waiting for frames...", (18, 125),
+                cv2.FONT_HERSHEY_SIMPLEX, 0.6, (200, 200, 200), 1, cv2.LINE_AA)
+    ok, buf = cv2.imencode(".jpg", img)
+    return buf.tobytes()
+
+
+def _publish_frame(frame, box_xyxy, conf, inference_ms):
+    """Burn the returned detection box onto the frame and push to the web hub.
+    Best-effort: never raise into the inference reply path."""
+    try:
+        if box_xyxy is not None:
+            x1, y1, x2, y2 = (int(v) for v in box_xyxy)
+            cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+            label = f"person {conf:.2f} | {inference_ms} ms"
+            cv2.putText(frame, label, (x1, max(14, y1 - 8)),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2, cv2.LINE_AA)
+        else:
+            cv2.putText(frame, f"no detection | {inference_ms} ms", (8, 20),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2, cv2.LINE_AA)
+        ok, buf = cv2.imencode(".jpg", frame)
+        if ok:
+            _hub.publish(buf.tobytes())
+    except Exception as e:
+        log.warning("web annotate/encode failed: %s", e)
+
+
 def process_with_yolo(image_bytes: bytes) -> dict:
     """
     Receives a JPEG/PNG as raw bytes (sent by the ROS client).
-    Returns a dict with the largest-area person detection, or found=False.
+    Returns a dict with the largest-area person detection, or detection=None.
+    Side effect: publishes the annotated frame to the web UI hub.
     """
     # Decode JPEG → OpenCV BGR frame
     arr   = np.frombuffer(image_bytes, dtype=np.uint8)
@@ -50,36 +111,103 @@ def process_with_yolo(image_bytes: bytes) -> dict:
         return {"status": "error", "error": str(e)}
     inference_ms = round((time.perf_counter() - t0) * 1000, 2)
 
+    detection = None
+    box_xyxy = None
+    conf = None
+
     boxes = results[0].boxes
-    if boxes is None or len(boxes) == 0:
-        return {"status": "ok", "detection": None, "inference_ms": inference_ms}
+    if boxes is not None and len(boxes) > 0:
+        # Filter: person class + minimum confidence
+        person_boxes = [
+            b for b in boxes
+            if int(b.cls[0].item()) == COCO_PERSON
+               and float(b.conf[0].item()) >= CONF_THRESHOLD
+        ]
+        if person_boxes:
+            # Pick the highest-confidence detection (mirrors the ROS node logic)
+            largest = max(person_boxes, key=lambda b: float(b.conf[0]))
+            x1, y1, x2, y2 = largest.xyxy[0].cpu().numpy()
+            conf = float(largest.conf[0].item())
+            box_xyxy = (x1, y1, x2, y2)
+            detection = {
+                "cx":   float((x1 + x2) / 2.0),
+                "cy":   float((y1 + y2) / 2.0),
+                "area": float((x2 - x1) * (y2 - y1)),
+                "conf": conf,
+                "img_w": img_w,
+                "img_h": img_h,
+            }
 
-    # Filter: person class + minimum confidence
-    person_boxes = [
-        b for b in boxes
-        if int(b.cls[0].item()) == COCO_PERSON
-           and float(b.conf[0].item()) >= CONF_THRESHOLD
-    ]
-    if not person_boxes:
-        return {"status": "ok", "detection": None, "inference_ms": inference_ms}
+    # Push the annotated frame to the browser stream (best-effort).
+    _publish_frame(frame, box_xyxy, conf, inference_ms)
 
-    # Pick the highest-confidence detection (mirrors your ROS node logic)
-    largest = max(person_boxes, key=lambda b: float(b.conf[0]))
-    x1, y1, x2, y2 = largest.xyxy[0].cpu().numpy()
-
-    return {
-        "status": "ok",
-        "detection": {
-            "cx":   float((x1 + x2) / 2.0),
-            "cy":   float((y1 + y2) / 2.0),
-            "area": float((x2 - x1) * (y2 - y1)),
-            "conf": float(largest.conf[0].item()),
-            "img_w": img_w,
-            "img_h": img_h,
-        },
-        "inference_ms": inference_ms,
-    }
+    return {"status": "ok", "detection": detection, "inference_ms": inference_ms}
 # ─────────────────────────────────────────────────────────────────────────────
+
+
+# ─── Web UI HTTP server (separate daemon thread) ─────────────────────────────
+INDEX_HTML = b"""<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Wildfire Inference</title>
+<style>
+  body{margin:0;background:#111;color:#ddd;font-family:monospace;text-align:center}
+  h1{font-size:16px;font-weight:normal;padding:10px;margin:0;color:#888}
+  img{max-width:100%;height:auto;border:1px solid #333}
+</style></head>
+<body>
+  <h1>YOLO inference &mdash; live (largest person)</h1>
+  <img src="/stream" alt="live stream">
+</body></html>"""
+
+
+class WebHandler(BaseHTTPRequestHandler):
+    def log_message(self, *args):  # silence per-request logging
+        pass
+
+    def do_GET(self):
+        if self.path in ("/", "/index.html"):
+            self._serve_index()
+        elif self.path == "/stream":
+            self._serve_stream()
+        else:
+            self.send_error(404)
+
+    def _serve_index(self):
+        self.send_response(200)
+        self.send_header("Content-Type", "text/html; charset=utf-8")
+        self.send_header("Content-Length", str(len(INDEX_HTML)))
+        self.end_headers()
+        self.wfile.write(INDEX_HTML)
+
+    def _serve_stream(self):
+        self.send_response(200)
+        self.send_header("Age", "0")
+        self.send_header("Cache-Control", "no-cache, private")
+        self.send_header("Pragma", "no-cache")
+        self.send_header("Content-Type", "multipart/x-mixed-replace; boundary=frame")
+        self.end_headers()
+        last = -1
+        try:
+            while True:
+                jpeg, last = _hub.get_after(last, timeout=1.0)
+                if jpeg is None:
+                    continue
+                self.wfile.write(b"--frame\r\n")
+                self.wfile.write(b"Content-Type: image/jpeg\r\n")
+                self.wfile.write(f"Content-Length: {len(jpeg)}\r\n\r\n".encode())
+                self.wfile.write(jpeg)
+                self.wfile.write(b"\r\n")
+        except (BrokenPipeError, ConnectionResetError):
+            pass  # browser tab closed — normal
+        except Exception as e:
+            log.debug("stream client ended: %s", e)
+
+
+def _start_web_server():
+    server = ThreadingHTTPServer((HOST, WEB_PORT), WebHandler)
+    t = threading.Thread(target=server.serve_forever, daemon=True)
+    t.start()
+    log.info("Web UI on http://localhost:%s (stream at /stream)", WEB_PORT)
+
 
 #  COME DEVE ESSERE SCRITTO IL SERVER (CORRETTO)
 async def handle_client(connection):
@@ -89,7 +217,7 @@ async def handle_client(connection):
             # 'message' contiene già TUTTI i byte del singolo frame JPEG inviato
             result = process_with_yolo(message)
 
-            print(f"[INFO] Inference Time: {result['inference_ms']}")
+            print(f"[INFO] Inference Time: {result.get('inference_ms')}")
 
             # Rispondi IMMEDIATAMENTE al client sullo stesso socket ancora aperto
             await connection.send(json.dumps(result))
@@ -100,6 +228,8 @@ async def handle_client(connection):
         print(f"[ERROR] Error reading stream: {e}")
 
 async def main():
+    _hub.publish(_placeholder_jpeg())   # seed so the page renders before ROS connects
+    _start_web_server()
     log.info("Starting YOLO WebSocket server on %s:%s", HOST, PORT)
     async with websockets.serve(handle_client, HOST, PORT, max_size=None):
         await asyncio.Future()  # run forever
