@@ -24,6 +24,7 @@ setup(
             'fake_camera_node = wildfire_vision.fake_camera_node:main',
             'fire_detector_node = wildfire_vision.fire_detector_node:main',
             'person_detector_node = wildfire_vision.person_detector_node:main',
+            'stream_node = wildfire_vision.stream_node:main',
         ],
     },
 )

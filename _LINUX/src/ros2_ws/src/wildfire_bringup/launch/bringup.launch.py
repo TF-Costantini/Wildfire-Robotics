@@ -5,6 +5,7 @@ Launch file principale per avviare tutti i nodi del sistema UGV.
 Nodi avviati (in ordine):
   1. camera_node          (wildfire_vision)
   2. person_detector_node (wildfire_vision)
+  2b. stream_node         (wildfire_vision)  raw camera → web UI :8766
   3. fire_detector_node   (wildfire_vision)
   4. state_machine_node   (wildfire_control)
   5. follow_controller_node (wildfire_control)
@@ -91,6 +92,17 @@ def generate_launch_description():
     )
 
     # ================================================================
+    # 2b. VISION — raw camera stream → web UI passthrough (:8766)
+    # ================================================================
+    stream_node = Node(
+        package='wildfire_vision',
+        executable='stream_node',
+        name='stream_node',
+        output='screen',
+        parameters=[config_file],
+    )
+
+    # ================================================================
     # 3. VISION — fire detector
     # ================================================================
     fire_detector_node = Node(
@@ -153,6 +165,7 @@ def generate_launch_description():
         use_sim_arg,
         camera_node,
         person_detector_node,
+        stream_node,
         fire_detector_node,
         state_machine_node,
         follow_controller_node,
